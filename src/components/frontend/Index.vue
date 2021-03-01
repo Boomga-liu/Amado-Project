@@ -16,16 +16,16 @@
 </template>
 
 <script>
-import Footer from "./Footer";
-import Navbar from "./Navbar";
-import Subscribe from "./Subscribe";
-import GoTop from "@/components/frontend/GoTop";
+import Footer from './Footer'
+import Navbar from './Navbar'
+import Subscribe from './Subscribe'
+import GoTop from '@/components/frontend/GoTop'
 export default {
-  data() {
+  data () {
     return {
       keepAlive: [],
-      indexHeight: ""
-    };
+      indexHeight: ''
+    }
   },
   components: {
     Footer,
@@ -34,15 +34,15 @@ export default {
     GoTop
   },
   methods: {
-    handleScroll(e) {
-      this.indexHeight = window.scrollY;
+    handleScroll (e) {
+      this.indexHeight = window.scrollY
       // console.log(window.scrollY);
     }
   },
-  mounted() {
-    window.addEventListener("scroll", this.handleScroll, true);
+  mounted () {
+    window.addEventListener('scroll', this.handleScroll, true)
   }
-};
+}
 </script>
 
 <style lang="scss"></style>

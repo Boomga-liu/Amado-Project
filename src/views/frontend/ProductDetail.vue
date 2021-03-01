@@ -10,9 +10,7 @@
             <li class="breadcrumb-item">
               <a href="#" @click.prevent="back">SHOP</a>
             </li>
-            <li class="breadcrumb-item active" aria-current="page">
-              {{ product.title | capitalize }}
-            </li>
+            <li class="breadcrumb-item active" aria-current="page">{{ product.title | capitalize }}</li>
           </ol>
         </nav>
       </div>
@@ -25,9 +23,7 @@
       <div class="col-12 col-lg-5 mt-5 mt-lg-0">
         <div class="product-data mb-50">
           <div class="line"></div>
-          <del class="h6 text-muted"
-            >NT {{ product.origin_price | currency }}</del
-          >
+          <del class="h6 text-muted">NT {{ product.origin_price | currency }}</del>
           <p class="h5 product-price">NT {{ product.price | currency }}</p>
           <h6 class="product-title">{{ product.title }}</h6>
           <div class="star">
@@ -40,9 +36,7 @@
         </div>
         <div class="product-content mb-50">
           <p class="h6 mb-1 text-muted">Content:</p>
-          <p class="p-2 text-muted">
-            {{ product.content }}
-          </p>
+          <p class="p-2 text-muted">{{ product.content }}</p>
         </div>
         <div class="product-addtocart">
           <div class="quantity">
@@ -59,15 +53,12 @@
             <option :value="num" v-for="num in 10" :key="num">
               {{ num }} {{ product.unit }}
             </option>
-          </select> -->
+          </select>-->
           <button
             class="btn btn-primary btn-lg text-white"
             @click="addToCart(product.id, product.num)"
           >
-            <i
-              class="fas fa-spinner fa-spin"
-              v-if="product.id === status.loadingItem"
-            ></i>
+            <i class="fas fa-spinner fa-spin" v-if="product.id === status.loadingItem"></i>
             Add to cart
           </button>
         </div>
@@ -77,84 +68,83 @@
 </template>
 
 <script>
-import $ from 'jquery';
 export default {
   name: 'ProductDetail',
-  data() {
+  data () {
     return {
       productId: '',
       product: {},
       isLoading: '',
       status: {
-        loadingItem: '',
+        loadingItem: ''
       },
       Qty: {
-        value: 1,
-      },
-    };
+        value: 1
+      }
+    }
   },
   methods: {
-    getProduct(id) {
-      const vm = this;
-      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/product/${id}`;
-      vm.isLoading = true;
-      this.$http.get(url).then((response) => {
+    getProduct (id) {
+      const vm = this
+      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/product/${id}`
+      vm.isLoading = true
+      this.$http.get(url).then(response => {
         // console.log(response.data);
         if (response.data.success) {
-          vm.product = response.data.product;
-          vm.product.num = 1;
+          vm.product = response.data.product
+          vm.product.num = 1
         }
-        vm.isLoading = false;
-      });
+        vm.isLoading = false
+      })
     },
-    addToCart(id, qty = 1) {
-      const vm = this;
-      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
-      vm.status.loadingItem = id;
+    addToCart (id, qty = 1) {
+      const vm = this
+      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
+      vm.status.loadingItem = id
       const cart = {
         product_id: id,
-        qty,
-      };
-      this.$http.post(url, { data: cart }).then((response) => {
+        qty
+      }
+      this.$http.post(url, { data: cart }).then(response => {
         // console.log(response.data);
-        vm.status.loadingItem = '';
+        vm.status.loadingItem = ''
         // 把事件$emit出去(後面可帶參數)
-        vm.$bus.$emit('cart:get');
-      });
+        vm.$bus.$emit('cart:get')
+      })
     },
-    addQty() {
-      const vm = this;
+    addQty () {
+      const vm = this
       if (vm.Qty.value >= 10) {
-        return;
+        return
       }
-      vm.Qty.value = vm.Qty.value + 1;
-      vm.product.num = vm.Qty.value;
+      vm.Qty.value = vm.Qty.value + 1
+      vm.product.num = vm.Qty.value
     },
-    lessQty() {
-      const vm = this;
+    lessQty () {
+      const vm = this
       if (vm.Qty.value <= 1) {
-        return;
+        return
       }
-      vm.Qty.value = vm.Qty.value - 1;
-      vm.product.num = vm.Qty.value;
+      vm.Qty.value = vm.Qty.value - 1
+      vm.product.num = vm.Qty.value
     },
-    back() {
-      this.$router.go(-1);
+    back () {
+      this.$router.go(-1)
     },
-    backHome() {
-      this.$router.push('/');
-    },
+    backHome () {
+      this.$router.push('/')
+    }
   },
   filters: {
-    capitalize: function(value) {
-      if (!value) return '';
-      value = value.toString();
-      return value.toUpperCase();
-    },
+    capitalize: function (value) {
+      if (!value) return ''
+      value = value.toString()
+      return value.toUpperCase()
+    }
   },
-  created() {
-    this.productId = this.$route.params.productId; // 從網址取得參數
-    this.getProduct(this.productId);
-  },
-};
+  created () {
+    this.productId = this.$route.params.productId // 從網址取得參數
+    this.getProduct(this.productId)
+  }
+}
 </script>

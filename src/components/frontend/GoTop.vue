@@ -7,31 +7,31 @@
 </template>
 <script>
 export default {
-  props: ["height"],
-  data() {
+  props: ['height'],
+  data () {
     return {
-      isShow: ""
-    };
+      isShow: ''
+    }
   },
   // 監聽外部傳入的值
   watch: {
-    height: function(value) {
-      const vm = this;
+    height: function (value) {
+      const vm = this
       //   console.log(value);
       if (value > 300) {
-        vm.isShow = true;
+        vm.isShow = true
       } else {
-        vm.isShow = false;
+        vm.isShow = false
       }
     }
   },
   methods: {
-    goTop() {
+    goTop () {
       window.scrollTo({
         top: 0,
-        behavior: "smooth" // 平滑移動
-      });
+        behavior: 'smooth' // 平滑移動
+      })
     }
   }
-};
+}
 </script>

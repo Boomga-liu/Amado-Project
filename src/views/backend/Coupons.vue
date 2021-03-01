@@ -2,9 +2,7 @@
   <div>
     <loading :active.sync="isLoading"></loading>
     <div class="text-right mt-4">
-      <button @click="openModal(true)" class="btn btn-primary btn-sm">
-        建立新的優惠券
-      </button>
+      <button @click="openModal(true)" class="btn btn-primary btn-sm">建立新的優惠券</button>
     </div>
     <table class="table table-responsive-sm mt-4">
       <thead>
@@ -19,29 +17,15 @@
       <tbody>
         <tr v-for="item in coupons" :key="item.id">
           <td>{{ item.title }}</td>
-          <td>
-            {{ item.percent }}
-          </td>
-          <td>
-            {{ item.due_date }}
-          </td>
+          <td>{{ item.percent }}</td>
+          <td>{{ item.due_date }}</td>
           <td>
             <span v-if="item.is_enabled" class="text-success">啟用</span>
             <span v-else>未啟用</span>
           </td>
           <td>
-            <button
-              class="btn btn-outline-primary btn-sm"
-              @click="openModal(false, false, item)"
-            >
-              編輯
-            </button>
-            <button
-              class="btn btn-outline-danger btn-sm"
-              @click="openModal(false, true, item)"
-            >
-              刪除
-            </button>
+            <button class="btn btn-outline-primary btn-sm" @click="openModal(false, false, item)">編輯</button>
+            <button class="btn btn-outline-danger btn-sm" @click="openModal(false, true, item)">刪除</button>
           </td>
         </tr>
       </tbody>
@@ -59,12 +43,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -122,16 +101,8 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-dismiss="modal"
-            >
-              Close
-            </button>
-            <button type="button" class="btn btn-primary" @click="updateCoupon">
-              更新優惠券
-            </button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" @click="updateCoupon">更新優惠券</button>
           </div>
         </div>
       </div>
@@ -151,12 +122,7 @@
             <h5 class="modal-title" id="exampleModalLabel">
               <span>刪除優惠券</span>
             </h5>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -166,16 +132,8 @@
             商品(刪除後將無法恢復)。
           </div>
           <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-outline-secondary"
-              data-dismiss="modal"
-            >
-              取消
-            </button>
-            <button type="button" class="btn btn-danger" @click="removeCoupon">
-              確認刪除
-            </button>
+            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">取消</button>
+            <button type="button" class="btn btn-danger" @click="removeCoupon">確認刪除</button>
           </div>
         </div>
       </div>
@@ -184,104 +142,104 @@
 </template>
 
 <script>
-import $ from 'jquery';
-import Pagination from '@/components/Pagination';
+import $ from 'jquery'
+import Pagination from '@/components/Pagination'
 export default {
-  data() {
+  data () {
     return {
       coupons: [],
       tempCoupon: {}, // 要送出驗證的內容
       pagination: {},
       isNew: false,
       delCoupon: false,
-      isLoading: false,
-    };
+      isLoading: false
+    }
   },
   methods: {
-    openModal(isNew, delCoupon, item) {
+    openModal (isNew, delCoupon, item) {
       if (isNew) {
-        this.tempCoupon = {};
-        this.isNew = true;
-        this.delCoupon = false;
-        $('#couponsModal').modal('show');
+        this.tempCoupon = {}
+        this.isNew = true
+        this.delCoupon = false
+        $('#couponsModal').modal('show')
       } else if (!isNew && !delCoupon) {
-        this.tempCoupon = Object.assign({}, item); // 避免物件傳參考的特性
-        this.isNew = false;
-        this.delCoupon = false;
-        $('#couponsModal').modal('show');
+        this.tempCoupon = Object.assign({}, item) // 避免物件傳參考的特性
+        this.isNew = false
+        this.delCoupon = false
+        $('#couponsModal').modal('show')
       } else {
-        this.tempCoupon = item;
-        this.isNew = false;
-        this.delCoupon = true;
-        $('#delCouponModal').modal('show');
+        this.tempCoupon = item
+        this.isNew = false
+        this.delCoupon = true
+        $('#delCouponModal').modal('show')
       }
     },
-    getCoupons(page = 1) {
-      const vm = this;
-      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupons?page=${page}`;
-      vm.isLoading = true;
+    getCoupons (page = 1) {
+      const vm = this
+      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupons?page=${page}`
+      vm.isLoading = true
       this.$http.get(url).then((response) => {
-        console.log(response.data);
-        vm.isLoading = false;
-        vm.pagination = response.data.pagination;
-        vm.coupons = response.data.coupons;
+        console.log(response.data)
+        vm.isLoading = false
+        vm.pagination = response.data.pagination
+        vm.coupons = response.data.coupons
         // TimesTapm 轉回 date
         vm.coupons.forEach((item) => {
-          const dates = new Date(item.due_date * 1000);
-          const year = dates.getFullYear();
-          const month = dates.getMonth() + 1;
-          const date = dates.getDate();
-          item.due_date = `${year} / ${month} / ${date}`;
-        });
-      });
+          const dates = new Date(item.due_date * 1000)
+          const year = dates.getFullYear()
+          const month = dates.getMonth() + 1
+          const date = dates.getDate()
+          item.due_date = `${year} / ${month} / ${date}`
+        })
+      })
     },
-    updateCoupon() {
-      let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon`;
-      let httpMethod = 'post';
-      const vm = this;
-      vm.isLoading = true;
+    updateCoupon () {
+      let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon`
+      let httpMethod = 'post'
+      const vm = this
+      vm.isLoading = true
       // date 轉換成 TimesTemp
       vm.tempCoupon.due_date = Math.floor(
         new Date(vm.tempCoupon.due_date) / 1000
-      );
+      )
       if (!vm.isNew) {
-        api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon/${vm.tempCoupon.id}`;
-        httpMethod = 'put';
+        api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon/${vm.tempCoupon.id}`
+        httpMethod = 'put'
       }
       this.$http[httpMethod](api, { data: vm.tempCoupon }).then((response) => {
         // console.log(response.data);
-        vm.isLoading = false;
+        vm.isLoading = false
         if (response.data.success) {
-          $('#couponsModal').modal('hide');
-          vm.getCoupons();
+          $('#couponsModal').modal('hide')
+          vm.getCoupons()
         } else {
-          $('#couponsModal').modal('hide');
-          vm.getCoupons();
-          console.log('新增失敗');
+          $('#couponsModal').modal('hide')
+          vm.getCoupons()
+          console.log('新增失敗')
         }
-      });
+      })
     },
-    removeCoupon() {
-      const vm = this;
-      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon/${vm.tempCoupon.id}`;
+    removeCoupon () {
+      const vm = this
+      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon/${vm.tempCoupon.id}`
       this.$http.delete(url).then((response) => {
         // console.log(response.data);
         if (response.data.success) {
-          $('#delCouponModal').modal('hide');
-          vm.getCoupons();
+          $('#delCouponModal').modal('hide')
+          vm.getCoupons()
         } else {
-          console.log(response.data.success);
-          $('#delCouponModal').modal('hide');
-          vm.getCoupons();
+          console.log(response.data.success)
+          $('#delCouponModal').modal('hide')
+          vm.getCoupons()
         }
-      });
-    },
+      })
+    }
   },
   components: {
-    Pagination,
+    Pagination
   },
-  created() {
-    this.getCoupons();
-  },
-};
+  created () {
+    this.getCoupons()
+  }
+}
 </script>

@@ -1,9 +1,7 @@
 <template>
   <div class="h-50 d-flex align-items-center login-custom">
     <form class="form-signin" @submit.prevent="login">
-      <h1 class="h3 mb-3 font-weight-normal text-center">
-        Log In
-      </h1>
+      <h1 class="h3 mb-3 font-weight-normal text-center">Log In</h1>
       <label for="inputEmail" class="sr-only">Email address</label>
       <input
         type="email"
@@ -28,9 +26,7 @@
           <input type="checkbox" value="remember-me" /> Remember me
         </label>
       </div>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">
-        Log In
-      </button>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
     </form>
   </div>
 </template>
@@ -38,34 +34,34 @@
 <script>
 export default {
   name: 'LogIn',
-  data() {
+  data () {
     return {
       user: {
         username: '',
-        password: '',
-      },
-    };
+        password: ''
+      }
+    }
   },
   methods: {
-    login() {
-      const api = `${process.env.VUE_APP_APIPATH}/admin/signin`;
+    login () {
+      const api = `${process.env.VUE_APP_APIPATH}/admin/signin`
       // API 伺服器路徑 / admin / signin
-      const vm = this;
+      const vm = this
       //   console.log(process.env.APIPATH, process.env.CUSTOMPATH);
       this.$http.post(api, vm.user).then((response) => {
         // console.log(response.data);
         if (response.data.success) {
-          const token = response.data.token;
-          const expired = response.data.expired;
+          const token = response.data.token
+          const expired = response.data.expired
           // console.log(token, expired);
           // 寫入Cookie
-          document.cookie = `myToken=${token}; expires=${new Date(expired)}`;
-          vm.$router.push('/admin/products');
+          document.cookie = `myToken=${token}; expires=${new Date(expired)}`
+          vm.$router.push('/admin/products')
         }
-      });
-    },
-  },
-};
+      })
+    }
+  }
+}
 </script>
 <style scoped lang="scss">
 html,

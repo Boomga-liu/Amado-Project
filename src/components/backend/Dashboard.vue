@@ -14,26 +14,26 @@
 </template>
 
 <script>
-import Navbar from "./Navbar";
-import Sidebar from "./Sidebar";
-import AlertMessage from "./AlertMessage";
+import Navbar from './Navbar'
+import Sidebar from './Sidebar'
+import AlertMessage from './AlertMessage'
 export default {
   components: {
     Navbar,
     Sidebar,
     AlertMessage
   },
-  created() {
+  created () {
     // 讀取Cookie
     const myCookie = document.cookie.replace(
       /(?:(?:^|.*;\s*)myToken\s*=\s*([^;]*).*$)|^.*$/,
-      "$1"
-    );
+      '$1'
+    )
     // console.log(myCookie);
     // 往後端送Cookie
-    this.$http.defaults.headers.common.Authorization = myCookie;
+    this.$http.defaults.headers.common.Authorization = myCookie
   }
-};
+}
 </script>
 
 <style scope lang="scss">

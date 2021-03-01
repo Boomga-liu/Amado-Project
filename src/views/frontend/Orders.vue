@@ -16,21 +16,13 @@
             <tbody class="collapse show" id="collapseArea">
               <tr v-for="item in order.products" :key="item.id">
                 <td>
-                  <img
-                    :src="item.product.imageUrl"
-                    class="img-fluid"
-                    alt="image"
-                  />
+                  <img :src="item.product.imageUrl" class="img-fluid" alt="image" />
                 </td>
                 <td>{{ item.product.title }}</td>
                 <td>
-                  <div class="bg-color">
-                    {{ item.qty }} / {{ item.product.unit }}
-                  </div>
+                  <div class="bg-color">{{ item.qty }} / {{ item.product.unit }}</div>
                 </td>
-                <td class="justify-content-end">
-                  {{ item.final_total | currency }}
-                </td>
+                <td class="justify-content-end">{{ item.final_total | currency }}</td>
               </tr>
             </tbody>
             <div class="down-icon" @click.prevent="toggleActive">
@@ -43,7 +35,7 @@
       <div class="row">
         <div class="col-12">
           <table class="table table-responsive order-data">
-            <tbody class="">
+            <tbody class>
               <tr>
                 <th width="250">E-mail:</th>
                 <td>{{ order.user.email }}</td>
@@ -63,9 +55,7 @@
               <tr>
                 <th>Paid:</th>
                 <td>
-                  <span v-if="!order.is_paid" class="text-danger"
-                    >non-payment</span
-                  >
+                  <span v-if="!order.is_paid" class="text-danger">non-payment</span>
                   <span v-else class="text-success">paid</span>
                 </td>
               </tr>
@@ -74,9 +64,7 @@
               <button class="btn btn-danger">Pay</button>
             </div>
             <div class="mt-5" v-else>
-              <router-link class="btn btn-primary text-white" to="/"
-                >Home</router-link
-              >
+              <router-link class="btn btn-primary text-white" to="/">Home</router-link>
             </div>
           </table>
         </div>
@@ -85,56 +73,56 @@
   </div>
 </template>
 <script>
-import $ from 'jquery';
+import $ from 'jquery'
 export default {
-  data() {
+  data () {
     return {
       order: {
-        user: {},
+        user: {}
       },
       orderId: '',
       isLoading: '',
-      chevronUp: true,
-    };
+      chevronUp: true
+    }
   },
   methods: {
-    getOrder() {
-      const vm = this;
-      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order/${vm.orderId}`;
-      vm.isLoading = true;
+    getOrder () {
+      const vm = this
+      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order/${vm.orderId}`
+      vm.isLoading = true
       this.$http.get(url).then((response) => {
         // console.log(response.data);
         if (response.data.success) {
-          vm.order = response.data.order;
-          vm.isLoading = false;
+          vm.order = response.data.order
+          vm.isLoading = false
         }
-      });
+      })
     },
-    payOrder() {
-      const vm = this;
-      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/pay/${vm.orderId}`;
-      vm.isLoading = true;
+    payOrder () {
+      const vm = this
+      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/pay/${vm.orderId}`
+      vm.isLoading = true
       this.$http.post(url).then((response) => {
         if (response.data.success) {
-          vm.$bus.$emit('cart:get');
-          vm.getOrder();
+          vm.$bus.$emit('cart:get')
+          vm.getOrder()
         }
-        vm.isLoading = false;
-      });
+        vm.isLoading = false
+      })
     },
-    toggleActive() {
+    toggleActive () {
       if (this.chevronUp) {
-        $('#collapseArea').collapse('toggle');
-        this.chevronUp = false;
+        $('#collapseArea').collapse('toggle')
+        this.chevronUp = false
       } else {
-        $('#collapseArea').collapse('toggle');
-        this.chevronUp = true;
+        $('#collapseArea').collapse('toggle')
+        this.chevronUp = true
       }
-    },
+    }
   },
-  created() {
-    this.orderId = this.$route.params.orderId; // 從網址取得參數
-    this.getOrder();
-  },
-};
+  created () {
+    this.orderId = this.$route.params.orderId // 從網址取得參數
+    this.getOrder()
+  }
+}
 </script>

@@ -18,9 +18,11 @@
           :key="page"
           :class="{ active: pages.current_page === page }"
         >
-          <a class="page-link" href="#" @click.prevent="changePages(page)">{{
+          <a class="page-link" href="#" @click.prevent="changePages(page)">
+            {{
             page
-          }}</a>
+            }}
+          </a>
         </li>
         <li class="page-item" :class="{ disabled: !pages.has_next }">
           <a
@@ -39,11 +41,11 @@
 
 <script>
 export default {
-  props: ["pages"], // 接收外部的資料
+  props: ['pages'], // 接收外部的資料
   methods: {
-    changePages(page) {
-      this.$emit("emit-page", page);
+    changePages (page) {
+      this.$emit('emit-page', page)
     } // $emit向外層傳遞事件並帶入參數
   }
-};
+}
 </script>

@@ -12,9 +12,7 @@ VUE_APP_<template>
           <tbody>
             <tr v-for="item in order.products" :key="item.id">
               <td class="align-middle">{{ item.product.title }}</td>
-              <td class="align-middle">
-                {{ item.qty }}/{{ item.product.unit }}
-              </td>
+              <td class="align-middle">{{ item.qty }}/{{ item.product.unit }}</td>
               <td class="align-middle text-right">{{ item.final_total }}</td>
             </tr>
           </tbody>
@@ -63,43 +61,43 @@ VUE_APP_<template>
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       orderId: '',
       order: {
-        user: {},
+        user: {}
       },
-      isLoading: false,
-    };
+      isLoading: false
+    }
   },
   methods: {
-    getOrder() {
-      const vm = this;
-      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order/${vm.orderId}`;
-      vm.isLoading = true;
+    getOrder () {
+      const vm = this
+      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order/${vm.orderId}`
+      vm.isLoading = true
       this.$http.get(url).then((response) => {
         // console.log(response.data);
-        vm.order = response.data.order;
-        vm.isLoading = false;
-      });
+        vm.order = response.data.order
+        vm.isLoading = false
+      })
     },
-    payOrder() {
-      const vm = this;
-      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/pay/${vm.orderId}`;
-      vm.isLoading = true;
+    payOrder () {
+      const vm = this
+      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/pay/${vm.orderId}`
+      vm.isLoading = true
       this.$http.post(url).then((response) => {
         // console.log(response.data);
         if (response.data.success) {
-          vm.getOrder();
+          vm.getOrder()
         }
-        vm.isLoading = false;
-      });
-    },
+        vm.isLoading = false
+      })
+    }
   },
-  created() {
-    this.orderId = this.$route.params.orderId;
+  created () {
+    this.orderId = this.$route.params.orderId
     // console.log(this.orderId);
-    this.getOrder();
-  },
-};
+    this.getOrder()
+  }
+}
 </script>

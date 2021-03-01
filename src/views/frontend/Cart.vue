@@ -1,4 +1,4 @@
-VUE_APP_<template>
+<template>
   <div class="px-3 py-150">
     <loading :active.sync="isLoading"></loading>
     <h2 class="mb-4 text-center text-md-left">Shopping Cart</h2>
@@ -15,29 +15,18 @@ VUE_APP_<template>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in cart.carts" :key="item.id" class="">
+            <tr v-for="item in cart.carts" :key="item.id" class>
               <td>
-                <img
-                  :src="item.product.imageUrl"
-                  class="img-fluid"
-                  alt="image"
-                />
+                <img :src="item.product.imageUrl" class="img-fluid" alt="image" />
               </td>
               <td>{{ item.product.title }}</td>
               <td>
-                <div class="bg-color">
-                  {{ item.qty }} / {{ item.product.unit }}
-                </div>
+                <div class="bg-color">{{ item.qty }} / {{ item.product.unit }}</div>
               </td>
-              <td class="justify-content-end">
-                {{ item.final_total | currency }}
-              </td>
+              <td class="justify-content-end">{{ item.final_total | currency }}</td>
               <td class="justify-content-end">
                 <button class="trash-btn btn btn-outline-danger btn-sm">
-                  <i
-                    class="far fa-trash-alt"
-                    @click.prevent="removeCartItem(item.id)"
-                  ></i>
+                  <i class="far fa-trash-alt" @click.prevent="removeCartItem(item.id)"></i>
                 </button>
               </td>
             </tr>
@@ -49,18 +38,15 @@ VUE_APP_<template>
           <h5 class="mb-4">Cart Total</h5>
           <ul class="list-unstyled">
             <li>
-              <span>Subtotal:</span><span>{{ cart.total | currency }}</span>
+              <span>Subtotal:</span>
+              <span>{{ cart.total | currency }}</span>
             </li>
             <li>
-              <span>Total:</span><span>{{ cart.final_total | currency }}</span>
+              <span>Total:</span>
+              <span>{{ cart.final_total | currency }}</span>
             </li>
             <li class="checkout-btn">
-              <router-link
-                to="/checkout"
-                class="btn btn-primary btn-lg rounded-0 w-100"
-              >
-                Checkout
-              </router-link>
+              <router-link to="/checkout" class="btn btn-primary btn-lg rounded-0 w-100">Checkout</router-link>
             </li>
           </ul>
         </div>
@@ -71,12 +57,12 @@ VUE_APP_<template>
         <ul
           class="bg-light d-flex list-unstyled flex-column justify-content-center align-items-center py-5 mb-0"
         >
-          <li><i class="fas fa-4x fa-cart-arrow-down"></i></li>
+          <li>
+            <i class="fas fa-4x fa-cart-arrow-down"></i>
+          </li>
           <li class="no-product-text">Your Shopping Cart is empty！</li>
           <li>
-            <router-link to="/shop" class="btn btn-primary text-white"
-              >Go Shopping</router-link
-            >
+            <router-link to="/shop" class="btn btn-primary text-white">Go Shopping</router-link>
           </li>
         </ul>
       </div>
@@ -86,53 +72,53 @@ VUE_APP_<template>
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       cart: {
-        carts: [],
+        carts: []
       },
       isLoading: '',
       cartsLength: '',
-      haveItem: true,
-    };
+      haveItem: true
+    }
   },
   methods: {
-    getCart() {
-      const vm = this;
-      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
-      vm.isLoading = true;
+    getCart () {
+      const vm = this
+      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
+      vm.isLoading = true
       this.$http.get(url).then((response) => {
         if (response.data.success) {
-          vm.cart = response.data.data;
-          vm.cartsLength = response.data.data.carts.length;
-          vm.cartsItem();
-          vm.isLoading = false;
+          vm.cart = response.data.data
+          vm.cartsLength = response.data.data.carts.length
+          vm.cartsItem()
+          vm.isLoading = false
         }
-      });
+      })
     },
-    removeCartItem(id) {
-      const vm = this;
-      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${id}`;
-      vm.isLoading = true;
+    removeCartItem (id) {
+      const vm = this
+      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${id}`
+      vm.isLoading = true
       this.$http.delete(url).then((response) => {
         // console.log(response.data);
         if (response.data.success) {
-          vm.$bus.$emit('cart:get');
-          vm.getCart();
+          vm.$bus.$emit('cart:get')
+          vm.getCart()
         }
-      });
+      })
     },
-    cartsItem() {
+    cartsItem () {
       if (this.cartsLength) {
-        this.haveItem = true;
+        this.haveItem = true
       } else {
-        this.haveItem = false;
+        this.haveItem = false
       }
-    },
+    }
   },
-  created() {
-    this.getCart();
-    this.$bus.$emit('menu:active', 'CART');
-  },
-};
+  created () {
+    this.getCart()
+    this.$bus.$emit('menu:active', 'CART')
+  }
+}
 </script>

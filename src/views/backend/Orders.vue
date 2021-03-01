@@ -33,43 +33,41 @@
 </template>
 
 <script>
-import $ from 'jquery';
-import Pagination from '@/components/Pagination';
+import Pagination from '@/components/Pagination'
 
 export default {
-  data() {
+  data () {
     return {
       orders: {},
-      pagination: {},
-    };
+      pagination: {}
+    }
   },
   components: {
-    Pagination,
+    Pagination
   },
   methods: {
-    getOrders(page = 1) {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/orders?page=${page}`;
-      const vm = this;
-      this.$http.get(api).then((response) => {
+    getOrders (page = 1) {
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/orders?page=${page}`
+      const vm = this
+      this.$http.get(api).then(response => {
         // console.log(response.data);
-        vm.orders = response.data.orders;
-        vm.pagination = response.data.pagination;
-        vm.orders.forEach((item) => {
+        vm.orders = response.data.orders
+        vm.pagination = response.data.pagination
+        vm.orders.forEach(item => {
           if (item.create_at) {
-            const dates = new Date(item.create_at * 1000);
-            const year = dates.getFullYear();
-            const month = dates.getMonth() + 1;
-            const date = dates.getDate();
-            item.create_at = `${year} / ${month} / ${date}`;
+            const dates = new Date(item.create_at * 1000)
+            const year = dates.getFullYear()
+            const month = dates.getMonth() + 1
+            const date = dates.getDate()
+            item.create_at = `${year} / ${month} / ${date}`
           } else {
-            return;
           }
-        });
-      });
-    },
+        })
+      })
+    }
   },
-  created() {
-    this.getOrders();
-  },
-};
+  created () {
+    this.getOrders()
+  }
+}
 </script>

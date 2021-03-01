@@ -33,14 +33,11 @@
                   id="tel"
                   placeholder="Please Enter Tel"
                 />
-                <span class="invalid-feedback">{{ errors[0] }} </span>
+                <span class="invalid-feedback">{{ errors[0] }}</span>
               </div>
             </validation-provider>
 
-            <validation-provider
-              rules="required|email"
-              v-slot="{ errors, classes }"
-            >
+            <validation-provider rules="required|email" v-slot="{ errors, classes }">
               <div class="form-group">
                 <label for="email">Email</label>
                 <input
@@ -72,7 +69,7 @@
             <div class="form-group">
               <label for="comment">Message</label>
               <textarea
-                name=""
+                name
                 class="form-control input-custom"
                 id="comment"
                 cols="30"
@@ -86,12 +83,12 @@
               <h5 class="mb-4">Cart total</h5>
               <ul class="list-unstyled">
                 <li>
-                  <span>Subtotal: </span
-                  ><span>{{ cart.total | currency }} </span>
+                  <span>Subtotal:</span>
+                  <span>{{ cart.total | currency }}</span>
                 </li>
                 <li>
-                  <span>Total: </span
-                  ><span>{{ cart.final_total | currency }} </span>
+                  <span>Total:</span>
+                  <span>{{ cart.final_total | currency }}</span>
                 </li>
               </ul>
               <div class="payment-term mt-4">
@@ -104,9 +101,7 @@
                     value="option1"
                     checked
                   />
-                  <label class="form-check-label" for="CashOnDelivery">
-                    Cash on Delivery
-                  </label>
+                  <label class="form-check-label" for="CashOnDelivery">Cash on Delivery</label>
                 </div>
                 <div class="form-check">
                   <input
@@ -118,21 +113,12 @@
                   />
                   <label class="form-check-label" for="CreditCard">
                     Paypal
-                    <img
-                      class="ml-2"
-                      src="../../assets/images/core-img/paypal.png"
-                      alt=""
-                    />
+                    <img class="ml-2" src="../../assets/images/core-img/paypal.png" alt />
                   </label>
                 </div>
               </div>
               <div class="checkout-btn">
-                <button
-                  class="btn btn-primary rounded-0 btn-lg w-100"
-                  :disabled="invalid"
-                >
-                  Submit
-                </button>
+                <button class="btn btn-primary rounded-0 btn-lg w-100" :disabled="invalid">Submit</button>
               </div>
             </div>
           </div>
@@ -152,12 +138,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -167,8 +148,7 @@
               class="btn btn-primary text-white"
               data-dismiss="modal"
               to="/shop"
-              >Go Shopping</router-link
-            >
+            >Go Shopping</router-link>
           </div>
         </div>
       </div>
@@ -176,13 +156,13 @@
   </div>
 </template>
 <script>
-import $ from 'jquery';
+import $ from 'jquery'
 export default {
-  data() {
+  data () {
     return {
       isLoading: '',
       cart: {
-        carts: [],
+        carts: []
       },
       form: {
         user: {
@@ -190,45 +170,45 @@ export default {
           email: '',
           tel: '',
           address: '',
-          message: '',
-        },
+          message: ''
+        }
       },
-      message: '',
-    };
+      message: ''
+    }
   },
   methods: {
-    getCart() {
-      const vm = this;
-      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
-      vm.isLoading = true;
+    getCart () {
+      const vm = this
+      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
+      vm.isLoading = true
       this.$http.get(url).then((response) => {
         // console.log(response.data);
         if (response.data.success) {
-          vm.cart = response.data.data;
-          vm.isLoading = false;
+          vm.cart = response.data.data
+          vm.isLoading = false
         }
-      });
+      })
     },
-    createOrder() {
-      const vm = this;
-      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order`;
-      const order = vm.form;
-      vm.isLoading = true;
+    createOrder () {
+      const vm = this
+      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order`
+      const order = vm.form
+      vm.isLoading = true
       this.$http.post(url, { data: order }).then((response) => {
         // console.log(response.data);
         if (response.data.success) {
-          vm.$router.push(`orders/${response.data.orderId}`);
+          vm.$router.push(`orders/${response.data.orderId}`)
         } else {
-          vm.message = response.data.message;
-          $('#emptyModal').modal('show');
+          vm.message = response.data.message
+          $('#emptyModal').modal('show')
         }
-        vm.isLoading = false;
-      });
-    },
+        vm.isLoading = false
+      })
+    }
   },
-  created() {
-    this.getCart();
-    this.$bus.$emit('menu:active', 'CHECKOUT');
-  },
-};
+  created () {
+    this.getCart()
+    this.$bus.$emit('menu:active', 'CHECKOUT')
+  }
+}
 </script>

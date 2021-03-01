@@ -1,19 +1,12 @@
 <template>
   <div>
-    <nav
-      id="sidebarMenu"
-      class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse mt-4"
-    >
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse mt-4">
       <div class="sidebar-sticky pt-3">
         <h6
           class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted"
         >
           <span>管理員</span>
-          <a
-            class="d-flex align-items-center text-muted"
-            href="#"
-            aria-label="Add a new report"
-          >
+          <a class="d-flex align-items-center text-muted" href="#" aria-label="Add a new report">
             <span data-feather="plus-circle"></span>
           </a>
         </h6>
@@ -23,15 +16,17 @@
               class="nav-link"
               to="/admin/products"
               :class="{ active: isChoose === 'Products' }"
-              ><i class="fas fa-box-open mr-1"></i>產品列表</router-link
             >
+              <i class="fas fa-box-open mr-1"></i>產品列表
+            </router-link>
           </li>
           <li class="nav-item" @click="isChoose = 'Orders'">
             <router-link
               class="nav-link"
               to="/admin/backendorders"
               :class="{ active: isChoose === 'Orders' }"
-              ><i class="fal fa-list-alt mr-1"></i>訂單列表
+            >
+              <i class="fal fa-list-alt mr-1"></i>訂單列表
             </router-link>
           </li>
           <li class="nav-item" @click="isChoose = 'Coupons'">
@@ -39,7 +34,8 @@
               class="nav-link"
               to="/admin/coupons"
               :class="{ active: isChoose === 'Coupons' }"
-              ><i class="fas fa-ticket-alt mr-1"></i>優惠券
+            >
+              <i class="fas fa-ticket-alt mr-1"></i>優惠券
             </router-link>
           </li>
         </ul>
@@ -47,11 +43,7 @@
           class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted"
         >
           <span>模擬功能</span>
-          <a
-            class="d-flex align-items-center text-muted"
-            href="#"
-            aria-label="Add a new report"
-          >
+          <a class="d-flex align-items-center text-muted" href="#" aria-label="Add a new report">
             <span data-feather="plus-circle"></span>
           </a>
         </h6>
@@ -72,11 +64,7 @@
             class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted"
           >
             <span>登出</span>
-            <a
-              class="d-flex align-items-center text-muted"
-              href="#"
-              aria-label="Add a new report"
-            >
+            <a class="d-flex align-items-center text-muted" href="#" aria-label="Add a new report">
               <span data-feather="plus-circle"></span>
             </a>
           </h6>
@@ -92,26 +80,25 @@
 </template>
 
 <script>
-import $ from 'jquery';
 export default {
-  data() {
+  data () {
     return {
-      isChoose: '',
-    };
+      isChoose: ''
+    }
   },
   methods: {
-    signout() {
-      const vm = this;
-      const url = `${process.env.VUE_APP_APIPATH}/logout`;
-      this.$http.post(url).then((response) => {
-        console.log(response.data);
+    signout () {
+      const vm = this
+      const url = `${process.env.VUE_APP_APIPATH}/logout`
+      this.$http.post(url).then(response => {
+        console.log(response.data)
         if (response.data.success) {
-          vm.$router.push('/login');
+          vm.$router.push('/login')
         }
-      });
-    },
-  },
-};
+      })
+    }
+  }
+}
 </script>
 
 <style scope lang="scss">

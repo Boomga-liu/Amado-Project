@@ -111,39 +111,39 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       isActive: '',
       headerActive: false,
       carts: [],
-      cartsLength: '',
-    };
+      cartsLength: ''
+    }
   },
   methods: {
-    toggleActive() {
-      this.headerActive = !this.headerActive;
+    toggleActive () {
+      this.headerActive = !this.headerActive
     },
-    chooseActive(choose) {
-      this.isActive = choose;
-      this.headerActive = false;
+    chooseActive (choose) {
+      this.isActive = choose
+      this.headerActive = false
     },
-    getCart() {
-      const vm = this;
-      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
+    getCart () {
+      const vm = this
+      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
       this.$http.get(url).then((response) => {
         // console.log(response.data);
         if (response.data.success) {
-          vm.carts = response.data.data;
-          vm.cartsLength = vm.carts.carts.length;
+          vm.carts = response.data.data
+          vm.cartsLength = vm.carts.carts.length
         }
-      });
-    },
+      })
+    }
   },
-  created() {
-    this.getCart();
-    //created時 Vue 底下註冊監聽"cart:get"事件
-    this.$bus.$on('cart:get', () => this.getCart());
-    this.$bus.$on('menu:active', (choose) => this.chooseActive(choose));
-  },
-};
+  created () {
+    this.getCart()
+    // created時 Vue 底下註冊監聽"cart:get"事件
+    this.$bus.$on('cart:get', () => this.getCart())
+    this.$bus.$on('menu:active', (choose) => this.chooseActive(choose))
+  }
+}
 </script>

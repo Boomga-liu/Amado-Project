@@ -2,9 +2,7 @@
   <div>
     <loading :active.sync="isLoading"></loading>
     <div class="text-right mt-4">
-      <button @click="openModal(true)" class="text-white btn btn-primary btn-m">
-        建立新的產品
-      </button>
+      <button @click="openModal(true)" class="text-white btn btn-primary btn-m">建立新的產品</button>
     </div>
     <table class="table table-responsive-sm mt-4">
       <thead>
@@ -21,29 +19,15 @@
         <tr v-for="item in products" :key="item.id">
           <td>{{ item.category }}</td>
           <td>{{ item.title }}</td>
-          <td class="text-right">
-            {{ item.origin_price | currency }}
-          </td>
-          <td class="text-right">
-            {{ item.price | currency }}
-          </td>
+          <td class="text-right">{{ item.origin_price | currency }}</td>
+          <td class="text-right">{{ item.price | currency }}</td>
           <td>
             <span v-if="item.is_enabled" class="text-success">啟用</span>
             <span v-else>未啟用</span>
           </td>
           <td>
-            <button
-              class="btn btn-outline-primary btn-sm"
-              @click="openModal(false, false, item)"
-            >
-              編輯
-            </button>
-            <button
-              class="btn btn-outline-danger btn-sm"
-              @click="openModal(false, true, item)"
-            >
-              刪除
-            </button>
+            <button class="btn btn-outline-primary btn-sm" @click="openModal(false, false, item)">編輯</button>
+            <button class="btn btn-outline-danger btn-sm" @click="openModal(false, true, item)">刪除</button>
           </td>
         </tr>
       </tbody>
@@ -65,12 +49,7 @@
             <h5 class="modal-title" id="exampleModalLabel">
               <span>新增產品</span>
             </h5>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -88,12 +67,9 @@
                   />
                 </div>
                 <div class="form-group">
-                  <label for="customFile"
-                    >或 上傳圖片
-                    <i
-                      class="fas fa-spinner fa-spin"
-                      v-if="status.fileUpoading"
-                    ></i>
+                  <label for="customFile">
+                    或 上傳圖片
+                    <i class="fas fa-spinner fa-spin" v-if="status.fileUpoading"></i>
                   </label>
                   <input
                     type="file"
@@ -103,11 +79,7 @@
                     @change="uploadFile"
                   />
                 </div>
-                <img
-                  class="img-fluid"
-                  alt="image"
-                  :src="tempProduct.imageUrl"
-                />
+                <img class="img-fluid" alt="image" :src="tempProduct.imageUrl" />
               </div>
               <div class="col-sm-8">
                 <div class="form-group">
@@ -198,29 +170,15 @@
                       :true-value="1"
                       :false-value="0"
                     />
-                    <label class="form-check-label" for="is_enabled">
-                      是否啟用
-                    </label>
+                    <label class="form-check-label" for="is_enabled">是否啟用</label>
                   </div>
                 </div>
               </div>
             </div>
           </div>
           <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-outline-secondary"
-              data-dismiss="modal"
-            >
-              取消
-            </button>
-            <button
-              type="button"
-              class="btn btn-primary"
-              @click="updateProduct"
-            >
-              確認
-            </button>
+            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">取消</button>
+            <button type="button" class="btn btn-primary" @click="updateProduct">確認</button>
           </div>
         </div>
       </div>
@@ -240,12 +198,7 @@
             <h5 class="modal-title" id="exampleModalLabel">
               <span>刪除產品</span>
             </h5>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -255,16 +208,8 @@
             商品(刪除後將無法恢復)。
           </div>
           <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-outline-secondary"
-              data-dismiss="modal"
-            >
-              取消
-            </button>
-            <button type="button" class="btn btn-danger" @click="delProduct">
-              確認刪除
-            </button>
+            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">取消</button>
+            <button type="button" class="btn btn-danger" @click="delProduct">確認刪除</button>
           </div>
         </div>
       </div>
@@ -273,11 +218,11 @@
 </template>
 
 <script>
-import $ from 'jquery';
-import Pagination from '@/components/Pagination';
+import $ from 'jquery'
+import Pagination from '@/components/Pagination'
 
 export default {
-  data() {
+  data () {
     return {
       products: [],
       pagination: {},
@@ -286,119 +231,118 @@ export default {
       delProdutc: false, // 判斷是否要刪除產品
       isLoading: false, // Loading效果
       status: {
-        fileUpoading: false,
-      },
-    };
+        fileUpoading: false
+      }
+    }
   },
   components: {
-    Pagination,
+    Pagination
   },
   methods: {
-    getProducts(page = 1) {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/products?page=${page}`;
-      //"https://vue-course-api.hexschool.io/api/boomgaliu/products";
+    getProducts (page = 1) {
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/products?page=${page}`
+      // "https://vue-course-api.hexschool.io/api/boomgaliu/products";
       // API 伺服器路徑 / api / 申請的APIPath / admin / products
-      const vm = this;
+      const vm = this
       //   console.log(process.env.APIPATH, process.env.CUSTOMPATH);
-      vm.isLoading = true;
+      vm.isLoading = true
       this.$http.get(api).then((response) => {
         // console.log(response.data);
-        vm.isLoading = false;
-        vm.products = response.data.products;
-        vm.pagination = response.data.pagination;
-        response.data.products.forEach(function(item) {
+        vm.isLoading = false
+        vm.products = response.data.products
+        vm.pagination = response.data.pagination
+        response.data.products.forEach(function (item) {
           // 價錢不存在顯示0
           if (!item.origin_price && !item.price) {
-            item.origin_price = 0;
-            item.price = 0;
+            item.origin_price = 0
+            item.price = 0
           }
-        });
-      });
+        })
+      })
     },
-    openModal(isNew, delProduct, item) {
+    openModal (isNew, delProduct, item) {
       if (isNew) {
-        this.tempProduct = {};
-        this.isNew = true;
-        this.delProdutc = false;
-        $('#productModal').modal('show');
+        this.tempProduct = {}
+        this.isNew = true
+        this.delProdutc = false
+        $('#productModal').modal('show')
       } else if (!isNew && !delProduct) {
-        this.tempProduct = Object.assign({}, item); // 避免物件傳參考的特性
-        this.isNew = false;
-        this.delProdutc = false;
-        $('#productModal').modal('show');
+        this.tempProduct = Object.assign({}, item) // 避免物件傳參考的特性
+        this.isNew = false
+        this.delProdutc = false
+        $('#productModal').modal('show')
       } else {
-        this.tempProduct = item;
-        this.delProdutc = true;
-        $('#delProductModal').modal('show');
+        this.tempProduct = item
+        this.delProdutc = true
+        $('#delProductModal').modal('show')
       }
     },
-    updateProduct() {
-      let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product`;
-      let httpMethod = 'post';
-      const vm = this;
-      vm.isLoading = true;
+    updateProduct () {
+      let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product`
+      let httpMethod = 'post'
+      const vm = this
+      vm.isLoading = true
       if (!vm.isNew) {
-        api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product/${vm.tempProduct.id}`;
-        httpMethod = 'put';
+        api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product/${vm.tempProduct.id}`
+        httpMethod = 'put'
       }
-      //   console.log(process.env.APIPATH, process.env.CUSTOMPATH);
+      // console.log(process.env.APIPATH, process.env.CUSTOMPATH);
       this.$http[httpMethod](api, { data: vm.tempProduct }).then((response) => {
         // console.log(response.data);
-        vm.isLoading = false;
+        vm.isLoading = false
         if (response.data.success) {
-          $('#productModal').modal('hide');
-          vm.getProducts();
+          $('#productModal').modal('hide')
+          vm.getProducts()
         } else {
-          $('#productModal').modal('hide');
-          vm.getProducts();
-          console.log('新增失敗');
+          $('#productModal').modal('hide')
+          vm.getProducts()
+          console.log('新增失敗')
         }
-        // vm.products = response.data.products;
-      });
+      })
     },
-    delProduct() {
-      const vm = this;
-      const api = `${process.env.VUE_APP_VUE_APP_APIPATH}/api/${process.env.VUE_APP_VUE_APP_CUSTOMPATH}/admin/product/${vm.tempProduct.id}`;
+    delProduct () {
+      const vm = this
+      const api = `${process.env.VUE_APP_VUE_APP_APIPATH}/api/${process.env.VUE_APP_VUE_APP_CUSTOMPATH}/admin/product/${vm.tempProduct.id}`
       this.$http.delete(api).then((response) => {
         // console.log(response.data);
         if (response.data.success) {
-          $('#delProductModal').modal('hide');
-          vm.getProducts();
+          $('#delProductModal').modal('hide')
+          vm.getProducts()
         } else {
-          $('#delProductModal').modal('hide');
-          console.log(response.data.message);
+          $('#delProductModal').modal('hide')
+          console.log(response.data.message)
         }
-      });
+      })
     },
-    uploadFile() {
-      //   console.log(this);
-      const uploadFile = this.$refs.files.files[0]; // 取出檔案
-      const vm = this;
-      vm.status.fileUpoading = true;
-      const formData = new FormData(); //使用FormData模擬傳統的表單
-      formData.append('file-to-upload', uploadFile); // 加入值到FormData
-      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/upload`;
+    uploadFile () {
+      // console.log(this)
+      const uploadFile = this.$refs.files.files[0] // 取出檔案
+      const vm = this
+      vm.status.fileUpoading = true
+      const formData = new FormData() // 使用FormData模擬傳統的表單
+      formData.append('file-to-upload', uploadFile) // 加入值到FormData
+      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/upload`
       this.$http
         .post(url, formData, {
           headers: {
-            'Content-Type': 'multipart/form-data',
-          },
+            'Content-Type': 'multipart/form-data'
+          }
         })
         .then((response) => {
-          vm.status.fileUpoading = false;
+          vm.status.fileUpoading = false
           if (response.data.success) {
             // console.log(vm.tempProduct);
             // $set(目標, 檔案名稱, 值)
-            vm.$set(vm.tempProduct, 'imageUrl', response.data.imageUrl);
+            vm.$set(vm.tempProduct, 'imageUrl', response.data.imageUrl)
           } else {
             // console.log(response.data);
-            this.$bus.$emit('message:push', response.data.message, 'danger');
+            this.$bus.$emit('message:push', response.data.message, 'danger')
           }
-        });
-    },
+        })
+    }
   },
-  created() {
-    this.getProducts();
-  },
-};
+  created () {
+    this.getProducts()
+  }
+}
 </script>
