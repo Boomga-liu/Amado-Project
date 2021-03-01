@@ -1,0 +1,28 @@
+.footer {
+  background-color: #252525;
+  padding: 80px 0;
+}
+
+.footer-logo {
+  background-image: url("~@/assets/images/core-img/logo2.png");
+  width: 137px;
+  height: 55px;
+}
+
+.copywrite {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 12px;
+}
+
+.nav-link {
+  color: #fff;
+  font-size: 14px;
+  &:hover {
+    color: $primary;
+  }
+}
+
+.navbar-toggler {
+  background-color: $primary;
+  color: #fff;
+}

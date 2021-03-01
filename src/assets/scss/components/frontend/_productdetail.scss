@@ -1,0 +1,114 @@
+.breadcrumb-item {
+  + .breadcrumb-item {
+    &::before {
+      content: ">";
+    }
+  }
+}
+
+.breadcrumb {
+  a {
+    color: #000;
+    text-decoration: none;
+    transition: 0.5s;
+    &:hover {
+      color: $primary;
+    }
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .px-15 {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .py-100 {
+    padding-top: 100px;
+    padding-bottom: 100px;
+  }
+}
+
+@include media-breakpoint-up(sm) {
+  .py-150 {
+    padding-top: 150px;
+    padding-bottom: 150px;
+  }
+}
+
+.product-detail {
+  .mb-50 {
+    margin-bottom: 50px;
+  }
+  .product-data {
+    .line {
+      width: 80px;
+      height: 3px;
+      background-color: $primary;
+      margin-bottom: 15px;
+    }
+
+    .product-price {
+      font-size: 28px;
+      color: $primary;
+      line-height: 1;
+      margin-top: 5px;
+      margin-bottom: 10px;
+    }
+    .product-title {
+      font-size: 30px;
+    }
+    .star {
+      color: $primary;
+      i {
+        font-size: 10px;
+      }
+    }
+  }
+  .product-addtocart {
+    .quantity {
+      display: flex;
+      align-items: center;
+      background-color: #f5f7fa;
+      color: #6d6d6d;
+      position: relative;
+      width: 160px;
+      margin-bottom: 30px;
+
+      p {
+        margin-bottom: 0;
+        padding: 10px;
+      }
+      // 移除input type="number" 的上下箭頭
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+      }
+      input[type="number"] {
+        -moz-appearance: textfield;
+      }
+      .qty-text {
+        width: 80px;
+        height: 40px;
+        background-color: #f5f7fa;
+        color: #6d6d6d;
+        text-align: center;
+        border: none;
+        outline: none;
+      }
+      span {
+        cursor: pointer;
+        padding: 0 6px;
+      }
+      .caret-up {
+        position: absolute;
+        top: 6px;
+        left: 135px;
+      }
+      .caret-down {
+        position: absolute;
+        top: 20px;
+        left: 135px;
+      }
+    }
+  }
+}

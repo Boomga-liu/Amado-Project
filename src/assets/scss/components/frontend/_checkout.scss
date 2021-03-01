@@ -1,0 +1,29 @@
+.payment-term {
+  label {
+    color: #6b6b6b;
+  }
+}
+
+form {
+  .input-custom {
+    background-color: #f5f7fa;
+    border: none;
+    border-radius: 0;
+    padding: 20px;
+    &:focus {
+      background-color: #f5f7fa;
+    }
+  }
+}
+
+.modal {
+  .modal-header {
+    border-bottom: none;
+  }
+  .modal-body {
+    font-size: 20px;
+  }
+  .modal-footer {
+    border-top: none;
+  }
+}

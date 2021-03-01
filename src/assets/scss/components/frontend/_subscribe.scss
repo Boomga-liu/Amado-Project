@@ -1,0 +1,22 @@
+.subscribe-area {
+  background-color: #3c3c3c;
+  padding-top: 100px;
+  .subscribe-text {
+    margin-bottom: 100px;
+    h2 {
+      color: #fff;
+      font-size: 36px;
+      margin-bottom: 10px;
+      span {
+        color: $primary;
+      }
+    }
+    p {
+      color: rgba(255, 255, 255, 0.4);
+      margin-bottom: 0;
+    }
+  }
+  .subscribe-email {
+    margin-bottom: 100px;
+  }
+}

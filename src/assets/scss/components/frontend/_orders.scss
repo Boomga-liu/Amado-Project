@@ -1,0 +1,48 @@
+.orders-custom {
+  width: 90%;
+  border: 5px solid #f5f7fa;
+
+  @include media-breakpoint-down(sm) {
+    width: 100%;
+  }
+  thead {
+    th {
+      position: sticky;
+      top: 0;
+    }
+  }
+
+  .down-icon {
+    position: absolute;
+    bottom: 0;
+    left: calc(100% - 57%);
+    width: 40px;
+    height: 35px;
+    padding: 5px;
+    background-color: #f5f7fa;
+    text-align: center;
+    cursor: pointer;
+
+    i {
+      line-height: 0.9;
+    }
+  }
+}
+
+.order-data {
+  width: 90%;
+  @include media-breakpoint-down(sm) {
+    width: 100%;
+  }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+
+  th,
+  td {
+    padding: 1rem 1.75rem;
+    border-top: 2px solid #dee2e6;
+  }
+}
