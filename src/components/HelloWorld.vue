@@ -46,20 +46,6 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App'
     }
-  },
-  methods: {
-    signout () {
-      const api = `${process.env.VUE_APP_APIPATH}/logout`
-      // API 伺服器路徑 / logout
-      const vm = this
-      // console.log(process.env.APIPATH, process.env.CUSTOMPATH);
-      this.$http.post(api).then((response) => {
-        console.log(response.data)
-        if (response.data.success) {
-          vm.$router.push('/login')
-        }
-      })
-    }
   }
 }
 </script>
