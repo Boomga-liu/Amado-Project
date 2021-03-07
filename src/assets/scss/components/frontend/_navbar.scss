@@ -16,7 +16,7 @@
     display: block;
   }
   .mobile-logo {
-    background-image: url("~@/assets/images/core-img/logo.png");
+    background-image: url('~@/assets/images/core-img/logo.png');
     width: 70px;
     height: 28px;
   }
@@ -33,7 +33,6 @@
   padding: 60px 75px;
   background-color: #fff;
   transition: 0.5s;
-  overflow-y: scroll;
   height: 100%;
   @media (min-width: 1550px) {
     width: 380px;
@@ -44,6 +43,7 @@
     width: 280%;
     max-width: 280px;
     padding: 50px;
+    overflow-y: scroll;
   }
   @include media-breakpoint-down(sm) {
     width: 300px;
@@ -62,7 +62,7 @@
   }
 
   .header-logo {
-    background-image: url("~@/assets/images/core-img/logo.png");
+    background-image: url('~@/assets/images/core-img/logo.png');
     width: 137px;
     height: 55px;
   }
@@ -103,7 +103,7 @@
     }
   }
   .menu a::before {
-    content: "";
+    content: '';
     width: 30px;
     height: 3px;
     background-color: $primary;
@@ -156,18 +156,18 @@
       }
     }
     .cart-img {
-      background-image: url("~@/assets/images/core-img/cart.png");
+      background-image: url('~@/assets/images/core-img/cart.png');
       width: 21px;
       height: 19px;
     }
 
     .fav-img {
-      background-image: url("~@/assets/images/core-img/favorites.png");
+      background-image: url('~@/assets/images/core-img/favorites.png');
       width: 21px;
       height: 21px;
     }
     .search-img {
-      background-image: url("~@/assets/images/core-img/search.png");
+      background-image: url('~@/assets/images/core-img/search.png');
       width: 20px;
       height: 20px;
     }

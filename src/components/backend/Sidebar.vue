@@ -11,29 +11,29 @@
           </a>
         </h6>
         <ul class="nav flex-column mb-2">
-          <li class="nav-item" @click="isChoose = 'Products'">
+          <li class="nav-item" @click="chooseActive('Products')">
             <router-link
               class="nav-link"
               to="/admin/products"
-              :class="{ active: isChoose === 'Products' }"
+              :class="{ active: isActive === 'Products' }"
             >
               <i class="fas fa-box-open mr-1"></i>產品列表
             </router-link>
           </li>
-          <li class="nav-item" @click="isChoose = 'Orders'">
+          <li class="nav-item" @click="chooseActive('Orders')">
             <router-link
               class="nav-link"
               to="/admin/backendorders"
-              :class="{ active: isChoose === 'Orders' }"
+              :class="{ active: isActive === 'Orders' }"
             >
               <i class="fal fa-list-alt mr-1"></i>訂單列表
             </router-link>
           </li>
-          <li class="nav-item" @click="isChoose = 'Coupons'">
+          <li class="nav-item" @click="chooseActive('Coupons')">
             <router-link
               class="nav-link"
               to="/admin/coupons"
-              :class="{ active: isChoose === 'Coupons' }"
+              :class="{ active: isActive === 'Coupons' }"
             >
               <i class="fas fa-ticket-alt mr-1"></i>優惠券
             </router-link>
@@ -47,12 +47,12 @@
             <span data-feather="plus-circle"></span>
           </a>
         </h6>
-        <ul class="nav flex-column mb-2" @click="isChoose = 'CustomerOrder'">
+        <ul class="nav flex-column mb-2" @click="chooseActive('CustomerOrder')">
           <li class="nav-item">
             <router-link
               class="nav-link"
               to="/customer_order"
-              :class="{ active: isChoose === 'CustomerOrder' }"
+              :class="{ active: isActive === 'CustomerOrder' }"
             >
               <i class="fas fa-shopping-cart mr-1"></i>
               模擬訂單
@@ -68,7 +68,7 @@
               <span data-feather="plus-circle"></span>
             </a>
           </h6>
-          <ul class="nav flex-column mb-2" @click="isChoose = 'Sign Out'">
+          <ul class="nav flex-column mb-2">
             <li class="nav-item text-nowrap">
               <a class="nav-link" href="#" @click.prevent="signout">Sign out</a>
             </li>
@@ -83,20 +83,27 @@
 export default {
   data () {
     return {
-      isChoose: ''
+      isActive: ''
     }
   },
   methods: {
     signout () {
       const vm = this
       const url = `${process.env.VUE_APP_APIPATH}/logout`
+      vm.chooseActive('Sign out')
       this.$http.post(url).then(response => {
         console.log(response.data)
         if (response.data.success) {
           vm.$router.push('/login')
         }
       })
+    },
+    chooseActive (choose) {
+      this.isActive = choose
     }
+  },
+  created () {
+    this.$bus.$on('backendSidebar:active', (choose) => this.chooseActive(choose))
   }
 }
 </script>

@@ -24,7 +24,10 @@
             <span v-else>未啟用</span>
           </td>
           <td>
-            <button class="btn btn-outline-primary btn-sm" @click="openModal(false, false, item)">編輯</button>
+            <button
+              class="btn btn-outline-primary mr-sm-2 btn-sm"
+              @click="openModal(false, false, item)"
+            >編輯</button>
             <button class="btn btn-outline-danger btn-sm" @click="openModal(false, true, item)">刪除</button>
           </td>
         </tr>

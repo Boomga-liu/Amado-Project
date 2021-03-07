@@ -26,7 +26,10 @@
             <span v-else>未啟用</span>
           </td>
           <td>
-            <button class="btn btn-outline-primary btn-sm" @click="openModal(false, false, item)">編輯</button>
+            <button
+              class="btn btn-outline-primary btn-sm mr-sm-2"
+              @click="openModal(false, false, item)"
+            >編輯</button>
             <button class="btn btn-outline-danger btn-sm" @click="openModal(false, true, item)">刪除</button>
           </td>
         </tr>
@@ -343,6 +346,7 @@ export default {
   },
   created () {
     this.getProducts()
+    this.$bus.$emit('backendSidebar:active', 'Products')
   }
 }
 </script>
