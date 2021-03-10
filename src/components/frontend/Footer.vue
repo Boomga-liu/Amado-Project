@@ -7,9 +7,7 @@
             <a href="#">
               <div class="footer-logo bg-cover"></div>
             </a>
-            <p class="copywrite mt-2">
-              Copyright &copy; 此為專案練習，無商業用途。 by Boomga-liu
-            </p>
+            <p class="copywrite mt-2">Copyright &copy; 此為專案練習，無商業用途。 by Boomga-liu</p>
           </div>
           <div class="col-12 col-lg-8">
             <nav class="navbar navbar-expand-lg">
@@ -24,27 +22,22 @@
               >
                 <i class="fa fa-bars"></i>
               </button>
-              <div
-                class="collapse navbar-collapse justify-content-end"
-                id="footerSupportedContent"
-              >
+              <div class="collapse navbar-collapse justify-content-end" id="footerSupportedContent">
                 <ul class="navbar-nav w-75 justify-content-between">
                   <li class="nav-item">
-                    <router-link class="nav-link" to="/">
-                      HOME
-                    </router-link>
+                    <router-link class="nav-link" to="/">HOME</router-link>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">SHOP</a>
+                    <router-link class="nav-link" to="/shop">SHOP</router-link>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">PRODUCT</a>
+                    <router-link class="nav-link" to="/cart">CART</router-link>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">CART</a>
+                    <router-link class="nav-link" to="/login">LOG IN</router-link>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">CHECKOUT</a>
+                    <router-link class="nav-link" to="/checkout">CHECKOUT</router-link>
                   </li>
                 </ul>
               </div>
