@@ -39,15 +39,31 @@
           <p class="p-2 text-muted">{{ product.content }}</p>
         </div>
         <div class="product-addtocart">
-          <div class="quantity">
-            <p>Qty</p>
-            <input class="qty-text" type="number" step="1" :value="Qty.value" />
-            <span class="caret-up" @click="addQty">
-              <i class="fa fa-caret-up" aria-hidden="true"></i>
-            </span>
-            <span class="caret-down" @click="lessQty">
-              <i class="fa fa-caret-down" aria-hidden="true"></i>
-            </span>
+          <div class="quantity-fav d-flex align-items-center justify-content-between">
+            <div class="quantity">
+              <p>Qty</p>
+              <input class="qty-text" type="number" step="1" :value="Qty.value" />
+              <span class="caret-up" @click="addQty">
+                <i class="fa fa-caret-up" aria-hidden="true"></i>
+              </span>
+              <span class="caret-down" @click="lessQty">
+                <i class="fa fa-caret-down" aria-hidden="true"></i>
+              </span>
+            </div>
+            <button
+              class="fav-btn btn btn-light ml-180 h-100"
+              v-if="isFav"
+              @click.prevent="addToFav(product)"
+            >
+              <i class="far fa-star"></i>
+            </button>
+            <button
+              class="fav-btn btn btn-light ml-180 h-100"
+              v-else
+              @click.prevent="removeFromFav(product)"
+            >
+              <i class="fas fa-star"></i>
+            </button>
           </div>
           <!-- <select class="form-control w-50 mb-5" v-model="product.num">
             <option :value="num" v-for="num in 10" :key="num">
@@ -55,7 +71,7 @@
             </option>
           </select>-->
           <button
-            class="btn btn-primary btn-lg text-white"
+            class="btn btn-primary btn-lg text-white mt-5"
             @click="addToCart(product.id, product.num)"
           >
             <i class="fas fa-spinner fa-spin" v-if="product.id === status.loadingItem"></i>
@@ -74,7 +90,6 @@ export default {
     return {
       productId: '',
       product: {},
-      isLoading: '',
       status: {
         loadingItem: ''
       },
@@ -87,14 +102,14 @@ export default {
     getProduct (id) {
       const vm = this
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/product/${id}`
-      vm.isLoading = true
+      vm.$store.dispatch('updateLoading', true)
       this.$http.get(url).then(response => {
         // console.log(response.data);
         if (response.data.success) {
           vm.product = response.data.product
           vm.product.num = 1
         }
-        vm.isLoading = false
+        vm.$store.dispatch('updateLoading', false)
       })
     },
     addToCart (id, qty = 1) {
@@ -111,6 +126,13 @@ export default {
         // 把事件$emit出去(後面可帶參數)
         vm.$bus.$emit('cart:get')
       })
+    },
+    addToFav (product) {
+      this.$store.dispatch('addToFav', product)
+      // console.log(this.$store.state.Fav)
+    },
+    removeFromFav (product) {
+      this.$store.dispatch('removeFromFav', product)
     },
     addQty () {
       const vm = this
@@ -135,6 +157,14 @@ export default {
       this.$router.push('/')
     }
   },
+  computed: {
+    isLoading () {
+      return this.$store.state.isLoading
+    },
+    isFav () {
+      return this.$store.state.isFav
+    }
+  },
   filters: {
     capitalize: function (value) {
       if (!value) return ''
@@ -145,6 +175,8 @@ export default {
   created () {
     this.productId = this.$route.params.productId // 從網址取得參數
     this.getProduct(this.productId)
+    this.$bus.$emit('menu:active', 'SHOP')
+    this.$store.dispatch('getFavId', this.productId)
   }
 }
 </script>

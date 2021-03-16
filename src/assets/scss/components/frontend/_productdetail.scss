@@ -1,7 +1,7 @@
 .breadcrumb-item {
   + .breadcrumb-item {
     &::before {
-      content: ">";
+      content: '>';
     }
   }
 }
@@ -65,6 +65,9 @@
     }
   }
   .product-addtocart {
+    .quantity-fav {
+      height: 50px;
+    }
     .quantity {
       display: flex;
       align-items: center;
@@ -72,7 +75,6 @@
       color: #6d6d6d;
       position: relative;
       width: 160px;
-      margin-bottom: 30px;
 
       p {
         margin-bottom: 0;
@@ -83,7 +85,7 @@
       input::-webkit-inner-spin-button {
         -webkit-appearance: none;
       }
-      input[type="number"] {
+      input[type='number'] {
         -moz-appearance: textfield;
       }
       .qty-text {
@@ -108,6 +110,12 @@
         position: absolute;
         top: 20px;
         left: 135px;
+      }
+    }
+    .fav-btn {
+      width: 50px;
+      .fas {
+        color: $primary;
       }
     }
   }

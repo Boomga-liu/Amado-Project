@@ -112,6 +112,11 @@
     left: -150px;
     transition: 0.5s;
   }
+  .cart-fav li.active {
+    a {
+      color: $primary;
+    }
+  }
 
   .header-btn {
     min-width: 160px;
@@ -134,7 +139,8 @@
     .cart-number-position {
       position: relative;
 
-      .cart-number {
+      .cart-number,
+      .fav-number {
         position: absolute;
         top: 7px;
         left: 10px;

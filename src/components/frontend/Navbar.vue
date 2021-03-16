@@ -19,34 +19,19 @@
         </div>
         <nav class="menu">
           <ul class="list-unstyled">
-            <li
-              @click.prevent="chooseActive('HOME')"
-              :class="{ active: isActive === 'HOME' }"
-            >
+            <li @click.prevent="chooseActive('HOME')" :class="{ active: isActive === 'HOME' }">
               <router-link to="/">HOME</router-link>
             </li>
-            <li
-              @click="chooseActive('SHOP')"
-              :class="{ active: isActive === 'SHOP' }"
-            >
+            <li @click="chooseActive('SHOP')" :class="{ active: isActive === 'SHOP' }">
               <router-link to="/shop">SHOP</router-link>
             </li>
-            <li
-              @click="chooseActive('CART')"
-              :class="{ active: isActive === 'CART' }"
-            >
+            <li @click="chooseActive('CART')" :class="{ active: isActive === 'CART' }">
               <router-link to="/cart">CART</router-link>
             </li>
-            <li
-              @click="chooseActive('LogIn')"
-              :class="{ active: isActive === 'LogIn' }"
-            >
+            <li @click="chooseActive('LogIn')" :class="{ active: isActive === 'LogIn' }">
               <router-link to="/login">LOG IN</router-link>
             </li>
-            <li
-              @click="chooseActive('CHECKOUT')"
-              :class="{ active: isActive === 'CHECKOUT' }"
-            >
+            <li @click="chooseActive('CHECKOUT')" :class="{ active: isActive === 'CHECKOUT' }">
               <router-link to="/checkout">CHECKOUT</router-link>
             </li>
           </ul>
@@ -56,27 +41,26 @@
           <a href="#" class="btn header-btn">New This Week</a>
         </div>
         <div class="cart-fav-search">
-          <ul class="list-unstyled">
-            <li class="cart-number-position">
+          <ul class="cart-fav list-unstyled">
+            <li
+              class="cart-number-position"
+              :class="{ active : isActive === 'CART' }"
+              @click.prevent="chooseActive('CART')"
+            >
               <router-link to="/cart">
-                <div class="cart-img d-inline-block align-middle mr-2"></div>
-                CART
+                <div class="cart-img d-inline-block align-middle mr-2"></div>CART
               </router-link>
-              <div class="cart-number" v-if="cartsLength">
-                {{ cartsLength }}
-              </div>
+              <div class="cart-number" v-if="cartsLength">{{ cartsLength }}</div>
             </li>
-            <li>
-              <a href="#">
-                <div class="fav-img d-inline-block align-middle mr-2"></div>
-                FAVOURITE
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <div class="search-img d-inline-block align-middle mr-2"></div>
-                SEARCH
-              </a>
+            <li
+              class="cart-number-position"
+              :class="{ active : isActive === 'FAVORITE'}"
+              @click.prevent="chooseActive('FAVORITE')"
+            >
+              <router-link to="/favorite">
+                <div class="fav-img d-inline-block align-middle mr-2"></div>FAVORITE
+              </router-link>
+              <div class="fav-number" v-if="favLength">{{ favLength }}</div>
             </li>
           </ul>
         </div>
@@ -116,7 +100,9 @@ export default {
       isActive: '',
       headerActive: false,
       carts: [],
-      cartsLength: ''
+      cartsLength: '',
+      productId: '',
+      products: []
     }
   },
   methods: {
@@ -137,6 +123,11 @@ export default {
           vm.cartsLength = vm.carts.carts.length
         }
       })
+    }
+  },
+  computed: {
+    favLength () {
+      return this.$store.state.Fav.length
     }
   },
   created () {

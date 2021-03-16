@@ -1,19 +1,19 @@
-@import "~bootstrap/scss/functions";
-@import "./helpers/variables";
-@import "~bootstrap/scss/bootstrap";
+@import '~bootstrap/scss/functions';
+@import './helpers/variables';
+@import '~bootstrap/scss/bootstrap';
 
-@import "./components/backend/dashboard";
-@import "./components/frontend/index";
-@import "./components/frontend/footer";
-@import "./components/frontend/navbar";
-@import "./components/frontend/subscribe";
-@import "./components/frontend/Home";
-@import "./components/frontend/products";
-@import "./components/frontend/productdetail";
-@import "./components/frontend/cart";
-@import "./components/frontend/checkout";
-@import "./components/frontend/orders";
-@import "./components/frontend/gotop";
+@import './components/backend/dashboard';
+@import './components/frontend/index';
+@import './components/frontend/footer';
+@import './components/frontend/navbar';
+@import './components/frontend/subscribe';
+@import './components/frontend/Home';
+@import './components/frontend/products';
+@import './components/frontend/productdetail';
+@import './components/frontend/cart';
+@import './components/frontend/checkout';
+@import './components/frontend/orders';
+@import './components/frontend/gotop';
 
 body {
   font-family: helveticaneuebold;

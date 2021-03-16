@@ -25,8 +25,11 @@
               </td>
               <td class="justify-content-end">{{ item.final_total | currency }}</td>
               <td class="justify-content-end">
-                <button class="trash-btn btn btn-outline-danger btn-sm">
-                  <i class="far fa-trash-alt" @click.prevent="removeCartItem(item.id)"></i>
+                <button
+                  class="trash-btn btn btn-outline-danger btn-sm"
+                  @click.prevent="removeCartItem(item.id)"
+                >
+                  <i class="far fa-trash-alt"></i>
                 </button>
               </td>
             </tr>

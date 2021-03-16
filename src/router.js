@@ -33,6 +33,12 @@ export default new Router({
           meta: { keepAlive: false }
         },
         {
+          path: 'favorite',
+          name: 'Favorite',
+          component: () => import('@/views/frontend/Favorite.vue'),
+          meta: { keepAlive: false }
+        },
+        {
           path: 'cart',
           name: 'Cart',
           component: () => import('@/views/frontend/Cart.vue'),

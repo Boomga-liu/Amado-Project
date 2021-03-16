@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import Vuex from 'vuex'
 import axios from 'axios' // 主要 AJAX 套件
 import VueAxios from 'vue-axios' // 將 AJAX 套件轉為 Vue 套件
 import Loading from 'vue-loading-overlay' // Loading套件
@@ -27,6 +28,7 @@ import * as rules from 'vee-validate/dist/rules'
 
 import App from './App.vue'
 import router from './router'
+import store from './store'
 import './bus'
 import currencyFilter from './filters/currency'
 
@@ -48,6 +50,7 @@ configure({
   }
 })
 
+Vue.use(Vuex)
 Vue.use(VueAxios, axios)
 Vue.use(Aos)
 Aos.init()
@@ -58,6 +61,7 @@ Vue.config.productionTip = false
 
 new Vue({
   router,
+  store,
   render: (h) => h(App)
 }).$mount('#app')
 
