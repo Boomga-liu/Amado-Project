@@ -60,7 +60,6 @@ export default {
   methods: {
     removeFromFav (product) {
       this.$store.dispatch('removeFromFav', product)
-      this.haveItem = false
     },
     favItems () {
       if (this.$store.state.Fav.length) {
@@ -77,6 +76,7 @@ export default {
   },
   created () {
     this.favItems()
+    // console.log(this.favProducts)
   }
 }
 </script>
