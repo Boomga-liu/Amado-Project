@@ -31,16 +31,16 @@
               <li>
                 <a
                   href="#"
-                  @click.prevent="changeTab('Accessories')"
-                  :class="{ active: isChoose === 'Accessories' }"
-                >Accessories</a>
+                  @click.prevent="changeTab('Pillows')"
+                  :class="{ active: isChoose === 'Pillows' }"
+                >Pillows</a>
               </li>
               <li>
                 <a
                   href="#"
-                  @click.prevent="changeTab('Furniture')"
-                  :class="{ active: isChoose === 'Furniture' }"
-                >Furniture</a>
+                  @click.prevent="changeTab('Sofas')"
+                  :class="{ active: isChoose === 'Sofas' }"
+                >Sofas</a>
               </li>
               <li>
                 <a
@@ -58,77 +58,32 @@
               </li>
             </ul>
           </div>
-          <div class="shop-brands">
-            <h6>Brands</h6>
-            <div class="brands-checkbox">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="Amado" id="Amado" />
-                <label class="form-check-label" for="Amado">Amado</label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="Ikea" id="Ikea" />
-                <label class="form-check-label" for="Ikea">Ikea</label>
-              </div>
-              <div class="form-check">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  value="Furniture Inc"
-                  id="Furniture Inc"
-                />
-                <label class="form-check-label" for="Furniture Inc">Furniture Inc</label>
-              </div>
-              <div class="form-check">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  value="The factory"
-                  id="The factory"
-                />
-                <label class="form-check-label" for="The factory">The factory</label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="Artdeco" id="Artdeco" />
-                <label class="form-check-label" for="Artdeco">Artdeco</label>
-              </div>
-            </div>
-          </div>
-          <div class="shop-color">
-            <h6>Color</h6>
-            <ul class="list-unstyled d-flex flex-wrap">
-              <li>
-                <a href="#" class="white"></a>
-              </li>
-              <li>
-                <a href="#" class="dark-gray"></a>
-              </li>
-              <li>
-                <a href="#" class="black"></a>
-              </li>
-              <li>
-                <a href="#" class="blue"></a>
-              </li>
-              <li>
-                <a href="#" class="red"></a>
-              </li>
-              <li>
-                <a href="#" class="yellow"></a>
-              </li>
-              <li>
-                <a href="#" class="dark-orange"></a>
-              </li>
-              <li>
-                <a href="#" class="brown"></a>
-              </li>
-            </ul>
-          </div>
         </div>
       </div>
       <div class="shop-products-area">
-        <div class="container-fluid shop-products">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12">
+              <div class="search-area input-group mb-3">
+                <button
+                  class="btn input-group-prepend align-items-center"
+                  @click.prevent="searchProduct"
+                >
+                  <div class="search-img"></div>
+                </button>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Search"
+                  v-model.trim="search"
+                  @input="searchProduct"
+                />
+              </div>
+            </div>
+          </div>
           <div class="row">
             <div
-              class="col-12 col-sm-6 col-md-12 col-xl-6 mt-5 px-custom"
+              class="col-12 col-sm-6 col-md-12 col-xl-6 mt-5 shop-products"
               data-aos="fade-up"
               data-aos-duration="1000"
               v-for="item in filterPage"
@@ -140,6 +95,7 @@
                   <div class="btn-bg" @click.prevent="getProductId(item.id)">
                     <button class="btn btn-outline-primary btn-lg btn-custom">More</button>
                   </div>
+                  <div class="new-icon"></div>
                 </a>
                 <div class="card-body d-flex justify-content-between">
                   <div class="card-price-name">
@@ -165,6 +121,13 @@
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+          <div class="row" v-if="(search || searchResult.length) && searchResult.length == 0">
+            <div class="col-12">
+              <div class="no-results-area">
+                <p>No results related to '{{ search }}'</p>
               </div>
             </div>
           </div>
@@ -200,6 +163,8 @@ export default {
         has_pre: false,
         has_next: false
       },
+      search: '',
+      searchResult: [],
       data_length: '',
       page_size: '',
       now_page: '',
@@ -236,6 +201,18 @@ export default {
       vm.isChoose = category
       vm.pagination.current_page = 1
     },
+    searchProduct () {
+      const vm = this
+      vm.pagination.current_page = 1
+      if (vm.search) {
+        vm.isChoose = vm.search
+        vm.searchResult = vm.products.filter(item => {
+          return item.category === vm.search
+        })
+      } else {
+        vm.searchResult = []
+      }
+    },
     addToCart (id, qty = 1) {
       const vm = this
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
@@ -256,7 +233,9 @@ export default {
   computed: {
     filterData () {
       const vm = this
-      if (vm.isChoose === 'All') {
+      if (vm.search || vm.searchResult.length) {
+        return vm.searchResult
+      } else if (vm.isChoose === 'All') {
         return vm.products
       } else {
         return vm.products.filter(item => {
@@ -292,7 +271,7 @@ export default {
   },
   created () {
     this.getProducts()
-    this.$bus.$emit('menu:active', 'SHOP')
+    this.$bus.$emit('menu:active', 'PRODUCTS')
   },
   beforeRouteLeave (to, from, next) {
     if (to.name === 'ProductDetail') {

@@ -7,6 +7,10 @@ import 'vue-loading-overlay/dist/vue-loading.css' // Loading套件css
 import 'bootstrap'
 import Aos from 'aos'
 import '../node_modules/aos/dist/aos.css'
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+import swiper, { Navigation, Pagination, Autoplay } from 'swiper'
+// import style (>= Swiper 6.x)
+import 'swiper/swiper-bundle.css'
 
 // 將元件以及相關設定檔從"vee-validate"導出
 // ValidationObserver是input驗證元件
@@ -56,6 +60,8 @@ Vue.use(Aos)
 Aos.init()
 Vue.component('Loading', Loading)
 Vue.filter('currency', currencyFilter)
+Vue.use(VueAwesomeSwiper)
+swiper.use([Navigation, Pagination, Autoplay])
 
 Vue.config.productionTip = false
 

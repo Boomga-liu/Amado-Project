@@ -10,19 +10,24 @@ export default new Router({
       redirect: 'login'
     },
     {
-      name: 'Index',
       path: '/',
+      name: 'ImagePage',
+      component: () => import('@/views/frontend/ImagePage.vue')
+    },
+    {
+      name: 'Index',
+      path: '/shop',
       component: () => import('@/components/frontend/Index.vue'),
       children: [
         {
-          path: '',
+          path: '/',
           name: 'Home',
           component: () => import('@/views/frontend/Home.vue'),
           meta: { keepAlive: false }
         },
         {
-          path: 'shop',
-          name: 'Shop',
+          path: 'products',
+          name: 'Products',
           component: () => import('@/views/frontend/Products.vue'),
           meta: { keepAlive: false }
         },
@@ -57,9 +62,21 @@ export default new Router({
           meta: { keepAlive: false }
         },
         {
-          name: 'Login',
+          path: 'discount',
+          name: 'Discount',
+          component: () => import('@/views/frontend/Discount.vue'),
+          meta: { keepAlive: false }
+        },
+        {
           path: 'login',
+          name: 'Login',
           component: () => import('@/views/frontend/Login.vue'),
+          meta: { keepAlive: false }
+        },
+        {
+          path: 'newthisweek',
+          name: 'NewThisWeek',
+          component: () => import('@/views/frontend/NewThisWeek.vue'),
           meta: { keepAlive: false }
         }
       ]

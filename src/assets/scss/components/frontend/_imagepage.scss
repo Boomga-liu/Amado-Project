@@ -1,0 +1,240 @@
+.imagepage-area {
+  .imagepage-content {
+    background-color: rgba(0, 0, 0, 0.6);
+    width: auto;
+    height: 200px;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .imagepage-content-logo {
+      background-image: url('~@/assets/images/core-img/logo2.png');
+      width: 137px;
+      height: 55px;
+    }
+    .imagepage-content-text {
+      text-align: center;
+      p {
+        margin-bottom: 0;
+        color: #fff;
+      }
+      & :first-child {
+        font-size: 24px;
+      }
+      & :last-child {
+        font-size: 16px;
+        font-weight: 100;
+      }
+    }
+  }
+
+  .concept {
+    position: relative;
+    @media (max-width: 767.98px) {
+      height: 120vh;
+    }
+    .concept-img {
+      background-image: url('~@/assets/images/custom-img/section-img-1.jpg');
+      height: 100%;
+      position: absolute;
+      top: 0;
+      right: 0;
+      @media (max-width: 767.98px) {
+        left: 1rem;
+        height: 60%;
+        width: 80vw;
+      }
+    }
+
+    @media (max-width: 767.98px) {
+      .bg-box {
+        position: relative;
+        width: 90%;
+        height: 90%;
+        top: 0;
+        left: 1rem;
+        background-color: #f5f7fa;
+        z-index: -1;
+      }
+      .concept-text-mobile {
+        position: absolute;
+        right: 1rem;
+        bottom: 0;
+        background-color: #fff;
+        max-width: 80vw;
+        z-index: 2;
+      }
+    }
+
+    .concept-text {
+      .concept-title {
+        margin-bottom: 50px;
+        @media (max-width: 767.98px) {
+          margin-bottom: 42px;
+        }
+        h4 {
+          font-size: 20px;
+          margin-bottom: 50px;
+          @media (max-width: 767.98px) {
+            font-size: 16px;
+            margin-bottom: 30px;
+          }
+        }
+        h3 {
+          font-size: 42px;
+          color: $primary;
+          @media (max-width: 767.98px) {
+            font-size: 20px;
+          }
+        }
+      }
+      .concept-content {
+        p {
+          color: #ccc;
+          @media (max-width: 767.98px) {
+            margin-bottom: 3px;
+            font-size: 0.8rem;
+          }
+        }
+      }
+    }
+  }
+
+  .parallex-scrolling-area {
+    background-color: #f5f7fa;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+
+    .parallex-scrolling-height {
+      height: 120vh;
+    }
+
+    .parallex-scrolling-img {
+      max-width: 100%;
+      min-height: 100%;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      background-size: cover;
+      @media (max-width: 767.98px) {
+        max-width: 90%;
+        min-height: 60%;
+        background-attachment: scroll;
+      }
+    }
+    @media (max-width: 767.98px) {
+      .parallex-text-mobile {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        background-color: #fff;
+        width: 90%;
+        padding: 30px;
+        height: 55vh;
+      }
+    }
+
+    .scroll {
+      position: relative;
+      .scroll-back {
+        position: absolute;
+        top: 2rem;
+        right: 0;
+        width: 0.08rem;
+        height: 20rem;
+        background-color: #ccc;
+      }
+      .scroll-drop {
+        position: absolute;
+        top: 2rem;
+        right: 0;
+        width: 0.2rem;
+        height: 20rem;
+        background-color: $primary;
+        animation-name: ScrollDrop;
+        animation-timing-function: linear;
+        animation-delay: 0s;
+        animation-duration: 2s;
+        animation-iteration-count: infinite;
+      }
+    }
+    .parallex-scrolling-text {
+      padding-top: 25rem;
+      @media (max-width: 767.98px) {
+        padding-top: 0;
+      }
+
+      .parallex-scrolling-title {
+        margin-bottom: 50px;
+        h3 {
+          font-size: 42px;
+          color: $primary;
+        }
+      }
+    }
+  }
+  .go-shopping-area {
+    padding: 5rem 0;
+    .logo-bg {
+      background-color: #f5f7fa;
+      width: 15rem;
+      height: 15rem;
+      margin: 0 auto;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .go-shopping-text {
+      text-align: center;
+      margin-top: 30px;
+      a {
+        font-size: 24px;
+        color: #fff;
+        border: none;
+        position: relative;
+        transition: 0.5s;
+        &::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          background-color: $primary;
+          opacity: 0.9;
+          border-radius: 0.3rem;
+          width: 0;
+          height: 100%;
+          z-index: -1;
+          transition: 0.3s ease-out;
+        }
+        &:hover {
+          background-color: transparent;
+          z-index: 1;
+          &::after {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes ScrollDrop {
+  0% {
+    transform-origin: top;
+    transform: scaleY(0);
+  }
+  45% {
+    transform-origin: top;
+    transform: scaleY(1);
+  }
+  55% {
+    transform-origin: bottom;
+    transform: scaleY(1);
+  }
+  100% {
+    transform-origin: bottom;
+    transform: scaleY(0);
+  }
+}

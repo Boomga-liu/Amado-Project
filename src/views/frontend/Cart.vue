@@ -49,7 +49,10 @@
               <span>{{ cart.final_total | currency }}</span>
             </li>
             <li class="checkout-btn">
-              <router-link to="/checkout" class="btn btn-primary btn-lg rounded-0 w-100">Checkout</router-link>
+              <router-link
+                to="/shop/checkout"
+                class="btn btn-primary btn-lg rounded-0 w-100"
+              >Checkout</router-link>
             </li>
           </ul>
         </div>
@@ -65,7 +68,7 @@
           </li>
           <li class="no-product-text">Your Shopping Cart is empty！</li>
           <li>
-            <router-link to="/shop" class="btn btn-primary text-white">Go Shopping</router-link>
+            <router-link to="/shop/products" class="btn btn-primary text-white">Go Shopping</router-link>
           </li>
         </ul>
       </div>
@@ -102,12 +105,12 @@ export default {
     removeCartItem (id) {
       const vm = this
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${id}`
-      vm.isLoading = true
       this.$http.delete(url).then((response) => {
-        // console.log(response.data);
+        // console.log(response.data)
         if (response.data.success) {
           vm.$bus.$emit('cart:get')
           vm.getCart()
+          vm.$bus.$emit('message:push', `商品${response.data.message}`, 'success')
         }
       })
     },

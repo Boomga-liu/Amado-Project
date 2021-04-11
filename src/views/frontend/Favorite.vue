@@ -1,5 +1,5 @@
 <template>
-  <div class="px-3 py-150">
+  <div class="px-3 py-150 favorite-area">
     <h2 class="mb-4 text-center text-md-left">Favorite</h2>
     <div class="row" v-if="haveItem">
       <div class="col-12 col-lg-10">
@@ -17,9 +17,15 @@
               <td>
                 <img :src="item.imageUrl" class="img-fluid" alt="image" />
               </td>
-              <td>{{ item.title }}</td>
+              <td class="product-title">
+                <a href="#" @click.prevent="getProductId(item.id)">{{ item.title }}</a>
+              </td>
               <td class="justify-content-end">{{ item.price | currency }}</td>
               <td class="justify-content-end">
+                <button class="cart-btn btn btn-sm" @click.prevent="addToCart(item)">
+                  <i class="fas fa-spinner fa-spin" v-if="status.loadingItem === item.id"></i>
+                  <div class="cart-icon"></div>
+                </button>
                 <button
                   class="trash-btn btn btn-outline-danger btn-sm"
                   @click.prevent="removeFromFav(item)"
@@ -42,7 +48,7 @@
           </li>
           <li class="no-product-text">Your Favorite is empty！</li>
           <li>
-            <router-link to="/shop" class="btn btn-primary text-white">Go Shopping</router-link>
+            <router-link to="/shop/products" class="btn btn-primary text-white">Go Shopping</router-link>
           </li>
         </ul>
       </div>
@@ -54,7 +60,10 @@
 export default {
   data () {
     return {
-      haveItem: ''
+      haveItem: '',
+      status: {
+        loadingItem: ''
+      }
     }
   },
   methods: {
@@ -68,6 +77,25 @@ export default {
       } else {
         this.haveItem = false
       }
+    },
+    getProductId (id) {
+      this.$router.push(`product_detail/${id}`)
+    },
+    addToCart (item, qty = 1) {
+      const vm = this
+      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
+      vm.status.loadingItem = item.id
+      const cart = {
+        product_id: item.id,
+        qty
+      }
+      this.$http.post(url, { data: cart }).then(response => {
+        if (response.data.success) {
+          vm.$bus.$emit('cart:get')
+          vm.removeFromFav(item)
+          vm.status.loadingItem = ''
+        }
+      })
     }
   },
   computed: {

@@ -2,7 +2,7 @@
   <div>
     <div class="card-columns">
       <div class="card" data-aos="zoom-in" data-aos-duration="1500">
-        <router-link to="/shop">
+        <router-link to="shop/products">
           <img src="~@/assets/images/bg-img/1.jpg" alt="image" />
           <div class="card-body">
             <div class="card-line"></div>
@@ -12,7 +12,7 @@
         </router-link>
       </div>
       <div class="card" data-aos="zoom-in" data-aos-duration="1500">
-        <router-link to="/shop">
+        <router-link to="shop/products">
           <img src="~@/assets/images/bg-img/5.jpg" alt="image" />
           <div class="card-body">
             <div class="card-line"></div>
@@ -22,7 +22,7 @@
         </router-link>
       </div>
       <div class="card" data-aos="zoom-in" data-aos-duration="1500">
-        <router-link to="/shop">
+        <router-link to="shop/products">
           <img src="~@/assets/images/bg-img/8.jpg" alt="image" />
           <div class="card-body">
             <div class="card-line"></div>
@@ -32,7 +32,7 @@
         </router-link>
       </div>
       <div class="card" data-aos="zoom-in" data-aos-duration="1500">
-        <router-link to="/shop">
+        <router-link to="shop/products">
           <img src="~@/assets/images/bg-img/2.jpg" alt="image" />
           <div class="card-body">
             <div class="card-line"></div>
@@ -42,7 +42,7 @@
         </router-link>
       </div>
       <div class="card" data-aos="zoom-in" data-aos-duration="1500">
-        <router-link to="/shop">
+        <router-link to="shop/products">
           <img src="~@/assets/images/bg-img/6.jpg" alt="image" />
           <div class="card-body">
             <div class="card-line"></div>
@@ -52,7 +52,7 @@
         </router-link>
       </div>
       <div class="card" data-aos="zoom-in" data-aos-duration="1500">
-        <router-link to="/shop">
+        <router-link to="shop/products">
           <img src="~@/assets/images/bg-img/9.jpg" alt="image" />
           <div class="card-body">
             <div class="card-line"></div>
@@ -62,7 +62,7 @@
         </router-link>
       </div>
       <div class="card" data-aos="zoom-in" data-aos-duration="1500">
-        <router-link to="/shop">
+        <router-link to="shop/products">
           <img src="~@/assets/images/bg-img/3.jpg" alt="image" />
           <div class="card-body">
             <div class="card-line"></div>
@@ -72,7 +72,7 @@
         </router-link>
       </div>
       <div class="card" data-aos="zoom-in" data-aos-duration="1500">
-        <router-link to="/shop">
+        <router-link to="shop/products">
           <img src="~@/assets/images/bg-img/4.jpg" alt="image" />
           <div class="card-body">
             <div class="card-line"></div>
@@ -82,7 +82,7 @@
         </router-link>
       </div>
       <div class="card" data-aos="zoom-in" data-aos-duration="1500">
-        <router-link to="/shop">
+        <router-link to="shop/products">
           <img src="~@/assets/images/bg-img/7.jpg" alt="image" />
           <div class="card-body">
             <div class="card-line"></div>

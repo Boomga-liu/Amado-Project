@@ -2,7 +2,7 @@
   <div>
     <div class="mobile-nav d-flex d-md-none">
       <div class="logo">
-        <router-link to="/">
+        <router-link to="/shop">
           <div class="mobile-logo bg-cover"></div>
         </router-link>
       </div>
@@ -13,32 +13,58 @@
     <div class="header-area" :class="{ active: headerActive === true }">
       <header class="header">
         <div class="logo">
-          <router-link to="/">
+          <router-link to="/shop">
             <div class="header-logo bg-cover"></div>
           </router-link>
         </div>
         <nav class="menu">
           <ul class="list-unstyled">
             <li @click.prevent="chooseActive('HOME')" :class="{ active: isActive === 'HOME' }">
-              <router-link to="/">HOME</router-link>
+              <router-link to="/shop">HOME</router-link>
             </li>
-            <li @click="chooseActive('SHOP')" :class="{ active: isActive === 'SHOP' }">
-              <router-link to="/shop">SHOP</router-link>
+            <li
+              @click.prevent="chooseActive('PRODUCTS')"
+              :class="{ active: isActive === 'PRODUCTS' }"
+            >
+              <router-link to="/shop/products">PRODUCTS</router-link>
             </li>
-            <li @click="chooseActive('CART')" :class="{ active: isActive === 'CART' }">
-              <router-link to="/cart">CART</router-link>
+            <li @click.prevent="chooseActive('CART')" :class="{ active: isActive === 'CART' }">
+              <router-link to="/shop/cart">CART</router-link>
             </li>
-            <li @click="chooseActive('LogIn')" :class="{ active: isActive === 'LogIn' }">
-              <router-link to="/login">LOG IN</router-link>
+            <li @click.prevent="chooseActive('LOGIN')" :class="{ active: isActive === 'LOGIN' }">
+              <router-link to="/shop/login">LOG IN</router-link>
             </li>
-            <li @click="chooseActive('CHECKOUT')" :class="{ active: isActive === 'CHECKOUT' }">
-              <router-link to="/checkout">CHECKOUT</router-link>
+            <li
+              @click.prevent="chooseActive('CHECKOUT')"
+              :class="{ active: isActive === 'CHECKOUT' }"
+            >
+              <router-link to="/shop/checkout">CHECKOUT</router-link>
+            </li>
+            <li
+              @click.prevent="chooseActive('IMAGEPAGE')"
+              :class="{ active: isActive === 'IMAGEPAGE' }"
+            >
+              <router-link to="/">IMAGE PAGE</router-link>
             </li>
           </ul>
         </nav>
         <div class="header-btn-group">
-          <a href="#" class="btn header-btn mb-3 active">%Discount%</a>
-          <a href="#" class="btn header-btn">New This Week</a>
+          <ul class="list-unstyled mb-0">
+            <li @click.prevent="chooseActive('DISCOUNT')">
+              <router-link
+                to="/shop/discount"
+                class="btn mb-3"
+                :class="{active: isActive === 'DISCOUNT'}"
+              >%Discount%</router-link>
+            </li>
+            <li @click.prevent="chooseActive('NEWTHISWEEK')">
+              <router-link
+                to="/shop/newthisweek"
+                class="btn"
+                :class="{active: isActive === 'NEWTHISWEEK'}"
+              >New This Week</router-link>
+            </li>
+          </ul>
         </div>
         <div class="cart-fav-search">
           <ul class="cart-fav list-unstyled">
@@ -47,7 +73,7 @@
               :class="{ active : isActive === 'CART' }"
               @click.prevent="chooseActive('CART')"
             >
-              <router-link to="/cart">
+              <router-link to="/shop/cart">
                 <div class="cart-img d-inline-block align-middle mr-2"></div>CART
               </router-link>
               <div class="cart-number" v-if="cartsLength">{{ cartsLength }}</div>
@@ -57,7 +83,7 @@
               :class="{ active : isActive === 'FAVORITE'}"
               @click.prevent="chooseActive('FAVORITE')"
             >
-              <router-link to="/favorite">
+              <router-link to="/shop/favorite">
                 <div class="fav-img d-inline-block align-middle mr-2"></div>FAVORITE
               </router-link>
               <div class="fav-number" v-if="favLength">{{ favLength }}</div>
@@ -89,6 +115,38 @@
           </ul>
         </div>
       </header>
+    </div>
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">SEARCH</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="input-group mb-3">
+              <input
+                type="text"
+                class="form-control"
+                aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-default"
+              />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary text-white">Search</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>

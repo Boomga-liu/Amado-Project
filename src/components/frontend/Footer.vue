@@ -25,19 +25,22 @@
               <div class="collapse navbar-collapse justify-content-end" id="footerSupportedContent">
                 <ul class="navbar-nav w-75 justify-content-between">
                   <li class="nav-item">
-                    <router-link class="nav-link" to="/">HOME</router-link>
+                    <router-link class="nav-link" to="/shop">HOME</router-link>
                   </li>
                   <li class="nav-item">
-                    <router-link class="nav-link" to="/shop">SHOP</router-link>
+                    <router-link class="nav-link" to="/shop/products">SHOP</router-link>
                   </li>
                   <li class="nav-item">
-                    <router-link class="nav-link" to="/cart">CART</router-link>
+                    <router-link class="nav-link" to="/shop/cart">CART</router-link>
                   </li>
                   <li class="nav-item">
-                    <router-link class="nav-link" to="/login">LOG IN</router-link>
+                    <router-link class="nav-link" to="/shop/login">LOG IN</router-link>
                   </li>
                   <li class="nav-item">
-                    <router-link class="nav-link" to="/checkout">CHECKOUT</router-link>
+                    <router-link class="nav-link" to="/shop/checkout">CHECKOUT</router-link>
+                  </li>
+                  <li class="nav-item">
+                    <router-link class="nav-link" to="/">IMAGE PAGE</router-link>
                   </li>
                 </ul>
               </div>

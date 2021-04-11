@@ -35,8 +35,8 @@
           </div>
         </div>
         <div class="product-content mb-50">
-          <p class="h6 mb-1 text-muted">Content:</p>
-          <p class="p-2 text-muted">{{ product.content }}</p>
+          <p class="h6 mb-1 text-muted">Description:</p>
+          <p class="p-2 text-muted">{{ product.description }}</p>
         </div>
         <div class="product-addtocart">
           <div class="quantity-fav d-flex align-items-center justify-content-between">
@@ -90,6 +90,7 @@ export default {
     return {
       productId: '',
       product: {},
+      isLoading: false,
       status: {
         loadingItem: ''
       },
@@ -102,14 +103,16 @@ export default {
     getProduct (id) {
       const vm = this
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/product/${id}`
-      vm.$store.dispatch('updateLoading', true)
+      // vm.$store.dispatch('updateLoading', true)
+      vm.isLoading = true
       this.$http.get(url).then(response => {
-        // console.log(response.data);
+        // console.log(response.data)
         if (response.data.success) {
           vm.product = response.data.product
           vm.product.num = 1
         }
-        vm.$store.dispatch('updateLoading', false)
+        vm.isLoading = false
+        // vm.$store.dispatch('updateLoading', false)
       })
     },
     addToCart (id, qty = 1) {
@@ -154,13 +157,13 @@ export default {
       this.$router.go(-1)
     },
     backHome () {
-      this.$router.push('/')
+      this.$router.push('/shop')
     }
   },
   computed: {
-    isLoading () {
-      return this.$store.state.isLoading
-    },
+    // isLoading () {
+    //   return this.$store.state.isLoading
+    // },
     isFav () {
       return this.$store.state.isFav
     }

@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav class="navbar fixed-top flex-md-nowrap p-0 shadow bg-color">
-      <router-link to="/" class="navbar-brand col-md-3 col-lg-2 mr-0 px-3 text-center">
+      <router-link to="/shop" class="navbar-brand col-md-3 col-lg-2 mr-0 px-3 text-center">
         <img src="../../assets/images/core-img/logo2.png" class="img-fluid" alt="icon" />
       </router-link>
       <button
@@ -37,7 +37,7 @@ export default {
       this.$http.post(url).then((response) => {
         console.log(response.data)
         if (response.data.success) {
-          vm.$router.push('/login')
+          vm.$router.push('/')
         }
       })
     }

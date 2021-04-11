@@ -1,7 +1,8 @@
 <template>
-  <div>
-    <div class="wrapper d-flex">
+  <div class="wrapper">
+    <div class="d-flex">
       <Navbar />
+      <AlertMessage />
       <main role="main" class="container-fluid container-fluid-custom">
         <keep-alive>
           <router-view v-if="$route.meta.keepAlive"></router-view>
@@ -20,6 +21,7 @@ import Footer from './Footer'
 import Navbar from './Navbar'
 import Subscribe from './Subscribe'
 import GoTop from '@/components/frontend/GoTop'
+import AlertMessage from '@/components/AlertMessage'
 export default {
   data () {
     return {
@@ -31,7 +33,8 @@ export default {
     Footer,
     Navbar,
     Subscribe,
-    GoTop
+    GoTop,
+    AlertMessage
   },
   methods: {
     handleScroll (e) {

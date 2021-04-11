@@ -8,11 +8,7 @@
               Subscribe for a
               <span>25% Discount</span>
             </h2>
-            <p>
-              Nulla ac convallis lorem, eget euismod nisl. Donec in libero sit
-              amet mi vulputate consectetur. Donec auctor interdum purus, ac
-              finibus massa bibendum nec.
-            </p>
+            <p>Amado features a great selection of sofas, chairs, beds, and can help you with your home design and decorating. Fashion Furniture offers great quality furniture, at a low price to the Fresno, Madera area.</p>
           </div>
         </div>
         <div class="col-12 col-lg-5">
