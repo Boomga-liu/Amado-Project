@@ -82,7 +82,7 @@ router.beforeEach((to, from, next) => {
     const api = `${process.env.VUE_APP_APIPATH}/api/user/check`
     // API伺服器路徑 / api / user / check
     axios.post(api).then((response) => {
-      // console.log(response.data);
+      // console.log(response.data)
       if (response.data.success) {
         next()
       } else {

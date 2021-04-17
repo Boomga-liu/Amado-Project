@@ -108,8 +108,8 @@ export default {
       this.$http.delete(url).then((response) => {
         // console.log(response.data)
         if (response.data.success) {
-          vm.$bus.$emit('cart:get')
           vm.getCart()
+          vm.$bus.$emit('cart:get')
           vm.$bus.$emit('message:push', `商品${response.data.message}`, 'success')
         }
       })

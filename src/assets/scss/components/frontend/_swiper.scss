@@ -35,6 +35,10 @@
     @media (max-width: 1024px) {
       margin: -100px 0 0 -315px;
     }
+    @media (max-width: 768px) {
+      width: 570px;
+      margin: -100px 0 0 -285px;
+    }
 
     .swiper-content-logo {
       background-image: url('~@/assets/images/core-img/logo.png');
