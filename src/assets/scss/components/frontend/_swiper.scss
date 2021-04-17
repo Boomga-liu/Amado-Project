@@ -18,26 +18,22 @@
     top: 50%;
     left: 50%;
     background-color: rgba(255, 255, 255, 0.6);
-    width: 850px;
-    height: 200px;
+    width: 45%;
     z-index: 1;
+    height: 200px;
+    padding: 20px 10px;
     margin: -100px 0 0 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    @media (max-width: 1680px) {
-      width: 730px;
-    }
-    @media (max-width: 1440px) {
-      width: 630px;
-    }
     @media (max-width: 1024px) {
-      margin: -100px 0 0 -315px;
+      width: 70%;
+      margin: -120px 0 0 -35%;
     }
     @media (max-width: 768px) {
-      width: 570px;
-      margin: -100px 0 0 -285px;
+      width: 80%;
+      margin: -120px 0 0 -40%;
     }
 
     .swiper-content-logo {
@@ -52,6 +48,9 @@
       }
       & :first-child {
         font-size: 32px;
+        @media (max-width: 1439px) {
+          font-size: 28px;
+        }
       }
       & :last-child {
         font-size: 20px;
