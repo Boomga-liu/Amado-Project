@@ -11,6 +11,7 @@ import VueAwesomeSwiper from 'vue-awesome-swiper'
 import swiper, { Navigation, Pagination, Autoplay } from 'swiper'
 // import style (>= Swiper 6.x)
 import 'swiper/swiper-bundle.css'
+import Clipboard from 'v-clipboard'
 
 // 將元件以及相關設定檔從"vee-validate"導出
 // ValidationObserver是input驗證元件
@@ -22,11 +23,11 @@ import {
   ValidationObserver,
   ValidationProvider,
   extend,
-  localize,
+  // localize,
   configure
 } from 'vee-validate'
 // 導出繁體中文語系以便使用
-import TW from 'vee-validate/dist/locale/zh_TW.json'
+// import TW from 'vee-validate/dist/locale/zh_TW.json'
 // 導出內建的驗證規則使用
 import * as rules from 'vee-validate/dist/rules'
 
@@ -41,7 +42,7 @@ Object.keys(rules).forEach((rule) => {
   extend(rule, rules[rule])
 })
 // 使用繁體中文語系
-localize('zh_TW', TW)
+// localize('zh_TW', TW)
 // 針對單一<input>驗證
 Vue.component('ValidationObserver', ValidationObserver)
 // 針對<from>表單驗證
@@ -62,6 +63,7 @@ Vue.component('Loading', Loading)
 Vue.filter('currency', currencyFilter)
 Vue.use(VueAwesomeSwiper)
 swiper.use([Navigation, Pagination, Autoplay])
+Vue.use(Clipboard)
 
 Vue.config.productionTip = false
 

@@ -66,6 +66,7 @@
             <div class="col-12">
               <div class="search-area input-group mb-3">
                 <button
+                  type="button"
                   class="btn input-group-prepend align-items-center"
                   @click.prevent="searchProduct"
                 >
@@ -91,9 +92,14 @@
             >
               <div class="card">
                 <a href="#">
-                  <img :src="item.imageUrl" class="card-img-top" style="height:465px;" />
+                  <!-- <img :src="item.imageUrl" class="card-img-top" style="height:465px;" /> -->
+                  <div
+                    class="card-img-top bg-cover"
+                    :style="{backgroundImage:`url(${item.imageUrl})`}"
+                    style="height:465px;"
+                  ></div>
                   <div class="btn-bg" @click.prevent="getProductId(item.id)">
-                    <button class="btn btn-outline-primary btn-lg btn-custom">More</button>
+                    <button type="button" class="btn btn-outline-primary btn-lg btn-custom">More</button>
                   </div>
                   <div class="new-icon"></div>
                 </a>
@@ -114,9 +120,8 @@
                       <i class="fa fa-star"></i>
                     </div>
                     <div class="shopcart">
-                      <a href="#" class="d-flex align-items-center justify-content-sm-end">
-                        <i class="fas fa-spinner fa-spin" v-if="status.loadingItem === item.id"></i>
-                        <div class="cart-icon" @click.prevent="addToCart(item.id)"></div>
+                      <a href="#" @click.prevent="addToCart(item)">
+                        <div class="cart-icon"></div>
                       </a>
                     </div>
                   </div>
@@ -168,9 +173,11 @@ export default {
       data_length: '',
       page_size: '',
       now_page: '',
-      status: {
-        loadingItem: ''
-      }
+      cartData: JSON.parse(localStorage.getItem('cartData')) || [], // localStorage的資料
+      cacheCarID: [], // 暫存ID放置處
+      cartContent: {}, // 新加入的產品
+      cache: {}, // 產品暫存處
+      qty: 0
     }
   },
   components: {
@@ -213,21 +220,46 @@ export default {
         vm.searchResult = []
       }
     },
-    addToCart (id, qty = 1) {
-      const vm = this
-      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
-      vm.status.loadingItem = id
-      const cart = {
-        product_id: id,
-        qty
-      }
-      this.$http.post(url, { data: cart }).then(response => {
-        // console.log(response.data);
-        if (response.data.success) {
-          vm.status.loadingItem = ''
-          vm.$bus.$emit('cart:get')
-        }
+    addToCart (data) {
+      // 先撈出cartData裡面的ID存起來
+      this.cartData.forEach(item => {
+        this.cacheCarID.push(item.product_id)
       })
+      // 使用indexOf找傳進來的參數ID是否有在陣列中，沒有則跑if；有跑else
+      if (this.cacheCarID.indexOf(data.id) === -1) {
+        this.cartContent = {
+          imageUrl: data.imageUrl,
+          product_id: data.id,
+          qty: 1,
+          name: data.title,
+          origin_price: data.origin_price,
+          price: data.price,
+          unit: data.unit
+        }
+        this.cartData.push(this.cartContent)
+        localStorage.setItem('cartData', JSON.stringify(this.cartData))
+        this.$bus.$emit('localStorage:get')
+        this.$bus.$emit('message:push', 'Add The Cart', 'success')
+      } else {
+        this.cartData.forEach((item, keys) => {
+          if (item.product_id === data.id) {
+            this.qty = item.qty
+            this.cache = {
+              imageUrl: data.imageUrl,
+              product_id: data.id,
+              qty: this.qty += 1,
+              name: data.title,
+              origin_price: data.origin_price,
+              price: data.price,
+              unit: data.unit
+            }
+            this.cartData.splice(keys, 1)
+          }
+        })
+        this.cartData.push(this.cache)
+        localStorage.setItem('cartData', JSON.stringify(this.cartData))
+        this.$bus.$emit('message:push', 'Add the cart', 'success')
+      }
     }
   },
   computed: {
@@ -238,9 +270,9 @@ export default {
       } else if (vm.isChoose === 'All') {
         return vm.products
       } else {
-        return vm.products.filter(item => {
-          return item.category === vm.isChoose
-        })
+        return vm.products.filter(item =>
+          item.category === vm.isChoose
+        )
       }
     },
     filterPage () {

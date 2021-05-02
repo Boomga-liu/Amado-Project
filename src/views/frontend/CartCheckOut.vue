@@ -1,7 +1,7 @@
 <template>
   <div class="px-3 py-150 cart-area">
     <loading :active.sync="isLoading"></loading>
-    <h2 class="mb-4 text-center text-md-left">Shopping Cart</h2>
+    <h2 class="mb-4 text-center text-md-left">Shopping List</h2>
     <div class="row" v-if="haveItem">
       <div class="col-12 col-lg-8">
         <table class="table table-responsive cart-custom">
@@ -15,40 +15,37 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in cart.carts" :key="item.id" class>
+            <tr v-for="item in cartData" :key="item.id" class>
               <td>
-                <img :src="item.product.imageUrl" class="img-fluid" alt="image" />
+                <img :src="item.imageUrl" class="img-fluid" alt="image" />
               </td>
-              <td>{{ item.product.title }}</td>
+              <td>{{ item.name }}</td>
               <td>
-                <div class="cart-quantity">
-                  <select
-                    class="form-control form-control-sm"
-                    v-model="item.qty"
-                    @change="changeQty(item)"
-                  >
-                    <option :value="qty" v-for="qty in 10" :key="qty">{{ qty }}</option>
-                  </select>
-                  <span class="px-1">/ {{ item.product.unit }}</span>
-                </div>
+                <div class="bg-color">{{ item.qty }} / {{ item.unit }}</div>
+                <!-- <div class="cart-quantity">
+                  <input
+                    class="qty-text"
+                    type="number"
+                    step="1"
+                    min="1"
+                    max="10"
+                    v-model.number="item.qty"
+                    @input="checkQty(item)"
+                  />
+                  <span class="px-1">/ {{ item.unit }}</span>
+                </div>-->
               </td>
-              <td class="justify-content-end">{{ item.total | currency }}</td>
+              <td class="justify-content-end">{{ item.price | currency }}</td>
               <td class="justify-content-end">
                 <button
                   type="button"
                   class="trash-btn btn btn-outline-danger btn-sm"
-                  @click.prevent="removeCartItem(item.id)"
+                  @click.prevent="removeCartItem(item)"
                 >
                   <i class="far fa-trash-alt"></i>
                 </button>
               </td>
             </tr>
-            <div class="discound-code input-group mt-4">
-              <input class="form-control" type="text" placeholder="Discound Code" />
-              <div class="input-group-append">
-                <button class="btn btn-primary">Use Discound Code</button>
-              </div>
-            </div>
           </tbody>
         </table>
       </div>
@@ -58,14 +55,14 @@
           <ul class="list-unstyled">
             <li>
               <span>Subtotal:</span>
-              <span>{{ cart.total | currency }}</span>
+              <span>{{ subtotal | currency }}</span>
             </li>
             <li>
               <span>Total:</span>
-              <span>{{ cart.final_total | currency }}</span>
+              <span>{{ total | currency }}</span>
             </li>
-            <li class="checkout-btn">
-              <a class="btn btn-primary btn-lg rounded-0 w-100">Checkout</a>
+            <li class="checkout-btn" @click="postCarts">
+              <a class="btn btn-primary btn-lg rounded-0 w-100">Confirm</a>
             </li>
           </ul>
         </div>
@@ -79,7 +76,7 @@
           <li>
             <i class="fas fa-4x fa-cart-arrow-down"></i>
           </li>
-          <li class="no-product-text">Your Shopping Cart is empty！</li>
+          <li class="no-product-text">Your Shopping List is empty！</li>
           <li>
             <router-link to="/shop/products" class="btn btn-primary text-white">Go Shopping</router-link>
           </li>
@@ -93,57 +90,61 @@
 export default {
   data () {
     return {
-      cart: {
-        carts: []
-      },
+      cartData: JSON.parse(localStorage.getItem('cartData')) || [],
       isLoading: false,
       cartsLength: '',
       subtotal: 0,
       total: 0,
       index: 0,
+      cacheId: [],
+      cacheData: [],
       cache: {}
     }
   },
   methods: {
-    getProducts () {
-      const vm = this
-      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
-      vm.isLoading = true
-      vm.$http.get(url).then(response => {
-        if (response.data.success) {
-          this.cart = response.data.data
-        }
-        vm.isLoading = false
-      })
+    removeCartItem (item) {
+      this.index = this.cartData.indexOf(item)
+      this.cartData.splice(this.index, 1)
+      localStorage.setItem('cartData', JSON.stringify(this.cartData))
+      this.getSubtotal()
+      this.getTotal()
+      this.$bus.$emit('localStorage:get')
+      this.$bus.$emit('message:push', 'Deleted', 'success')
     },
-    removeCartItem (id) {
-      const vm = this
-      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${id}`
-      vm.isLoading = true
-      vm.$http.delete(url).then(response => {
-        if (response.data.success) {
-          vm.getProducts()
-          this.$bus.$emit('cart:get')
-          vm.isLoading = false
-          vm.$bus.$emit('message:push', 'Deleted', 'success')
-        }
-      })
-    },
-    changeQty (item) {
-      // this.isLoading = true
-      this.cache = {
-        product_id: item.id,
-        qty: item.qty
-      }
-      this.$http.delete(`${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${item.id}`)
+    postCarts () {
+      this.isLoading = true
+      this.$http.get(`${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`)
         .then(response => {
-          console.log(response.data)
+          this.cacheData = response.data.data.carts
+          this.cacheData.forEach(item => {
+            this.cacheId.push(item.id)
+          })
         })
         .then(() => {
-          this.$http.post(`${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`, { data: this.cache })
-            .then(response => {
-              console.log(response.data)
-            })
+          this.cacheId.forEach(item => {
+            this.$http.delete(`${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${item}`)
+          })
+        })
+        .then(() => {
+          this.cartData.forEach(item => {
+            this.cache = {
+              product_id: item.product_id,
+              qty: item.qty
+            }
+            this.$http.post(`${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`, { data: this.cache })
+              .then(response => {
+                if (response.data.success) {
+                  this.cartData = []
+                  this.cacheId = []
+                  this.cacheData = []
+                  this.cache = {}
+                  localStorage.removeItem('cartData')
+                  this.$bus.$emit('localStorage:get')
+                  this.$router.push('/shop/cart').catch(() => { })
+                }
+                this.isLoading = false
+              })
+          })
         })
     },
     getSubtotal () {
@@ -177,7 +178,7 @@ export default {
   },
   computed: {
     haveItem () {
-      if (this.cart.carts.length === 0) {
+      if (this.cartData.length === 0) {
         return false
       } else {
         return true
@@ -186,10 +187,8 @@ export default {
   },
   created () {
     this.$bus.$emit('menu:active', 'CART')
-    this.$bus.$emit('cart:get')
-    this.getProducts()
-    // this.getSubtotal()
-    // this.getTotal()
+    this.getSubtotal()
+    this.getTotal()
   }
 }
 </script>

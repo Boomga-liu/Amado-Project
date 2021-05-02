@@ -22,11 +22,12 @@
               </td>
               <td class="justify-content-end">{{ item.price | currency }}</td>
               <td class="justify-content-end">
-                <button class="cart-btn btn btn-sm" @click.prevent="addToCart(item)">
+                <button type="button" class="cart-btn btn btn-sm" @click.prevent="addToCart(item)">
                   <i class="fas fa-spinner fa-spin" v-if="status.loadingItem === item.id"></i>
                   <div class="cart-icon"></div>
                 </button>
                 <button
+                  type="button"
                   class="trash-btn btn btn-outline-danger btn-sm"
                   @click.prevent="removeFromFav(item)"
                 >
@@ -89,7 +90,7 @@ export default {
         product_id: item.id,
         qty
       }
-      this.$http.post(url, { data: cart }).then(response => {
+      vm.$http.post(url, { data: cart }).then(response => {
         if (response.data.success) {
           vm.$bus.$emit('cart:get')
           vm.removeFromFav(item)

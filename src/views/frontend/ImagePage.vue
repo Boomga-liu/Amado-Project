@@ -17,12 +17,14 @@
               <div class="concept-text">
                 <div class="concept-title">
                   <h4>Concept</h4>
-                  <h3>Fashion X Comfortable X Texture</h3>
+                  <h3>Fashion x Comfortable x Texture</h3>
                 </div>
                 <div class="concept-content">
-                  <p>Furniture can be not only fashionable</p>
-                  <p>but also comfortable and high-quality at the same time</p>
-                  <p>Amado can give you most chooices</p>
+                  <p>
+                    Furniture can be not only fashionable
+                    <br />but also comfortable and quality at the same time
+                    <br />Amado can give you most chooices
+                  </p>
                 </div>
               </div>
             </div>
@@ -132,7 +134,7 @@
     <section class="container-fluid go-shopping-area">
       <div class="container">
         <div class="logo-bg">
-          <img src="../../assets/images/core-img/logo.png" class="img-fluid" alt />
+          <img src="@/assets/images/core-img/logo.png" class="img-fluid" alt />
         </div>
         <div class="go-shopping-text">
           <router-link to="/shop" class="btn btn-dark btn-lg">

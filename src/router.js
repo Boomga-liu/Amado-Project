@@ -7,7 +7,7 @@ export default new Router({
   routes: [
     {
       path: '*',
-      redirect: 'login'
+      redirect: '/shop'
     },
     {
       path: '/',
@@ -41,6 +41,12 @@ export default new Router({
           path: 'favorite',
           name: 'Favorite',
           component: () => import('@/views/frontend/Favorite.vue'),
+          meta: { keepAlive: false }
+        },
+        {
+          path: 'cartcheckout',
+          name: 'CartCheckOut',
+          component: () => import('@/views/frontend/CartCheckOut.vue'),
           meta: { keepAlive: false }
         },
         {

@@ -6,17 +6,15 @@
         <div class="card-deck">
           <div class="card">
             <img
-              src="../../assets/images/custom-img/bed-discount.jpg"
+              src="@/assets/images/custom-img/bed-discount.jpg"
               class="card-img-top"
               alt="chair-img"
             />
             <div class="card-body">
               <h5 class="card-title">Discount code</h5>
-              <p
-                class="card-text"
-              >Welcome to Amado! Use this discount code will get a 10 percent discount on bed products.</p>
+              <p class="card-text">Welcome to Amado! Use this discount code will get a 10% Off.</p>
               <p class="card-text">
-                <router-link to="/shop" class="text-decoration-none">
+                <router-link to="/shop/products" class="text-decoration-none">
                   Go Shopping
                   <i class="fas fa-angle-double-right"></i>
                 </router-link>
@@ -31,23 +29,31 @@
                   disabled
                   v-model="bed_code"
                 />
+                <div class="input-group-append">
+                  <span class="input-group-text px-0 py-0">
+                    <button
+                      type="button"
+                      class="btn btn-sm"
+                      v-clipboard="bed_code"
+                      v-clipboard:success="clipboardSuccessHandler"
+                    >Copy</button>
+                  </span>
+                </div>
                 <div class="discount-icon ml-2"></div>
               </div>
             </div>
           </div>
           <div class="card">
             <img
-              src="../../assets/images/custom-img/chair-discount.jpg"
+              src="@/assets/images/custom-img/chair-discount.jpg"
               class="card-img-top"
               alt="bed-img"
             />
             <div class="card-body">
               <h5 class="card-title">Discount code</h5>
-              <p
-                class="card-text"
-              >Welcome to Amado! Use this discount code will get a 10 percent discount on chair products.</p>
+              <p class="card-text">Welcome to Amado! Use this discount code will get a 20% Off.</p>
               <p class="card-text">
-                <router-link to="/shop" class="text-decoration-none">
+                <router-link to="/shop/products" class="text-decoration-none">
                   Go Shopping
                   <i class="fas fa-angle-double-right"></i>
                 </router-link>
@@ -62,23 +68,31 @@
                   disabled
                   v-model="chair_code"
                 />
+                <div class="input-group-append">
+                  <span class="input-group-text px-0 py-0">
+                    <button
+                      type="button"
+                      class="btn btn-sm"
+                      v-clipboard="chair_code"
+                      v-clipboard:success="clipboardSuccessHandler"
+                    >Copy</button>
+                  </span>
+                </div>
                 <div class="discount-icon ml-2"></div>
               </div>
             </div>
           </div>
           <div class="card">
             <img
-              src="../../assets/images/custom-img/table-discount.jpg"
+              src="@/assets/images/custom-img/table-discount.jpg"
               class="card-img-top"
               alt="table-img"
             />
             <div class="card-body">
               <h5 class="card-title">Discount code</h5>
-              <p
-                class="card-text"
-              >Welcome to Amado! Use this discount code will get a 10 percent discount on table products.</p>
+              <p class="card-text">Welcome to Amado! Use this discount code will get a 30% Off.</p>
               <p class="card-text">
-                <router-link to="/shop" class="text-decoration-none">
+                <router-link to="/shop/products" class="text-decoration-none">
                   Go Shopping
                   <i class="fas fa-angle-double-right"></i>
                 </router-link>
@@ -93,6 +107,16 @@
                   disabled
                   v-model="table_code"
                 />
+                <div class="input-group-append">
+                  <span class="input-group-text px-0 py-0">
+                    <button
+                      type="button"
+                      class="btn btn-sm"
+                      v-clipboard="table_code"
+                      v-clipboard:success="clipboardSuccessHandler"
+                    >Copy</button>
+                  </span>
+                </div>
                 <div class="discount-icon ml-2"></div>
               </div>
             </div>
@@ -110,6 +134,11 @@ export default {
       bed_code: 'AMADOSBED520',
       chair_code: 'AMADOSCHAIR520',
       table_code: 'AMADOSTABLE520'
+    }
+  },
+  methods: {
+    clipboardSuccessHandler ({ value, event }) {
+      this.$bus.$emit('message:push', 'Copied', 'success')
     }
   },
   created () {

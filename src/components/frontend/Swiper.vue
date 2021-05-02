@@ -12,8 +12,8 @@
         <div class="swiper-content-logo mb-2"></div>
       </router-link>
       <div class="swiper-content-text">
-        <p>FEEL PROUD OF YOUR HOME</p>
-        <p>Our Design Guides can help</p>
+        <h3>FEEL PROUD OF YOUR HOME</h3>
+        <h3>Our Design Guides can help</h3>
       </div>
     </div>
     <div class="mouse">

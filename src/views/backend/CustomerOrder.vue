@@ -116,7 +116,11 @@
                 <div class="text-success" v-if="item.coupon">已套用優惠券</div>
               </td>
               <td class="align-middle">{{ item.qty }}/{{ item.product.unit }}</td>
-              <td class="align-middle text-right">{{ item.final_total | currency }}</td>
+              <td
+                class="align-middle text-right"
+                v-if="item.final_total !== item.product.price"
+              >{{ item.final_total | currency }}</td>
+              <td class="align-middle text-right" v-else>{{ item.product.price | currency }}</td>
             </tr>
           </tbody>
           <tfoot>
@@ -276,7 +280,7 @@ export default {
       const vm = this
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/products`
       vm.isLoading = true
-      this.$http.get(url).then((response) => {
+      vm.$http.get(url).then((response) => {
         // console.log(response.data);
         vm.products = response.data.products
         vm.isLoading = false
@@ -286,7 +290,7 @@ export default {
       const vm = this
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/product/${id}`
       vm.status.loadingItem = id
-      this.$http.get(url).then((response) => {
+      vm.$http.get(url).then((response) => {
         // console.log(response.data.product);
         vm.product = response.data.product
         vm.product.num = 1
@@ -302,7 +306,7 @@ export default {
         product_id: id,
         qty
       }
-      this.$http.post(url, { data: cart }).then((response) => {
+      vm.$http.post(url, { data: cart }).then((response) => {
         console.log(response.data)
         vm.status.loadingItem = ''
         vm.getCart()
@@ -313,7 +317,7 @@ export default {
       const vm = this
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
       vm.isLoading = true
-      this.$http.get(url).then((response) => {
+      vm.$http.get(url).then((response) => {
         // console.log(response.data.data);
         vm.cart = response.data.data
         vm.isLoading = false
@@ -323,7 +327,7 @@ export default {
       const vm = this
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${id}`
       vm.isLoading = true
-      this.$http.delete(url).then((response) => {
+      vm.$http.delete(url).then((response) => {
         // console.log(response.data);
         vm.isLoading = false
         vm.getCart()
@@ -336,11 +340,12 @@ export default {
         code: vm.coupon_code
       }
       vm.isLoading = true
-      this.$http.post(url, { data: coupon }).then((response) => {
+      vm.$http.post(url, { data: coupon }).then((response) => {
         // console.log(response);
         if (!response.data.success) {
           alert(response.data.message)
         }
+        vm.coupon_code = ''
         vm.isLoading = false
         vm.getCart()
       })
@@ -350,7 +355,7 @@ export default {
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order`
       const order = vm.form
       vm.isLoading = true
-      this.$http.post(url, { data: order }).then((response) => {
+      vm.$http.post(url, { data: order }).then((response) => {
         if (response.data.success) {
           // console.log("訂單已建立", response.data);
           vm.$router.push(`/customer_checkout/${response.data.orderId}`)

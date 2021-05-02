@@ -113,12 +113,16 @@
                   />
                   <label class="form-check-label" for="CreditCard">
                     Paypal
-                    <img class="ml-2" src="../../assets/images/core-img/paypal.png" alt />
+                    <img class="ml-2" src="@/assets/images/core-img/paypal.png" />
                   </label>
                 </div>
               </div>
               <div class="checkout-btn">
-                <button class="btn btn-primary rounded-0 btn-lg w-100" :disabled="invalid">Submit</button>
+                <button
+                  type="submit"
+                  class="btn btn-primary rounded-0 btn-lg w-100"
+                  :disabled="invalid"
+                >Submit</button>
               </div>
             </div>
           </div>
@@ -181,7 +185,7 @@ export default {
       const vm = this
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
       vm.isLoading = true
-      this.$http.get(url).then((response) => {
+      vm.$http.get(url).then((response) => {
         // console.log(response.data);
         if (response.data.success) {
           vm.cart = response.data.data
@@ -194,7 +198,7 @@ export default {
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order`
       const order = vm.form
       vm.isLoading = true
-      this.$http.post(url, { data: order }).then((response) => {
+      vm.$http.post(url, { data: order }).then((response) => {
         // console.log(response.data);
         if (response.data.success) {
           vm.$router.push(`orders/${response.data.orderId}`)

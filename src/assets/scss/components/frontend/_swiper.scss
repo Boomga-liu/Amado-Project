@@ -48,12 +48,15 @@
       }
       & :first-child {
         font-size: 32px;
+        margin-bottom: 0;
+        margin: 10px 0 10px 0;
         @media (max-width: 1439px) {
           font-size: 28px;
         }
       }
       & :last-child {
         font-size: 20px;
+        margin-bottom: 0;
       }
     }
   }

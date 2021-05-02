@@ -125,19 +125,22 @@
     a {
       min-width: 160px;
       height: 55px;
-      color: #fff;
+      color: #343434;
       background-color: $primary;
       padding: 0 5px;
       line-height: 55px;
       border-radius: 0;
       font-size: 18px;
-      transition: 0.5s;
+      transition: 0.3s;
+      box-shadow: none;
 
       &:hover {
         background-color: #000;
+        color: #fff;
       }
       &.active {
         background-color: #000;
+        color: #fff;
       }
     }
   }

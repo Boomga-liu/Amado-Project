@@ -2,7 +2,7 @@
   <div>
     <loading :active.sync="isLoading"></loading>
     <div class="text-right mt-4">
-      <button @click="openModal(true)" class="text-white btn btn-primary btn-m">建立新的產品</button>
+      <button type="button" @click="openModal(true)" class="text-white btn btn-primary btn-m">建立新的產品</button>
     </div>
     <table class="table table-responsive-sm mt-4">
       <thead>
@@ -27,10 +27,15 @@
           </td>
           <td>
             <button
+              type="button"
               class="btn btn-outline-primary btn-sm mr-sm-2"
               @click="openModal(false, false, item)"
             >編輯</button>
-            <button class="btn btn-outline-danger btn-sm" @click="openModal(false, true, item)">刪除</button>
+            <button
+              type="button"
+              class="btn btn-outline-danger btn-sm"
+              @click="openModal(false, true, item)"
+            >刪除</button>
           </td>
         </tr>
       </tbody>
@@ -263,14 +268,14 @@ export default {
         })
       })
     },
-    openModal (isNew, delProduct, item) {
+    openModal (isNew, delProduct, ...item) {
       if (isNew) {
         this.tempProduct = {}
         this.isNew = true
         this.delProdutc = false
         $('#productModal').modal('show')
       } else if (!isNew && !delProduct) {
-        this.tempProduct = Object.assign({}, item) // 避免物件傳參考的特性
+        this.tempProduct = Object.assign({}, ...item) // 避免物件傳參考的特性
         this.isNew = false
         this.delProdutc = false
         $('#productModal').modal('show')
@@ -306,7 +311,7 @@ export default {
     delProduct () {
       const vm = this
       const api = `${process.env.VUE_APP_VUE_APP_APIPATH}/api/${process.env.VUE_APP_VUE_APP_CUSTOMPATH}/admin/product/${vm.tempProduct.id}`
-      this.$http.delete(api).then((response) => {
+      vm.$http.delete(api).then((response) => {
         // console.log(response.data);
         if (response.data.success) {
           $('#delProductModal').modal('hide')
@@ -325,7 +330,7 @@ export default {
       const formData = new FormData() // 使用FormData模擬傳統的表單
       formData.append('file-to-upload', uploadFile) // 加入值到FormData
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/upload`
-      this.$http
+      vm.$http
         .post(url, formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
@@ -339,7 +344,7 @@ export default {
             vm.$set(vm.tempProduct, 'imageUrl', response.data.imageUrl)
           } else {
             // console.log(response.data);
-            this.$bus.$emit('message:push', response.data.message, 'danger')
+            vm.$bus.$emit('message:push', response.data.message, 'danger')
           }
         })
     }

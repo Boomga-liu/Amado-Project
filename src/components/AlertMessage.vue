@@ -33,7 +33,7 @@ export default {
       this.removeMessageWithTiming(timestamp)
     },
     removeMessage (num) {
-      console.log(num)
+      // console.log(num)
       this.messages.splice(num, 1)
     },
     removeMessageWithTiming (timestamp) {
@@ -44,7 +44,7 @@ export default {
             vm.messages.splice(i, 1)
           }
         })
-      }, 5000)
+      }, 1500)
     }
   },
   created () {

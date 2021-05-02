@@ -31,7 +31,7 @@
                     <router-link class="nav-link" to="/shop/products">SHOP</router-link>
                   </li>
                   <li class="nav-item">
-                    <router-link class="nav-link" to="/shop/cart">CART</router-link>
+                    <router-link class="nav-link" to="/shop/cartcheckout">CART</router-link>
                   </li>
                   <li class="nav-item">
                     <router-link class="nav-link" to="/shop/login">LOG IN</router-link>

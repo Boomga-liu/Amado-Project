@@ -1,5 +1,6 @@
 <template>
   <div class="h-50 d-flex align-items-center login-custom">
+    <loading :active.sync="isLoading"></loading>
     <form class="form-signin" @submit.prevent="login">
       <h1 class="h3 mb-3 font-weight-normal text-center">Log In</h1>
       <label for="inputEmail" class="sr-only">Email address</label>
@@ -36,6 +37,7 @@ export default {
   name: 'LogIn',
   data () {
     return {
+      isLoading: false,
       user: {
         username: '',
         password: ''
@@ -44,19 +46,23 @@ export default {
   },
   methods: {
     login () {
+      const vm = this
       const api = `${process.env.VUE_APP_APIPATH}/admin/signin`
       // API 伺服器路徑 / admin / signin
-      const vm = this
+      vm.isLoading = true
       //   console.log(process.env.APIPATH, process.env.CUSTOMPATH);
-      this.$http.post(api, vm.user).then((response) => {
-        // console.log(response.data);
+      vm.$http.post(api, vm.user).then((response) => {
         if (response.data.success) {
+          vm.isLoading = false
           const token = response.data.token
           const expired = response.data.expired
           // console.log(token, expired);
           // 寫入Cookie
           document.cookie = `myToken=${token}; expires=${new Date(expired)}`
           vm.$router.push('/admin/products')
+        } else {
+          vm.isLoading = false
+          vm.$bus.$emit('message:push', 'Login Failed', 'danger')
         }
       })
     }

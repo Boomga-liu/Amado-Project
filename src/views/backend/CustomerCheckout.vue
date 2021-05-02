@@ -1,4 +1,4 @@
-VUE_APP_<template>
+<template>
   <div>
     <loading :active.sync="isLoading"></loading>
     <div class="my-5 row justify-content-center">
@@ -51,8 +51,8 @@ VUE_APP_<template>
             </tr>
           </tbody>
         </table>
-        <div class="text-right" v-if="order.is_paid === false">
-          <button class="btn btn-danger">確認付款去</button>
+        <div class="text-right" v-if="!order.is_paid">
+          <button type="submit" class="btn btn-danger">確認付款去</button>
         </div>
       </form>
     </div>
@@ -75,7 +75,7 @@ export default {
       const vm = this
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order/${vm.orderId}`
       vm.isLoading = true
-      this.$http.get(url).then((response) => {
+      vm.$http.get(url).then((response) => {
         // console.log(response.data);
         vm.order = response.data.order
         vm.isLoading = false
@@ -85,7 +85,7 @@ export default {
       const vm = this
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/pay/${vm.orderId}`
       vm.isLoading = true
-      this.$http.post(url).then((response) => {
+      vm.$http.post(url).then((response) => {
         // console.log(response.data);
         if (response.data.success) {
           vm.getOrder()

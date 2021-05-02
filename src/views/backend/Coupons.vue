@@ -2,7 +2,7 @@
   <div>
     <loading :active.sync="isLoading"></loading>
     <div class="text-right mt-4">
-      <button @click="openModal(true)" class="btn btn-primary btn-sm">建立新的優惠券</button>
+      <button type="button" @click="openModal(true)" class="btn btn-primary btn-sm">建立新的優惠券</button>
     </div>
     <table class="table table-responsive-sm mt-4">
       <thead>
@@ -26,9 +26,14 @@
           <td>
             <button
               class="btn btn-outline-primary mr-sm-2 btn-sm"
-              @click="openModal(false, false, item)"
+              type="button"
+              @click="openModal(false, false, ...item)"
             >編輯</button>
-            <button class="btn btn-outline-danger btn-sm" @click="openModal(false, true, item)">刪除</button>
+            <button
+              class="btn btn-outline-danger btn-sm"
+              type="button"
+              @click="openModal(false, true, item)"
+            >刪除</button>
           </td>
         </tr>
       </tbody>
@@ -159,14 +164,14 @@ export default {
     }
   },
   methods: {
-    openModal (isNew, delCoupon, item) {
+    openModal (isNew, delCoupon, ...item) {
       if (isNew) {
         this.tempCoupon = {}
         this.isNew = true
         this.delCoupon = false
         $('#couponsModal').modal('show')
       } else if (!isNew && !delCoupon) {
-        this.tempCoupon = Object.assign({}, item) // 避免物件傳參考的特性
+        this.tempCoupon = Object.assign({}, ...item) // 避免物件傳參考的特性
         this.isNew = false
         this.delCoupon = false
         $('#couponsModal').modal('show')
@@ -181,8 +186,8 @@ export default {
       const vm = this
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupons?page=${page}`
       vm.isLoading = true
-      this.$http.get(url).then((response) => {
-        console.log(response.data)
+      vm.$http.get(url).then((response) => {
+        // console.log(response.data)
         vm.isLoading = false
         vm.pagination = response.data.pagination
         vm.coupons = response.data.coupons
@@ -197,9 +202,9 @@ export default {
       })
     },
     updateCoupon () {
+      const vm = this
       let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon`
       let httpMethod = 'post'
-      const vm = this
       vm.isLoading = true
       // date 轉換成 TimesTemp
       vm.tempCoupon.due_date = Math.floor(
@@ -209,7 +214,7 @@ export default {
         api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon/${vm.tempCoupon.id}`
         httpMethod = 'put'
       }
-      this.$http[httpMethod](api, { data: vm.tempCoupon }).then((response) => {
+      vm.$http[httpMethod](api, { data: vm.tempCoupon }).then((response) => {
         // console.log(response.data);
         vm.isLoading = false
         if (response.data.success) {
@@ -225,7 +230,7 @@ export default {
     removeCoupon () {
       const vm = this
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon/${vm.tempCoupon.id}`
-      this.$http.delete(url).then((response) => {
+      vm.$http.delete(url).then((response) => {
         // console.log(response.data);
         if (response.data.success) {
           $('#delCouponModal').modal('hide')

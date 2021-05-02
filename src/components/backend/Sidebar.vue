@@ -91,7 +91,7 @@ export default {
       const vm = this
       const url = `${process.env.VUE_APP_APIPATH}/logout`
       vm.chooseActive('Sign out')
-      this.$http.post(url).then(response => {
+      vm.$http.post(url).then(response => {
         console.log(response.data)
         if (response.data.success) {
           vm.$router.push('/login')

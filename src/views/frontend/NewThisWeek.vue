@@ -8,7 +8,7 @@
           <a href="#">
             <img :src="item.imageUrl" class="card-img-top img-fluid" alt="images" />
             <div class="btn-bg" @click="getProductId(item.id)">
-              <button class="btn btn-outline-primary btn-lg btn-custom">More</button>
+              <button type="button" class="btn btn-outline-primary btn-lg btn-custom">More</button>
             </div>
             <div class="new-icon"></div>
           </a>
@@ -29,9 +29,13 @@
                 <i class="fa fa-star"></i>
               </div>
               <div class="shopcart">
-                <a href="#" class="d-flex align-items-center justify-content-sm-end">
+                <a
+                  href="#"
+                  class="d-flex align-items-center justify-content-sm-end"
+                  @click.prevent="addToCart(item)"
+                >
                   <i class="fas fa-spinner fa-spin" v-if="status.loadingItem === item.id"></i>
-                  <div class="cart-icon" @click.prevent="addToCart(item.id)"></div>
+                  <div class="cart-icon"></div>
                 </a>
               </div>
             </div>
@@ -49,7 +53,12 @@ export default {
       isLoading: false,
       status: {
         loadingItem: ''
-      }
+      },
+      cartData: JSON.parse(localStorage.getItem('cartData')) || [],
+      cachCarID: [],
+      cartContent: {},
+      cache: {},
+      qty: 0
     }
   },
   methods: {
@@ -68,19 +77,43 @@ export default {
         }
       })
     },
-    addToCart (id, qty = 1) {
-      const vm = this
-      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
-      const cart = {
-        product_id: id,
-        qty
-      }
-      vm.status.loadingItem = id
-      this.$http.post(url, { data: cart }).then(response => {
-        // console.log(response.data)
-        vm.$bus.$emit('cart:get')
-        vm.status.loadingItem = ''
+    addToCart (data, qty = 1) {
+      this.cartData.forEach(item => {
+        this.cachCarID.push(item.product_id)
       })
+      if (this.cachCarID.indexOf(data.id) === -1) {
+        this.cartContent = {
+          imageUrl: data.imageUrl,
+          product_id: data.id,
+          qty: 1,
+          name: data.title,
+          origin_price: data.origin_price,
+          price: data.price,
+          unit: data.unit
+        }
+        this.cartData.push(this.cartContent)
+        localStorage.setItem('cartData', JSON.stringify(this.cartData))
+        this.$bus.$emit('cart:get')
+        this.$bus.$emit('message:push', 'Add The Cart', 'success')
+      } else {
+        this.cartData.forEach((item, keys) => {
+          if (item.product_id === data.id) {
+            this.qty = item.qty
+            this.cache = {
+              imageUrl: data.imageUrl,
+              product_id: data.id,
+              qty: this.qty += 1,
+              name: data.title,
+              origin_price: data.origin_price,
+              price: data.price,
+              unit: data.unit
+            }
+            this.cartData.splice(keys, 1)
+          }
+        })
+        this.cartData.push(this.cache)
+        localStorage.setItem('cartData', JSON.stringify(this.cartData))
+      }
     },
     getProductId (id) {
       this.$router.push(`product_detail/${id}`)

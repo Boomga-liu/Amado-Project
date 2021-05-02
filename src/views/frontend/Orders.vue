@@ -61,7 +61,7 @@
               </tr>
             </tbody>
             <div class="mt-5" v-if="!order.is_paid">
-              <button class="btn btn-danger">Pay</button>
+              <button type="submit" class="btn btn-danger">Pay</button>
             </div>
             <div class="mt-5" v-else>
               <router-link class="btn btn-primary text-white" to="/">Home</router-link>

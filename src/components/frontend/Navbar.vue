@@ -6,7 +6,7 @@
           <div class="mobile-logo bg-cover"></div>
         </router-link>
       </div>
-      <button class="btn btn-primary toggle-btn" @click.prevent="toggleActive">
+      <button class="btn btn-primary toggle-btn" type="button" @click.prevent="toggleActive">
         <i class="fas fa-bars"></i>
       </button>
     </div>
@@ -29,7 +29,7 @@
               <router-link to="/shop/products">PRODUCTS</router-link>
             </li>
             <li @click.prevent="chooseActive('CART')" :class="{ active: isActive === 'CART' }">
-              <router-link to="/shop/cart">CART</router-link>
+              <router-link to="/shop/cartcheckout">CART</router-link>
             </li>
             <li @click.prevent="chooseActive('LOGIN')" :class="{ active: isActive === 'LOGIN' }">
               <router-link to="/shop/login">LOG IN</router-link>
@@ -73,10 +73,10 @@
               :class="{ active : isActive === 'CART' }"
               @click.prevent="chooseActive('CART')"
             >
-              <router-link to="/shop/cart">
+              <router-link to="/shop/cartcheckout">
                 <div class="cart-img d-inline-block align-middle mr-2"></div>CART
               </router-link>
-              <div class="cart-number" v-if="cartsLength">{{ cartsLength }}</div>
+              <div class="cart-number" v-if="getCartLength">{{ getCartLength }}</div>
             </li>
             <li
               class="cart-number-position"
@@ -157,8 +157,7 @@ export default {
     return {
       isActive: '',
       headerActive: false,
-      carts: [],
-      cartsLength: '',
+      cartData: [],
       productId: '',
       products: []
     }
@@ -171,26 +170,35 @@ export default {
       this.isActive = choose
       this.headerActive = false
     },
+    getLocalStorage () {
+      this.cartData = JSON.parse(localStorage.getItem('cartData')) || []
+    },
     getCart () {
       const vm = this
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
-      this.$http.get(url).then((response) => {
-        // console.log(response.data);
+      vm.$http.get(url).then(response => {
         if (response.data.success) {
-          vm.carts = response.data.data
-          vm.cartsLength = vm.carts.carts.length
+          vm.cartData = response.data.data.carts
         }
+        // console.log(response.data)
       })
     }
   },
   computed: {
     favLength () {
       return this.$store.state.Fav.length
+    },
+    getCartLength () {
+      if (this.cartData.length > 0) {
+        return this.cartData.length
+      } else {
+        return 0
+      }
     }
   },
   created () {
-    this.getCart()
     // created時 Vue 底下註冊監聽"cart:get"事件
+    this.$bus.$on('localStorage:get', () => this.getLocalStorage())
     this.$bus.$on('cart:get', () => this.getCart())
     this.$bus.$on('menu:active', (choose) => this.chooseActive(choose))
   }
