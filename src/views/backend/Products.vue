@@ -252,10 +252,8 @@ export default {
       // "https://vue-course-api.hexschool.io/api/boomgaliu/products";
       // API 伺服器路徑 / api / 申請的APIPath / admin / products
       const vm = this
-      //   console.log(process.env.APIPATH, process.env.CUSTOMPATH);
       vm.isLoading = true
       this.$http.get(api).then((response) => {
-        // console.log(response.data);
         vm.isLoading = false
         vm.products = response.data.products
         vm.pagination = response.data.pagination
@@ -294,9 +292,7 @@ export default {
         api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product/${vm.tempProduct.id}`
         httpMethod = 'put'
       }
-      // console.log(process.env.APIPATH, process.env.CUSTOMPATH);
       this.$http[httpMethod](api, { data: vm.tempProduct }).then((response) => {
-        // console.log(response.data);
         vm.isLoading = false
         if (response.data.success) {
           $('#productModal').modal('hide')
@@ -312,7 +308,6 @@ export default {
       const vm = this
       const api = `${process.env.VUE_APP_VUE_APP_APIPATH}/api/${process.env.VUE_APP_VUE_APP_CUSTOMPATH}/admin/product/${vm.tempProduct.id}`
       vm.$http.delete(api).then((response) => {
-        // console.log(response.data);
         if (response.data.success) {
           $('#delProductModal').modal('hide')
           vm.getProducts()
@@ -323,7 +318,6 @@ export default {
       })
     },
     uploadFile () {
-      // console.log(this)
       const uploadFile = this.$refs.files.files[0] // 取出檔案
       const vm = this
       vm.status.fileUpoading = true
@@ -339,11 +333,9 @@ export default {
         .then((response) => {
           vm.status.fileUpoading = false
           if (response.data.success) {
-            // console.log(vm.tempProduct);
             // $set(目標, 檔案名稱, 值)
             vm.$set(vm.tempProduct, 'imageUrl', response.data.imageUrl)
           } else {
-            // console.log(response.data);
             vm.$bus.$emit('message:push', response.data.message, 'danger')
           }
         })

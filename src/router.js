@@ -68,9 +68,9 @@ export default new Router({
           meta: { keepAlive: false }
         },
         {
-          path: 'discount',
-          name: 'Discount',
-          component: () => import('@/views/frontend/Discount.vue'),
+          path: 'coupon',
+          name: 'Coupon',
+          component: () => import('@/views/frontend/Coupon.vue'),
           meta: { keepAlive: false }
         },
         {

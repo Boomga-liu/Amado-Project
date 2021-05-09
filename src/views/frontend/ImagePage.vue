@@ -1,8 +1,30 @@
 <template>
-  <div class="imagepage-area">
+  <div class="imagepage-area position-relative">
+    <nav class="imagepage-area-nav d-none d-md-block" data-aos="fade-down" data-aos-duration="2000">
+      <div class="nav-text-button d-flex justify-content-center align-items-center">
+        <p>
+          Welcome to Amado! Let's Go Shopping
+          <i class="fas fa-angle-double-right"></i>
+        </p>
+        <router-link to="/shop" class="btn btn-primary">Online Shop</router-link>
+      </div>
+    </nav>
+    <div class="imagepage-cart-icon d-block d-md-none">
+      <router-link to="/shop">
+        <i class="fas fa-2x fa-shopping-cart"></i>
+        <p>
+          Online
+          <br />Shop
+        </p>
+      </router-link>
+    </div>
     <Swiper></Swiper>
     <div class="imagepage-content d-flex d-sm-none">
-      <div class="imagepage-content-logo mb-3"></div>
+      <h1 class="logo">
+        <router-link to="/shop">
+          <img src="@/assets/images/core-img/logo2.png" width="137" height="55" alt="Amado" />
+        </router-link>
+      </h1>
       <div class="imagepage-content-text">
         <p>FEEL PROUD OF YOUR HOME</p>
         <p>Our Design Guides can help</p>
@@ -17,12 +39,12 @@
               <div class="concept-text">
                 <div class="concept-title">
                   <h4>Concept</h4>
-                  <h3>Fashion x Comfortable x Texture</h3>
+                  <h3>Fashion x Comfort x Texture</h3>
                 </div>
                 <div class="concept-content">
                   <p>
                     Furniture can be not only fashionable
-                    <br />but also comfortable and quality at the same time
+                    <br />but also comfort and quality at the same time
                     <br />Amado can give you most chooices
                   </p>
                 </div>
@@ -58,9 +80,11 @@
                 <h3>Chair</h3>
               </div>
               <div class="parallex-scrolling-content">
-                <p>The contemporary sofa</p>
-                <p>You're sure to love the details</p>
-                <p>of its linear design</p>
+                <p>
+                  The contemporary sof
+                  <br />You're sure to love the details
+                  <br />of its linear design
+                </p>
               </div>
             </div>
           </div>
@@ -90,8 +114,10 @@
                 <h3>Table</h3>
               </div>
               <div class="parallex-scrolling-content">
-                <p>A table suitable for lunch</p>
-                <p>and wine with guests</p>
+                <p>
+                  A table suitable for lunch
+                  <br />and wine with guests
+                </p>
               </div>
             </div>
           </div>
@@ -121,10 +147,12 @@
                 <h3>Bed</h3>
               </div>
               <div class="parallex-scrolling-content">
-                <p>Refined designer style creates</p>
-                <p>a look that you'll relish coming</p>
-                <p>home to every night after a long</p>
-                <p>day at the office.</p>
+                <p>
+                  Refined designer style creates
+                  <br />a look that you'll relish coming
+                  <br />home to every night after a long
+                  <br />day at the office.
+                </p>
               </div>
             </div>
           </div>

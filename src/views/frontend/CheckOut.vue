@@ -131,28 +131,20 @@
     </validation-observer>
 
     <!-- Modal -->
-    <div
-      class="modal fade"
-      id="emptyModal"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-      data-backdrop="static"
-    >
+    <div class="modal fade" id="emptyModal" tabindex="-1" aria-hidden="true" data-backdrop="static">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
+            <h5 class="modal-title">Message</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body text-center">{{ message }}</div>
+          <div class="modal-body text-center checkout-custom">
+            <p>{{ message }}</p>
+          </div>
           <div class="modal-footer">
-            <router-link
-              class="btn btn-primary text-white"
-              data-dismiss="modal"
-              to="/shop"
-            >Go Shopping</router-link>
+            <router-link class="btn btn-primary" data-dismiss="modal" to="/shop">Go Shopping</router-link>
           </div>
         </div>
       </div>
@@ -177,7 +169,7 @@ export default {
           message: ''
         }
       },
-      message: ''
+      message: 'test test'
     }
   },
   methods: {
@@ -186,7 +178,6 @@ export default {
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
       vm.isLoading = true
       vm.$http.get(url).then((response) => {
-        // console.log(response.data);
         if (response.data.success) {
           vm.cart = response.data.data
           vm.isLoading = false
@@ -199,7 +190,6 @@ export default {
       const order = vm.form
       vm.isLoading = true
       vm.$http.post(url, { data: order }).then((response) => {
-        // console.log(response.data);
         if (response.data.success) {
           vm.$router.push(`orders/${response.data.orderId}`)
         } else {

@@ -1,7 +1,7 @@
 <template>
   <div class="px-3 py-150">
     <loading :active.sync="isLoading"></loading>
-    <form @submit="payOrder">
+    <form @submit.prevent="payOrder">
       <div class="row">
         <div class="col-12">
           <table class="table table-responsive cart-custom orders-custom">
@@ -19,7 +19,7 @@
                   <img :src="item.product.imageUrl" class="img-fluid" alt="image" />
                 </td>
                 <td>{{ item.product.title }}</td>
-                <td>
+                <td class="justify-content-end">
                   <div class="bg-color">{{ item.qty }} / {{ item.product.unit }}</div>
                 </td>
                 <td class="justify-content-end">{{ item.final_total | currency }}</td>
@@ -64,12 +64,40 @@
               <button type="submit" class="btn btn-danger">Pay</button>
             </div>
             <div class="mt-5" v-else>
-              <router-link class="btn btn-primary text-white" to="/">Home</router-link>
+              <router-link class="btn btn-primary" to="/shop">Home</router-link>
             </div>
           </table>
         </div>
       </div>
     </form>
+    <!-- Modal -->
+    <div class="modal fade" id="completeModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Paid</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body text-center order-custom">
+            <p>
+              <i class="fas fa-3x fa-truck"></i>
+            </p>
+            <p>Thank you for our products!</p>
+            <p>The goods will arrive in 3~5 days, please wait patiently.</p>
+          </div>
+          <div class="modal-footer">
+            <router-link class="btn btn-outline-dark" data-dismiss="modal" to="/shop">Home</router-link>
+            <router-link
+              class="btn btn-primary"
+              data-dismiss="modal"
+              to="/shop/products"
+            >Go Shopping</router-link>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -91,7 +119,6 @@ export default {
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order/${vm.orderId}`
       vm.isLoading = true
       this.$http.get(url).then((response) => {
-        // console.log(response.data);
         if (response.data.success) {
           vm.order = response.data.order
           vm.isLoading = false
@@ -104,10 +131,10 @@ export default {
       vm.isLoading = true
       this.$http.post(url).then((response) => {
         if (response.data.success) {
-          vm.$bus.$emit('cart:get')
           vm.getOrder()
+          vm.isLoading = false
+          $('#completeModal').modal('show')
         }
-        vm.isLoading = false
       })
     },
     toggleActive () {

@@ -17,7 +17,6 @@ export default {
   watch: {
     height: function (value) {
       const vm = this
-      //   console.log(value);
       if (value > 300) {
         vm.isShow = true
       } else {

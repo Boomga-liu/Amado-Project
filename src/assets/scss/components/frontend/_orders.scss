@@ -46,3 +46,42 @@
     border-top: 2px solid #dee2e6;
   }
 }
+
+.order-custom {
+  p {
+    margin-bottom: 5px;
+  }
+  p:first-child {
+    i {
+      color: $primary;
+      position: relative;
+      top: 0;
+      right: 0;
+      animation-name: left-to-right;
+      animation-duration: 2s;
+      animation-delay: 0s;
+      animation-timing-function: linear;
+      animation-play-state: running;
+      animation-iteration-count: 1;
+    }
+  }
+  p:nth-child(2) {
+    font-size: 24px;
+    font-weight: 700;
+  }
+}
+
+@keyframes left-to-right {
+  0% {
+    right: 15rem;
+    opacity: 0;
+  }
+  30% {
+    right: 10rem;
+    opacity: 0.5;
+  }
+  100% {
+    right: 0;
+    opacity: 1;
+  }
+}

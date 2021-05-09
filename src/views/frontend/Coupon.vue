@@ -1,18 +1,18 @@
 <template>
-  <div class="discount-area px-3 py-150">
-    <h2 class="mb-4 text-center text-md-left">Discount</h2>
+  <div class="coupon-area px-3 py-150">
+    <h2 class="mb-4 text-center text-md-left">Coupon</h2>
     <div class="row">
       <div class="col-md-12">
         <div class="card-deck">
           <div class="card">
             <img
-              src="@/assets/images/custom-img/bed-discount.jpg"
+              src="@/assets/images/custom-img/bed-coupon.jpg"
               class="card-img-top"
               alt="chair-img"
             />
             <div class="card-body">
-              <h5 class="card-title">Discount code</h5>
-              <p class="card-text">Welcome to Amado! Use this discount code will get a 10% Off.</p>
+              <h5 class="card-title">Coupon code</h5>
+              <p class="card-text">Welcome to Amado! Use this coupon code will get a 10% Off.</p>
               <p class="card-text">
                 <router-link to="/shop/products" class="text-decoration-none">
                   Go Shopping
@@ -39,19 +39,19 @@
                     >Copy</button>
                   </span>
                 </div>
-                <div class="discount-icon ml-2"></div>
+                <div class="coupon-icon ml-2"></div>
               </div>
             </div>
           </div>
           <div class="card">
             <img
-              src="@/assets/images/custom-img/chair-discount.jpg"
+              src="@/assets/images/custom-img/chair-coupon.jpg"
               class="card-img-top"
               alt="bed-img"
             />
             <div class="card-body">
-              <h5 class="card-title">Discount code</h5>
-              <p class="card-text">Welcome to Amado! Use this discount code will get a 20% Off.</p>
+              <h5 class="card-title">Coupon code</h5>
+              <p class="card-text">Welcome to Amado! Use this coupon code will get a 20% Off.</p>
               <p class="card-text">
                 <router-link to="/shop/products" class="text-decoration-none">
                   Go Shopping
@@ -78,19 +78,19 @@
                     >Copy</button>
                   </span>
                 </div>
-                <div class="discount-icon ml-2"></div>
+                <div class="coupon-icon ml-2"></div>
               </div>
             </div>
           </div>
           <div class="card">
             <img
-              src="@/assets/images/custom-img/table-discount.jpg"
+              src="@/assets/images/custom-img/table-coupon.jpg"
               class="card-img-top"
               alt="table-img"
             />
             <div class="card-body">
-              <h5 class="card-title">Discount code</h5>
-              <p class="card-text">Welcome to Amado! Use this discount code will get a 30% Off.</p>
+              <h5 class="card-title">Coupon code</h5>
+              <p class="card-text">Welcome to Amado! Use this coupon code will get a 30% Off.</p>
               <p class="card-text">
                 <router-link to="/shop/products" class="text-decoration-none">
                   Go Shopping
@@ -117,7 +117,7 @@
                     >Copy</button>
                   </span>
                 </div>
-                <div class="discount-icon ml-2"></div>
+                <div class="coupon-icon ml-2"></div>
               </div>
             </div>
           </div>
@@ -142,7 +142,7 @@ export default {
     }
   },
   created () {
-    this.$bus.$emit('menu:active', 'DISCOUNT')
+    this.$bus.$emit('menu:active', 'COUPON')
   }
 }
 </script>

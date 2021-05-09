@@ -50,7 +50,6 @@ export default {
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/orders?page=${page}`
       const vm = this
       vm.$http.get(api).then(response => {
-        // console.log(response.data);
         vm.orders = response.data.orders
         vm.pagination = response.data.pagination
         vm.orders.forEach(item => {

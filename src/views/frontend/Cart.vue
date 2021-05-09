@@ -15,11 +15,14 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in cart.carts" :key="item.id" class>
+            <tr v-for="item in cart.carts" :key="item.id">
               <td>
                 <img :src="item.product.imageUrl" class="img-fluid" alt="image" />
               </td>
-              <td>{{ item.product.title }}</td>
+              <td class="d-block">
+                {{ item.product.title }}
+                <div class="text-success" v-if="item.coupon">Coupon used</div>
+              </td>
               <td>
                 <div class="cart-quantity">
                   <select
@@ -29,10 +32,14 @@
                   >
                     <option :value="qty" v-for="qty in 10" :key="qty">{{ qty }}</option>
                   </select>
-                  <span class="px-1">/ {{ item.product.unit }}</span>
+                  <span class="px-1 d-none d-xl-block">/ {{ item.product.unit }}</span>
                 </div>
               </td>
-              <td class="justify-content-end">{{ item.total | currency }}</td>
+              <td
+                class="justify-content-end"
+                v-if="item.total !== item.final_total"
+              >{{ item.final_total | currency }}</td>
+              <td class="justify-content-end" v-else>{{ item.total | currency }}</td>
               <td class="justify-content-end">
                 <button
                   type="button"
@@ -43,10 +50,15 @@
                 </button>
               </td>
             </tr>
-            <div class="discound-code input-group mt-4">
-              <input class="form-control" type="text" placeholder="Discound Code" />
+            <div class="coupon-code input-group mt-4">
+              <input
+                class="form-control"
+                type="text"
+                placeholder="Coupon Code"
+                v-model="couponCode"
+              />
               <div class="input-group-append">
-                <button class="btn btn-primary">Use Discound Code</button>
+                <button class="btn btn-primary" type="button" @click="addCouponCode">Use Coupon Code</button>
               </div>
             </div>
           </tbody>
@@ -60,12 +72,15 @@
               <span>Subtotal:</span>
               <span>{{ cart.total | currency }}</span>
             </li>
-            <li>
-              <span>Total:</span>
-              <span>{{ cart.final_total | currency }}</span>
+            <li v-if="cart.total !== cart.final_total">
+              <span class="text-success">Discount Total:</span>
+              <span class="text-success">{{ cart.final_total | currency }}</span>
             </li>
             <li class="checkout-btn">
-              <a class="btn btn-primary btn-lg rounded-0 w-100">Checkout</a>
+              <router-link
+                to="/shop/checkout"
+                class="btn btn-primary btn-lg rounded-0 w-100"
+              >Checkout</router-link>
             </li>
           </ul>
         </div>
@@ -101,7 +116,9 @@ export default {
       subtotal: 0,
       total: 0,
       index: 0,
-      cache: {}
+      cache: {},
+      coupon: {},
+      couponCode: ''
     }
   },
   methods: {
@@ -123,56 +140,41 @@ export default {
       vm.$http.delete(url).then(response => {
         if (response.data.success) {
           vm.getProducts()
-          this.$bus.$emit('cart:get')
           vm.isLoading = false
           vm.$bus.$emit('message:push', 'Deleted', 'success')
         }
       })
     },
     changeQty (item) {
-      // this.isLoading = true
+      this.isLoading = true
       this.cache = {
-        product_id: item.id,
+        product_id: item.product_id,
         qty: item.qty
       }
       this.$http.delete(`${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${item.id}`)
-        .then(response => {
-          console.log(response.data)
+        .then(() => {
         })
         .then(() => {
           this.$http.post(`${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`, { data: this.cache })
             .then(response => {
-              console.log(response.data)
+              this.getProducts()
+              this.isLoading = false
             })
         })
     },
-    getSubtotal () {
-      if (this.cartData.length > 1) {
-        this.subtotal = 0
-        this.cartData.forEach(item => {
-          this.subtotal += Number(item.origin_price * item.qty)
-        })
-      } else if (this.cartData.length === 1) {
-        this.cartData.forEach(item => {
-          this.subtotal = Number(item.origin_price * item.qty)
-        })
-      } else {
-        this.subtotal = 0
+    addCouponCode () {
+      this.isLoading = true
+      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/coupon`
+      this.coupon = {
+        code: this.couponCode
       }
-    },
-    getTotal () {
-      if (this.cartData.length > 1) {
-        this.total = 0
-        this.cartData.forEach(item => {
-          this.total += Number(item.price * item.qty)
-        })
-      } else if (this.cartData.length === 1) {
-        this.cartData.forEach(item => {
-          this.total = Number(item.price * item.qty)
-        })
-      } else {
-        this.total = 0
-      }
+      this.$http.post(url, { data: this.coupon }).then(response => {
+        if (response.data.success) {
+          this.getProducts()
+          this.couponCode = ''
+          this.isLoading = false
+        }
+      })
     }
   },
   computed: {
@@ -186,10 +188,7 @@ export default {
   },
   created () {
     this.$bus.$emit('menu:active', 'CART')
-    this.$bus.$emit('cart:get')
     this.getProducts()
-    // this.getSubtotal()
-    // this.getTotal()
   }
 }
 </script>

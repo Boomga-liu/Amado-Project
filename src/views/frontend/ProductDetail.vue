@@ -75,19 +75,11 @@
               <i class="fas fa-star"></i>
             </button>
           </div>
-          <!-- <select class="form-control w-50 mb-5" v-model="product.num">
-            <option :value="num" v-for="num in 10" :key="num">
-              {{ num }} {{ product.unit }}
-            </option>
-          </select>-->
           <button
             type="button"
-            class="btn btn-primary btn-lg text-white mt-5"
+            class="btn btn-primary btn-lg mt-5 add-btn"
             @click="addToCart(product.id)"
-          >
-            <i class="fas fa-spinner fa-spin" v-if="product.id === status.loadingItem"></i>
-            Add to cart
-          </button>
+          >Add to cart</button>
         </div>
       </div>
     </div>
@@ -102,9 +94,6 @@ export default {
       productId: '',
       product: {},
       isLoading: false,
-      status: {
-        loadingItem: ''
-      },
       Qty: {
         value: 1
       },
@@ -118,16 +107,13 @@ export default {
     getProduct (id) {
       const vm = this
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/product/${id}`
-      // vm.$store.dispatch('updateLoading', true)
       vm.isLoading = true
       this.$http.get(url).then(response => {
-        // console.log(response.data)
         if (response.data.success) {
           vm.product = response.data.product
           vm.product.num = 1
         }
         vm.isLoading = false
-        // vm.$store.dispatch('updateLoading', false)
       })
     },
     addToCart (id) {
@@ -176,7 +162,6 @@ export default {
     },
     addToFav (product) {
       this.$store.dispatch('addToFav', product)
-      // console.log(this.$store.state.Fav)
     },
     removeFromFav (product) {
       this.$store.dispatch('removeFromFav', product)
@@ -210,9 +195,6 @@ export default {
     }
   },
   computed: {
-    // isLoading () {
-    //   return this.$store.state.isLoading
-    // },
     isFav () {
       return this.$store.state.isFav
     }

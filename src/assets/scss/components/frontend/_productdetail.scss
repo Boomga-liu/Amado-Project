@@ -118,5 +118,13 @@
         color: $primary;
       }
     }
+    .add-btn {
+      border: #fff;
+      transition: 0.3s;
+    }
+    .add-btn:hover {
+      color: #fff;
+      background-color: #000;
+    }
   }
 }

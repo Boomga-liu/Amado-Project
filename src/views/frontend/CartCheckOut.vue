@@ -1,10 +1,10 @@
 <template>
-  <div class="px-3 py-150 cart-area">
+  <div class="px-3 py-150 cartcheckout-area">
     <loading :active.sync="isLoading"></loading>
     <h2 class="mb-4 text-center text-md-left">Shopping List</h2>
     <div class="row" v-if="haveItem">
       <div class="col-12 col-lg-8">
-        <table class="table table-responsive cart-custom">
+        <table class="table table-responsive cartcheckout-custom">
           <thead>
             <tr>
               <th></th>
@@ -19,21 +19,11 @@
               <td>
                 <img :src="item.imageUrl" class="img-fluid" alt="image" />
               </td>
-              <td>{{ item.name }}</td>
+              <td>
+                <a href="#" @click.prevent="goToItem(item.product_id)">{{ item.name }}</a>
+              </td>
               <td>
                 <div class="bg-color">{{ item.qty }} / {{ item.unit }}</div>
-                <!-- <div class="cart-quantity">
-                  <input
-                    class="qty-text"
-                    type="number"
-                    step="1"
-                    min="1"
-                    max="10"
-                    v-model.number="item.qty"
-                    @input="checkQty(item)"
-                  />
-                  <span class="px-1">/ {{ item.unit }}</span>
-                </div>-->
               </td>
               <td class="justify-content-end">{{ item.price | currency }}</td>
               <td class="justify-content-end">
@@ -146,6 +136,9 @@ export default {
               })
           })
         })
+    },
+    goToItem (id) {
+      this.$router.push(`product_detail/${id}`)
     },
     getSubtotal () {
       if (this.cartData.length > 1) {

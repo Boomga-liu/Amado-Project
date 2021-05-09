@@ -27,6 +27,11 @@ img {
   background-position: center center;
 }
 
+.img-custom {
+  object-fit: cover;
+  object-position: center center;
+}
+
 .py-150 {
   padding-top: 150px;
   padding-bottom: 150px;

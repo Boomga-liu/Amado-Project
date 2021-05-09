@@ -50,12 +50,12 @@
         </nav>
         <div class="header-btn-group">
           <ul class="list-unstyled mb-0">
-            <li @click.prevent="chooseActive('DISCOUNT')">
+            <li @click.prevent="chooseActive('COUPON')">
               <router-link
-                to="/shop/discount"
+                to="/shop/coupon"
                 class="btn mb-3"
-                :class="{active: isActive === 'DISCOUNT'}"
-              >%Discount%</router-link>
+                :class="{active: isActive === 'COUPON'}"
+              >%Coupon%</router-link>
             </li>
             <li @click.prevent="chooseActive('NEWTHISWEEK')">
               <router-link
@@ -172,16 +172,6 @@ export default {
     },
     getLocalStorage () {
       this.cartData = JSON.parse(localStorage.getItem('cartData')) || []
-    },
-    getCart () {
-      const vm = this
-      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
-      vm.$http.get(url).then(response => {
-        if (response.data.success) {
-          vm.cartData = response.data.data.carts
-        }
-        // console.log(response.data)
-      })
     }
   },
   computed: {
@@ -197,9 +187,9 @@ export default {
     }
   },
   created () {
+    this.getLocalStorage()
     // created時 Vue 底下註冊監聽"cart:get"事件
     this.$bus.$on('localStorage:get', () => this.getLocalStorage())
-    this.$bus.$on('cart:get', () => this.getCart())
     this.$bus.$on('menu:active', (choose) => this.chooseActive(choose))
   }
 }

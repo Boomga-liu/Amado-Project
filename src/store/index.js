@@ -37,7 +37,6 @@ export default new Vuex.Store({
       state.FavId.push(payload.id)
       state.Fav.push(payload)
       state.isFav = false
-      // console.log(state.Fav)
     },
     REMOVEFAVORITE (state, payload) {
       state.Fav = state.Fav.filter(item => {
@@ -47,15 +46,12 @@ export default new Vuex.Store({
         return item !== payload.id
       })
       state.isFav = true
-      // console.log(state.Fav)
     },
     FAVSTAR (state, payload) {
       state.existedFavId = state.FavId.find(function (id, index) {
-        // console.log(item, index)
         return id === payload
       })
       if (state.existedFavId === payload) {
-        // console.log(state.existedFavId, payload)
         state.isFav = false
       } else {
         state.isFav = true

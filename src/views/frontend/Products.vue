@@ -92,12 +92,12 @@
             >
               <div class="card">
                 <a href="#">
-                  <!-- <img :src="item.imageUrl" class="card-img-top" style="height:465px;" /> -->
-                  <div
-                    class="card-img-top bg-cover"
-                    :style="{backgroundImage:`url(${item.imageUrl})`}"
+                  <img
+                    :src="item.imageUrl"
+                    class="card-img-top img-custom"
                     style="height:465px;"
-                  ></div>
+                    alt="product_img"
+                  />
                   <div class="btn-bg" @click.prevent="getProductId(item.id)">
                     <button type="button" class="btn btn-outline-primary btn-lg btn-custom">More</button>
                   </div>
@@ -189,7 +189,6 @@ export default {
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products/all`
       vm.isLoading = true
       this.$http.get(url).then(response => {
-        // console.log(response.data);
         if (response.data.success) {
           vm.products = response.data.products
         }

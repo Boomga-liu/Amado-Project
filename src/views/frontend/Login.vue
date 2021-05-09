@@ -50,13 +50,11 @@ export default {
       const api = `${process.env.VUE_APP_APIPATH}/admin/signin`
       // API 伺服器路徑 / admin / signin
       vm.isLoading = true
-      //   console.log(process.env.APIPATH, process.env.CUSTOMPATH);
       vm.$http.post(api, vm.user).then((response) => {
         if (response.data.success) {
           vm.isLoading = false
           const token = response.data.token
           const expired = response.data.expired
-          // console.log(token, expired);
           // 寫入Cookie
           document.cookie = `myToken=${token}; expires=${new Date(expired)}`
           vm.$router.push('/admin/products')

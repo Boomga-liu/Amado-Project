@@ -239,7 +239,7 @@
             ></textarea>
           </div>
           <div class="text-right">
-            <button class="btn btn-danger" :disabled="invalid">送出訂單</button>
+            <button class="btn btn-danger" type="submit" :disabled="invalid">送出訂單</button>
           </div>
         </form>
       </validation-observer>
@@ -281,7 +281,6 @@ export default {
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/products`
       vm.isLoading = true
       vm.$http.get(url).then((response) => {
-        // console.log(response.data);
         vm.products = response.data.products
         vm.isLoading = false
       })
@@ -291,7 +290,6 @@ export default {
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/product/${id}`
       vm.status.loadingItem = id
       vm.$http.get(url).then((response) => {
-        // console.log(response.data.product);
         vm.product = response.data.product
         vm.product.num = 1
         $('#productModal').modal('show')
@@ -318,7 +316,6 @@ export default {
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
       vm.isLoading = true
       vm.$http.get(url).then((response) => {
-        // console.log(response.data.data);
         vm.cart = response.data.data
         vm.isLoading = false
       })
@@ -328,7 +325,6 @@ export default {
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${id}`
       vm.isLoading = true
       vm.$http.delete(url).then((response) => {
-        // console.log(response.data);
         vm.isLoading = false
         vm.getCart()
       })
@@ -341,7 +337,6 @@ export default {
       }
       vm.isLoading = true
       vm.$http.post(url, { data: coupon }).then((response) => {
-        // console.log(response);
         if (!response.data.success) {
           alert(response.data.message)
         }
@@ -357,7 +352,6 @@ export default {
       vm.isLoading = true
       vm.$http.post(url, { data: order }).then((response) => {
         if (response.data.success) {
-          // console.log("訂單已建立", response.data);
           vm.$router.push(`/customer_checkout/${response.data.orderId}`)
         }
         vm.isLoading = false

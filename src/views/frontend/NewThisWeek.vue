@@ -68,10 +68,8 @@ export default {
       vm.isLoading = true
       this.$http.get(url).then(response => {
         if (response.data.success) {
-          // console.log(response.data)
           vm.products = response.data.products.filter(function (item, index) {
             return index % 2 === 1
-            // console.log(index, (index % 2 === 0))
           })
           vm.isLoading = false
         }
@@ -93,7 +91,7 @@ export default {
         }
         this.cartData.push(this.cartContent)
         localStorage.setItem('cartData', JSON.stringify(this.cartData))
-        this.$bus.$emit('cart:get')
+        this.$bus.$emit('localStorage:get')
         this.$bus.$emit('message:push', 'Add The Cart', 'success')
       } else {
         this.cartData.forEach((item, keys) => {
@@ -113,6 +111,7 @@ export default {
         })
         this.cartData.push(this.cache)
         localStorage.setItem('cartData', JSON.stringify(this.cartData))
+        this.$bus.$emit('message:push', 'Add The Cart', 'success')
       }
     },
     getProductId (id) {

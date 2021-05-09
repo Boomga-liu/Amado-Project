@@ -8,9 +8,11 @@
       <div class="swiper-button-next" slot="button-next"></div>
     </swiper>
     <div class="swiper-content d-none d-sm-flex" data-aos="zoom-in" data-aos-duration="2000">
-      <router-link to="/shop">
-        <div class="swiper-content-logo mb-2"></div>
-      </router-link>
+      <h1 class="logo">
+        <router-link to="/shop">
+          <img src="@/assets/images/core-img/logo.png" width="137" height="55" alt="Amado" />
+        </router-link>
+      </h1>
       <div class="swiper-content-text">
         <h3>FEEL PROUD OF YOUR HOME</h3>
         <h3>Our Design Guides can help</h3>
