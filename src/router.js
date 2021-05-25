@@ -6,10 +6,6 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '*',
-      redirect: '/shop'
-    },
-    {
       path: '/',
       name: 'ImagePage',
       component: () => import('@/views/frontend/ImagePage.vue')
@@ -130,6 +126,10 @@ export default new Router({
           meta: { requiresAuth: true }
         }
       ]
+    },
+    {
+      path: '*',
+      redirect: '/shop'
     }
   ]
 })
