@@ -15,7 +15,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in cartData" :key="item.id" class>
+            <tr v-for="item in cartData" :key="item.id">
               <td>
                 <img :src="item.imageUrl" class="img-fluid" alt="image" />
               </td>
@@ -23,14 +23,23 @@
                 <a href="#" @click.prevent="goToItem(item.product_id)">{{ item.name }}</a>
               </td>
               <td>
-                <div class="bg-color">{{ item.qty }} / {{ item.unit }}</div>
+                <div class="cart-quantity">
+                  <select
+                    class="form-control form-control-sm"
+                    v-model="item.qty"
+                    @change="getSubtotal"
+                  >
+                    <option :value="qty" v-for="qty in 10" :key="qty">{{ qty }}</option>
+                  </select>
+                  <span class="px-1 d-none d-xl-block">/ {{ item.unit }}</span>
+                </div>
               </td>
               <td class="justify-content-end">{{ item.price | currency }}</td>
               <td class="justify-content-end">
                 <button
                   type="button"
                   class="trash-btn btn btn-outline-danger btn-sm"
-                  @click.prevent="removeCartItem(item)"
+                  @click="removeCartItem(item)"
                 >
                   <i class="far fa-trash-alt"></i>
                 </button>
@@ -46,10 +55,6 @@
             <li>
               <span>Subtotal:</span>
               <span>{{ subtotal | currency }}</span>
-            </li>
-            <li>
-              <span>Total:</span>
-              <span>{{ total | currency }}</span>
             </li>
             <li class="checkout-btn" @click="postCarts">
               <a class="btn btn-primary btn-lg rounded-0 w-100">Confirm</a>
@@ -68,7 +73,7 @@
           </li>
           <li class="no-product-text">Your Shopping List is empty！</li>
           <li>
-            <router-link to="/shop/products" class="btn btn-primary text-white">Go Shopping</router-link>
+            <router-link to="/shop/products" class="btn btn-primary">Go Shopping</router-link>
           </li>
         </ul>
       </div>
@@ -144,28 +149,14 @@ export default {
       if (this.cartData.length > 1) {
         this.subtotal = 0
         this.cartData.forEach(item => {
-          this.subtotal += Number(item.origin_price * item.qty)
+          this.subtotal += Number(item.price * item.qty)
         })
       } else if (this.cartData.length === 1) {
         this.cartData.forEach(item => {
-          this.subtotal = Number(item.origin_price * item.qty)
+          this.subtotal = Number(item.price * item.qty)
         })
       } else {
         this.subtotal = 0
-      }
-    },
-    getTotal () {
-      if (this.cartData.length > 1) {
-        this.total = 0
-        this.cartData.forEach(item => {
-          this.total += Number(item.price * item.qty)
-        })
-      } else if (this.cartData.length === 1) {
-        this.cartData.forEach(item => {
-          this.total = Number(item.price * item.qty)
-        })
-      } else {
-        this.total = 0
       }
     }
   },
@@ -181,7 +172,18 @@ export default {
   created () {
     this.$bus.$emit('menu:active', 'CART')
     this.getSubtotal()
-    this.getTotal()
   }
 }
 </script>
+<style lang="scss" scope>
+.no-product {
+  a {
+    transition: 0.5s;
+  }
+  a:hover {
+    color: #fff;
+    background-color: #000;
+    border-color: #000;
+  }
+}
+</style>

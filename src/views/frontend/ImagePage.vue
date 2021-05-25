@@ -1,33 +1,41 @@
 <template>
   <div class="imagepage-area position-relative">
-    <nav class="imagepage-area-nav d-none d-md-block" data-aos="fade-down" data-aos-duration="2000">
-      <div class="nav-text-button d-flex justify-content-center align-items-center">
-        <p>
-          Welcome to Amado! Let's Go Shopping
-          <i class="fas fa-angle-double-right"></i>
-        </p>
-        <router-link to="/shop" class="btn btn-primary">Online Shop</router-link>
+    <nav class="navbar navbar-expand-lg navbar-dark" data-aos="fade-down" data-aos-duration="2000">
+      <router-link to="/shop">
+        <h1 class="navbar-logo">
+          <img src="@/assets/images/core-img/logo2.png" width="137px" height="55px" alt="Amado" />
+        </h1>
+      </router-link>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav ml-auto">
+          <router-link class="nav-link" to="/shop">Home</router-link>
+          <router-link class="nav-link" to="/shop/products">Products</router-link>
+          <router-link class="nav-link" to="/shop/coupon">Coupon</router-link>
+          <router-link class="nav-link" to="/shop/cart">Cart</router-link>
+        </div>
       </div>
     </nav>
-    <div class="imagepage-cart-icon d-block d-md-none">
-      <router-link to="/shop">
-        <i class="fas fa-2x fa-shopping-cart"></i>
-        <p>
-          Online
-          <br />Shop
-        </p>
-      </router-link>
-    </div>
     <Swiper></Swiper>
     <div class="imagepage-content d-flex d-sm-none">
-      <h1 class="logo">
-        <router-link to="/shop">
-          <img src="@/assets/images/core-img/logo2.png" width="137" height="55" alt="Amado" />
-        </router-link>
-      </h1>
+      <div class="logo">
+        <img src="@/assets/images/core-img/logo2.png" width="137" height="55" alt="Amado" />
+      </div>
       <div class="imagepage-content-text">
-        <p>FEEL PROUD OF YOUR HOME</p>
-        <p>Our Design Guides can help</p>
+        <p>
+          FEEL PROUD OF YOUR HOME
+          <br />Our Design Guides can help
+        </p>
       </div>
     </div>
     <section class="container-fluid concept py-4 my-5" data-aos="fade-up" data-aos-duration="2000">
@@ -162,7 +170,7 @@
     <section class="container-fluid go-shopping-area">
       <div class="container">
         <div class="logo-bg">
-          <img src="@/assets/images/core-img/logo.png" class="img-fluid" alt />
+          <img src="@/assets/images/core-img/logo.png" class="img-fluid" alt="Amado" />
         </div>
         <div class="go-shopping-text">
           <router-link to="/shop" class="btn btn-dark btn-lg">

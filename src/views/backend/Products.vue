@@ -227,7 +227,7 @@
 
 <script>
 import $ from 'jquery'
-import Pagination from '@/components/Pagination'
+import Pagination from '@/components/Pagination.vue'
 
 export default {
   data () {
@@ -253,7 +253,7 @@ export default {
       // API 伺服器路徑 / api / 申請的APIPath / admin / products
       const vm = this
       vm.isLoading = true
-      this.$http.get(api).then((response) => {
+      vm.$http.get(api).then((response) => {
         vm.isLoading = false
         vm.products = response.data.products
         vm.pagination = response.data.pagination
@@ -266,14 +266,14 @@ export default {
         })
       })
     },
-    openModal (isNew, delProduct, ...item) {
+    openModal (isNew, delProduct, item) {
       if (isNew) {
         this.tempProduct = {}
         this.isNew = true
         this.delProdutc = false
         $('#productModal').modal('show')
       } else if (!isNew && !delProduct) {
-        this.tempProduct = Object.assign({}, ...item) // 避免物件傳參考的特性
+        this.tempProduct = { ...item } // 避免物件傳參考的特性
         this.isNew = false
         this.delProdutc = false
         $('#productModal').modal('show')
@@ -284,15 +284,15 @@ export default {
       }
     },
     updateProduct () {
+      const vm = this
       let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product`
       let httpMethod = 'post'
-      const vm = this
       vm.isLoading = true
       if (!vm.isNew) {
         api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product/${vm.tempProduct.id}`
         httpMethod = 'put'
       }
-      this.$http[httpMethod](api, { data: vm.tempProduct }).then((response) => {
+      vm.$http[httpMethod](api, { data: vm.tempProduct }).then((response) => {
         vm.isLoading = false
         if (response.data.success) {
           $('#productModal').modal('hide')
@@ -300,7 +300,7 @@ export default {
         } else {
           $('#productModal').modal('hide')
           vm.getProducts()
-          console.log('新增失敗')
+          alert('新增失敗')
         }
       })
     },
@@ -313,13 +313,12 @@ export default {
           vm.getProducts()
         } else {
           $('#delProductModal').modal('hide')
-          console.log(response.data.message)
         }
       })
     },
     uploadFile () {
-      const uploadFile = this.$refs.files.files[0] // 取出檔案
       const vm = this
+      const uploadFile = vm.$refs.files.files[0] // 取出檔案
       vm.status.fileUpoading = true
       const formData = new FormData() // 使用FormData模擬傳統的表單
       formData.append('file-to-upload', uploadFile) // 加入值到FormData

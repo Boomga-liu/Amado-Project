@@ -1,6 +1,6 @@
 <template>
-  <div class="go-top" v-if="isShow" @click.prevent="goTop">
-    <a href="#">
+  <div class="go-top" v-if="isShow">
+    <a href="#" @click.prevent="goTop">
       <i class="fa fa-angle-up" aria-hidden="true"></i>
     </a>
   </div>

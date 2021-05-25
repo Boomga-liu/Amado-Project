@@ -39,12 +39,12 @@
                 class="justify-content-end"
                 v-if="item.total !== item.final_total"
               >{{ item.final_total | currency }}</td>
-              <td class="justify-content-end" v-else>{{ item.total | currency }}</td>
+              <td class="justify-content-end" v-else>{{ item.product.price | currency }}</td>
               <td class="justify-content-end">
                 <button
                   type="button"
                   class="trash-btn btn btn-outline-danger btn-sm"
-                  @click.prevent="removeCartItem(item.id)"
+                  @click="removeCartItem(item.id)"
                 >
                   <i class="far fa-trash-alt"></i>
                 </button>
@@ -128,7 +128,7 @@ export default {
       vm.isLoading = true
       vm.$http.get(url).then(response => {
         if (response.data.success) {
-          this.cart = response.data.data
+          vm.cart = response.data.data
         }
         vm.isLoading = false
       })

@@ -16,7 +16,7 @@
             <div class="input-group input-group-lg">
               <input type="text" class="form-control rounded-0" placeholder="Your E-mail" />
               <div class="input-group-append">
-                <button type="submit" class="btn btn-primary rounded-0 text-white">Subscribe</button>
+                <button type="submit" class="btn btn-primary rounded-0">Subscribe</button>
               </div>
             </div>
           </div>

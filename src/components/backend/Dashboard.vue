@@ -14,9 +14,9 @@
 </template>
 
 <script>
-import Navbar from './Navbar'
-import Sidebar from './Sidebar'
-import AlertMessage from '@/components/AlertMessage'
+import Navbar from './Navbar.vue'
+import Sidebar from './Sidebar.vue'
+import AlertMessage from '@/components/AlertMessage.vue'
 export default {
   components: {
     Navbar,
@@ -29,7 +29,6 @@ export default {
       /(?:(?:^|.*;\s*)myToken\s*=\s*([^;]*).*$)|^.*$/,
       '$1'
     )
-    // console.log(myCookie);
     // 往後端送Cookie
     this.$http.defaults.headers.common.Authorization = myCookie
   }

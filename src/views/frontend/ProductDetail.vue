@@ -17,10 +17,10 @@
     </div>
     <div class="row">
       <loading :active.sync="isLoading"></loading>
-      <div class="col-12 col-lg-7">
+      <div class="col-12 col-lg-7 pr-2">
         <img :src="product.imageUrl" class="img-fluid" alt="image" />
       </div>
-      <div class="col-12 col-lg-5 mt-5 mt-lg-0 pl-1">
+      <div class="col-12 col-lg-5 mt-5 mt-lg-0 pl-0">
         <div class="product-data mb-50">
           <div class="line"></div>
           <del class="h6 text-muted">NT {{ product.origin_price | currency }}</del>
@@ -62,7 +62,7 @@
               type="button"
               class="fav-btn btn btn-light ml-180 h-100"
               v-if="isFav"
-              @click.prevent="addToFav(product)"
+              @click="addToFav(product)"
             >
               <i class="far fa-star"></i>
             </button>
@@ -70,7 +70,7 @@
               type="button"
               class="fav-btn btn btn-light ml-180 h-100"
               v-else
-              @click.prevent="removeFromFav(product)"
+              @click="removeFromFav(product)"
             >
               <i class="fas fa-star"></i>
             </button>
@@ -108,7 +108,7 @@ export default {
       const vm = this
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/product/${id}`
       vm.isLoading = true
-      this.$http.get(url).then(response => {
+      vm.$http.get(url).then(response => {
         if (response.data.success) {
           vm.product = response.data.product
           vm.product.num = 1

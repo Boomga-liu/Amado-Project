@@ -8,7 +8,7 @@
           <div class="col-12 col-lg-8">
             <validation-provider rules="required" v-slot="{ errors, classes }">
               <div class="form-group">
-                <label for="name">Name</label>
+                <label for="name">Name (required)</label>
                 <!-- 輸入框 -->
                 <input
                   type="name"
@@ -24,7 +24,7 @@
             </validation-provider>
             <validation-provider rules="required" v-slot="{ errors, classes }">
               <div class="form-group">
-                <label for="tel">Tel</label>
+                <label for="tel">Tel (required)</label>
                 <input
                   type="tel"
                   class="form-control input-custom"
@@ -39,7 +39,7 @@
 
             <validation-provider rules="required|email" v-slot="{ errors, classes }">
               <div class="form-group">
-                <label for="email">Email</label>
+                <label for="email">Email (required)</label>
                 <input
                   type="email"
                   class="form-control input-custom"
@@ -54,7 +54,7 @@
 
             <validation-provider rules="required" v-slot="{ errors, classes }">
               <div class="form-group">
-                <label for="address">Address</label>
+                <label for="address">Address (required)</label>
                 <input
                   type="text"
                   class="form-control input-custom"
@@ -67,7 +67,7 @@
               </div>
             </validation-provider>
             <div class="form-group">
-              <label for="comment">Message</label>
+              <label for="comment">Message (optional)</label>
               <textarea
                 name
                 class="form-control input-custom"
@@ -113,7 +113,11 @@
                   />
                   <label class="form-check-label" for="CreditCard">
                     Paypal
-                    <img class="ml-2" src="@/assets/images/core-img/paypal.png" />
+                    <img
+                      class="ml-2"
+                      src="@/assets/images/core-img/paypal.png"
+                      alt="paypal-icon"
+                    />
                   </label>
                 </div>
               </div>
@@ -169,7 +173,7 @@ export default {
           message: ''
         }
       },
-      message: 'test test'
+      message: ''
     }
   },
   methods: {

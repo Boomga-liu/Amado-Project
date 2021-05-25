@@ -13,7 +13,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in favProducts" :key="item.id" class>
+            <tr v-for="item in favProducts" :key="item.id">
               <td>
                 <img :src="item.imageUrl" class="img-fluid" alt="product_image" />
               </td>
@@ -22,13 +22,13 @@
               </td>
               <td class="justify-content-end">{{ item.price | currency }}</td>
               <td class="justify-content-end">
-                <button type="button" class="cart-btn btn btn-sm" @click.prevent="addToCart(item)">
+                <button type="button" class="cart-btn btn btn-sm" @click="addToCart(item)">
                   <div class="cart-icon"></div>
                 </button>
                 <button
                   type="button"
                   class="trash-btn btn btn-outline-danger btn-sm"
-                  @click.prevent="removeFromFav(item)"
+                  @click="removeFromFav(item)"
                 >
                   <i class="far fa-trash-alt"></i>
                 </button>

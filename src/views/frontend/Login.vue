@@ -22,11 +22,7 @@
         required
         v-model="user.password"
       />
-      <div class="checkbox mb-3">
-        <label>
-          <input type="checkbox" value="remember-me" /> Remember me
-        </label>
-      </div>
+      <div class="checkbox mb-4"></div>
       <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
     </form>
   </div>
@@ -118,5 +114,11 @@ body {
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+}
+button:hover {
+  color: #fff;
+  background-color: #000;
+  border-color: #000;
+  transition: 0.5s;
 }
 </style>

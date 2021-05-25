@@ -68,7 +68,7 @@
                 <button
                   type="button"
                   class="btn input-group-prepend align-items-center"
-                  @click.prevent="searchProduct"
+                  @click="searchProduct"
                 >
                   <div class="search-img"></div>
                 </button>
@@ -98,7 +98,7 @@
                     style="height:465px;"
                     alt="product_img"
                   />
-                  <div class="btn-bg" @click.prevent="getProductId(item.id)">
+                  <div class="btn-bg" @click="getProductId(item.id)">
                     <button type="button" class="btn btn-outline-primary btn-lg btn-custom">More</button>
                   </div>
                   <div class="new-icon"></div>
@@ -149,7 +149,7 @@
 </template>
 
 <script>
-import Pagination from '@/components/Pagination'
+import Pagination from '@/components/Pagination.vue'
 
 export default {
   name: 'Products',
@@ -188,7 +188,7 @@ export default {
       const vm = this
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products/all`
       vm.isLoading = true
-      this.$http.get(url).then(response => {
+      vm.$http.get(url).then(response => {
         if (response.data.success) {
           vm.products = response.data.products
         }
@@ -212,9 +212,9 @@ export default {
       vm.pagination.current_page = 1
       if (vm.search) {
         vm.isChoose = vm.search
-        vm.searchResult = vm.products.filter(item => {
-          return item.category === vm.search
-        })
+        vm.searchResult = vm.products.filter(item =>
+          item.category === vm.search
+        )
       } else {
         vm.searchResult = []
       }

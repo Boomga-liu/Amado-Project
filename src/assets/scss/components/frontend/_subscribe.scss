@@ -18,5 +18,11 @@
   }
   .subscribe-email {
     margin-bottom: 100px;
+    button:hover {
+      color: #fff;
+      background-color: #000;
+      border-color: #000;
+      transition: 0.5s;
+    }
   }
 }

@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import Pagination from '@/components/Pagination'
+import Pagination from '@/components/Pagination.vue'
 
 export default {
   data () {
@@ -47,8 +47,8 @@ export default {
   },
   methods: {
     getOrders (page = 1) {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/orders?page=${page}`
       const vm = this
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/orders?page=${page}`
       vm.$http.get(api).then(response => {
         vm.orders = response.data.orders
         vm.pagination = response.data.pagination

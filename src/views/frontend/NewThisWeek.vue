@@ -6,7 +6,7 @@
       <div class="col-12 col-xl-4 mb-5" v-for="item in products" :key="item.id">
         <div class="card h-100">
           <a href="#">
-            <img :src="item.imageUrl" class="card-img-top img-fluid" alt="images" />
+            <img :src="item.imageUrl" class="card-img-top img-fluid" alt="image" />
             <div class="btn-bg" @click="getProductId(item.id)">
               <button type="button" class="btn btn-outline-primary btn-lg btn-custom">More</button>
             </div>
@@ -66,7 +66,7 @@ export default {
       const vm = this
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products/all`
       vm.isLoading = true
-      this.$http.get(url).then(response => {
+      vm.$http.get(url).then(response => {
         if (response.data.success) {
           vm.products = response.data.products.filter(function (item, index) {
             return index % 2 === 1

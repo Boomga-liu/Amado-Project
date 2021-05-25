@@ -17,11 +17,11 @@
 </template>
 
 <script>
-import Footer from './Footer'
-import Navbar from './Navbar'
-import Subscribe from './Subscribe'
-import GoTop from '@/components/frontend/GoTop'
-import AlertMessage from '@/components/AlertMessage'
+import Footer from './Footer.vue'
+import Navbar from './Navbar.vue'
+import Subscribe from './Subscribe.vue'
+import GoTop from '@/components/frontend/GoTop.vue'
+import AlertMessage from '@/components/AlertMessage.vue'
 export default {
   data () {
     return {

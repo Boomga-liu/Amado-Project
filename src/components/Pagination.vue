@@ -49,3 +49,8 @@ export default {
   }
 }
 </script>
+<style lang="scss" scope>
+.page-item.active .page-link {
+  color: #000;
+}
+</style>

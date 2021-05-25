@@ -69,41 +69,33 @@
   .menu li.active {
     a {
       color: $primary;
-      &::before {
-        left: -75px;
-        opacity: 1;
-        @include media-breakpoint-down(md) {
-          left: -50px;
-        }
-        @media (min-width: 1550px) {
-          left: -105px;
-        }
+    }
+    a::before {
+      left: -75px;
+      opacity: 1;
+      @include media-breakpoint-down(md) {
+        left: -50px;
+      }
+      @media (min-width: 1550px) {
+        left: -105px;
       }
     }
   }
+
   .menu a {
     display: block;
     padding: 20px 20px 20px 0;
     color: $dark;
     text-decoration: none;
     line-height: normal;
-    font-size: 14px;
     position: relative;
     transition: 0.5s;
+    letter-spacing: 0.5px;
     &:hover {
       color: $primary;
-      &::before {
-        left: -75px;
-        opacity: 1;
-        @include media-breakpoint-down(md) {
-          left: -50px;
-        }
-        @media (min-width: 1550px) {
-          left: -105px;
-        }
-      }
     }
   }
+
   .menu a::before {
     content: '';
     width: 30px;
@@ -131,8 +123,9 @@
       line-height: 55px;
       border-radius: 0;
       font-size: 18px;
-      transition: 0.3s;
+      transition: 0.5s;
       box-shadow: none;
+      letter-spacing: 0.5px;
 
       &:hover {
         background-color: #000;
@@ -167,6 +160,7 @@
       text-decoration: none;
       color: #131212;
       transition: 0.5s;
+      letter-spacing: 0.5px;
       &:hover {
         color: $primary;
       }
@@ -188,12 +182,12 @@
     a {
       color: #b5b5b5;
       transition: 0.5s;
-      &:hover {
-        color: $primary;
-      }
-      i {
-        font-size: 18px;
-      }
+    }
+    a:hover {
+      color: $primary;
+    }
+    i {
+      font-size: 18px;
     }
   }
 }

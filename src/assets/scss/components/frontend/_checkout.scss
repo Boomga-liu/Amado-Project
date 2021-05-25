@@ -22,3 +22,8 @@ form {
     font-size: 22px;
   }
 }
+
+button.disabled,
+button:disabled {
+  cursor: not-allowed;
+}

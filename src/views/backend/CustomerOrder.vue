@@ -59,7 +59,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <img :src="product.imageUrl" class="img-fluid" alt />
+            <img :src="product.imageUrl" class="img-fluid" alt="image" />
             <blockquote class="blockquote mt-3">
               <p class="mb-0">{{ product.content }}</p>
               <footer class="blockquote-footer text-right">{{ product.description }}</footer>
@@ -305,7 +305,6 @@ export default {
         qty
       }
       vm.$http.post(url, { data: cart }).then((response) => {
-        console.log(response.data)
         vm.status.loadingItem = ''
         vm.getCart()
         $('#productModal').modal('hide')

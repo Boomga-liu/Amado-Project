@@ -27,7 +27,7 @@
             <button
               class="btn btn-outline-primary mr-sm-2 btn-sm"
               type="button"
-              @click="openModal(false, false, ...item)"
+              @click="openModal(false, false, item)"
             >編輯</button>
             <button
               class="btn btn-outline-danger btn-sm"
@@ -151,7 +151,7 @@
 
 <script>
 import $ from 'jquery'
-import Pagination from '@/components/Pagination'
+import Pagination from '@/components/Pagination.vue'
 export default {
   data () {
     return {
@@ -164,14 +164,14 @@ export default {
     }
   },
   methods: {
-    openModal (isNew, delCoupon, ...item) {
+    openModal (isNew, delCoupon, item) {
       if (isNew) {
         this.tempCoupon = {}
         this.isNew = true
         this.delCoupon = false
         $('#couponsModal').modal('show')
       } else if (!isNew && !delCoupon) {
-        this.tempCoupon = Object.assign({}, ...item) // 避免物件傳參考的特性
+        this.tempCoupon = { ...item }
         this.isNew = false
         this.delCoupon = false
         $('#couponsModal').modal('show')
@@ -221,7 +221,7 @@ export default {
         } else {
           $('#couponsModal').modal('hide')
           vm.getCoupons()
-          console.log('新增失敗')
+          alert('新增失敗')
         }
       })
     },
@@ -233,7 +233,6 @@ export default {
           $('#delCouponModal').modal('hide')
           vm.getCoupons()
         } else {
-          console.log(response.data.success)
           $('#delCouponModal').modal('hide')
           vm.getCoupons()
         }
