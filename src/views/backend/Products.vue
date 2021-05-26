@@ -2,7 +2,7 @@
   <div>
     <loading :active.sync="isLoading"></loading>
     <div class="text-right mt-4">
-      <button type="button" @click="openModal(true)" class="text-white btn btn-primary btn-m">建立新的產品</button>
+      <button type="button" @click="openModal(true)" class="btn btn-primary btn-m">建立新的產品</button>
     </div>
     <table class="table table-responsive-sm mt-4">
       <thead>

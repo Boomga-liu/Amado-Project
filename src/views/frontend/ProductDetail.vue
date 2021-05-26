@@ -20,7 +20,7 @@
       <div class="col-12 col-lg-7 pr-2">
         <img :src="product.imageUrl" class="img-fluid" alt="image" />
       </div>
-      <div class="col-12 col-lg-5 mt-5 mt-lg-0 pl-0">
+      <div class="col-12 col-lg-5 mt-5 mt-lg-0 pl-2">
         <div class="product-data mb-50">
           <div class="line"></div>
           <del class="h6 text-muted">NT {{ product.origin_price | currency }}</del>
@@ -188,7 +188,7 @@ export default {
       }
     },
     back () {
-      this.$router.go(-1)
+      this.$router.push('/shop/products')
     },
     backHome () {
       this.$router.push('/shop')

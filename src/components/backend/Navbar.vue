@@ -65,9 +65,4 @@ export default {
     color: #fff;
   }
 }
-.sign-out {
-  @media (max-width: 768px) {
-    display: none;
-  }
-}
 </style>
