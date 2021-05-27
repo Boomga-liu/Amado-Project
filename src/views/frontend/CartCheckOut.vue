@@ -102,7 +102,6 @@ export default {
       this.cartData.splice(this.index, 1)
       localStorage.setItem('cartData', JSON.stringify(this.cartData))
       this.getSubtotal()
-      this.getTotal()
       this.$bus.$emit('localStorage:get')
       this.$bus.$emit('message:push', 'Deleted', 'success')
     },

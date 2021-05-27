@@ -96,7 +96,7 @@
           </li>
           <li class="no-product-text">Your Shopping Cart is empty！</li>
           <li>
-            <router-link to="/shop/products" class="btn btn-primary text-white">Go Shopping</router-link>
+            <router-link to="/shop/products" class="btn btn-primary">Go Shopping</router-link>
           </li>
         </ul>
       </div>

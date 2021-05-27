@@ -42,4 +42,12 @@
       height: 19px;
     }
   }
+  .no-product {
+    a:hover {
+      color: #fff;
+      background-color: #000;
+      border-color: #000;
+      transition: 0.5s;
+    }
+  }
 }

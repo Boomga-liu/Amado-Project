@@ -252,6 +252,7 @@ export default {
               price: data.price,
               unit: data.unit
             }
+            // 移除現有localStorage購物車的資料，否則localStorage會重複加入
             this.cartData.splice(keys, 1)
           }
         })
