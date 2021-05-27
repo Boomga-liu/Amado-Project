@@ -21,7 +21,7 @@
         <div class="navbar-nav ml-auto">
           <router-link class="nav-link" to="/shop">Home</router-link>
           <router-link class="nav-link" to="/shop/products">Products</router-link>
-          <router-link class="nav-link" to="/shop/coupon">Coupon</router-link>
+          <router-link class="nav-link" to="/shop/coupons">Coupons</router-link>
           <router-link class="nav-link" to="/shop/cart">Cart</router-link>
         </div>
       </div>

@@ -23,7 +23,6 @@
 </template>
 
 <script>
-import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import ImgOne from '@/assets/images/custom-img/swiper-1.jpg'
 import ImgTwo from '@/assets/images/custom-img/swiper-2.jpg'
 import ImgThree from '@/assets/images/custom-img/swiper-3.jpg'
@@ -31,10 +30,6 @@ import ImgThree from '@/assets/images/custom-img/swiper-3.jpg'
 export default {
   name: 'swiper-example-multiple-slides-per-biew',
   title: 'Multiple slides per view',
-  components: {
-    Swiper,
-    SwiperSlide
-  },
   data () {
     return {
       ImgArr: [

@@ -14,7 +14,7 @@
           <li class="nav-item" @click="chooseActive('Products')">
             <router-link
               class="nav-link"
-              to="/admin/products"
+              to="/admin/dashboard_products"
               :class="{ active: isActive === 'Products' }"
             >
               <i class="fas fa-box-open mr-1"></i>產品列表
@@ -23,7 +23,7 @@
           <li class="nav-item" @click="chooseActive('Orders')">
             <router-link
               class="nav-link"
-              to="/admin/backendorders"
+              to="/admin/dashboard_backendorders"
               :class="{ active: isActive === 'Orders' }"
             >
               <i class="fal fa-list-alt mr-1"></i>訂單列表
@@ -32,7 +32,7 @@
           <li class="nav-item" @click="chooseActive('Coupons')">
             <router-link
               class="nav-link"
-              to="/admin/coupons"
+              to="/admin/dashboard_coupons"
               :class="{ active: isActive === 'Coupons' }"
             >
               <i class="fas fa-ticket-alt mr-1"></i>優惠券

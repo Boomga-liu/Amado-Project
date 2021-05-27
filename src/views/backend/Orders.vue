@@ -1,5 +1,6 @@
 <template>
   <div>
+    <loading :active.sync="isLoading"></loading>
     <table class="table table-responsive-sm mt-4">
       <thead>
         <tr>
@@ -39,7 +40,8 @@ export default {
   data () {
     return {
       orders: {},
-      pagination: {}
+      pagination: {},
+      isLoading: ''
     }
   },
   components: {
@@ -49,6 +51,7 @@ export default {
     getOrders (page = 1) {
       const vm = this
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/orders?page=${page}`
+      vm.isLoading = true
       vm.$http.get(api).then(response => {
         vm.orders = response.data.orders
         vm.pagination = response.data.pagination
@@ -61,6 +64,7 @@ export default {
             item.create_at = `${year} / ${month} / ${date}`
           }
         })
+        vm.isLoading = false
       })
     }
   },

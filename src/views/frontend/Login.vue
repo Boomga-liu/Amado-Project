@@ -53,7 +53,7 @@ export default {
           const expired = response.data.expired
           // 寫入Cookie
           document.cookie = `myToken=${token}; expires=${new Date(expired)}`
-          vm.$router.push('/admin/products')
+          vm.$router.push('/admin/dashboard_products')
         } else {
           vm.isLoading = false
           vm.$bus.$emit('message:push', 'Login Failed', 'danger')

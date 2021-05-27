@@ -142,7 +142,7 @@ export default {
     }
   },
   created () {
-    this.$bus.$emit('menu:active', 'COUPON')
+    this.$bus.$emit('menu:active', 'COUPONS')
   }
 }
 </script>

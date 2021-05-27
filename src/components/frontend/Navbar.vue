@@ -41,12 +41,12 @@
         </nav>
         <div class="header-btn-group">
           <ul class="list-unstyled mb-0">
-            <li @click="chooseActive('COUPON')">
+            <li @click="chooseActive('COUPONS')">
               <router-link
-                to="/shop/coupon"
+                to="/shop/coupons"
                 class="btn mb-3"
-                :class="{active: isActive === 'COUPON'}"
-              >%Coupon%</router-link>
+                :class="{active: isActive === 'COUPONS'}"
+              >%Coupons%</router-link>
             </li>
             <li @click="chooseActive('NEWTHISWEEK')">
               <router-link

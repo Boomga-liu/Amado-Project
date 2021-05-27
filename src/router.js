@@ -64,8 +64,8 @@ export default new Router({
           meta: { keepAlive: false }
         },
         {
-          path: 'coupon',
-          name: 'Coupon',
+          path: 'coupons',
+          name: 'Coupons',
           component: () => import('@/views/frontend/Coupon.vue'),
           meta: { keepAlive: false }
         },
@@ -89,20 +89,20 @@ export default new Router({
       component: () => import('@/components/backend/Dashboard.vue'),
       children: [
         {
-          path: 'products',
-          name: 'Products',
+          path: 'dashboard_products',
+          name: 'Dashboard_Products',
           component: () => import('@/views/backend/Products.vue'),
           meta: { requiresAuth: true }
         },
         {
-          path: 'backendorders',
-          name: 'BackendOrders',
+          path: 'dashboard_backendorders',
+          name: 'Dashboard_BackendOrders',
           component: () => import('@/views/backend/Orders.vue'),
           meta: { requiresAuth: true }
         },
         {
-          path: 'coupons',
-          name: 'Coupons',
+          path: 'dashboard_coupons',
+          name: 'Dashboard_Coupons',
           component: () => import('@/views/backend/Coupons.vue'),
           meta: { requiresAuth: true }
         }
