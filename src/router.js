@@ -4,6 +4,7 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 export default new Router({
+
   routes: [
     {
       path: '/',
@@ -131,5 +132,13 @@ export default new Router({
       path: '*',
       redirect: '/shop'
     }
-  ]
+  ],
+  // 切換頁面自動滾回頂部
+  scrollBehavior (to, from, savedPosition) {
+    return {
+      x: 0,
+      y: 0,
+      behavior: 'smooth'
+    }
+  }
 })

@@ -90,7 +90,7 @@
               v-for="item in filterPage"
               :key="item.id"
             >
-              <div class="card">
+              <div class="card border-0">
                 <a href="#">
                   <img
                     :src="item.imageUrl"

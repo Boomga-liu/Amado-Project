@@ -8,7 +8,7 @@
           <div class="col-12 col-lg-8">
             <validation-provider rules="required" v-slot="{ errors, classes }">
               <div class="form-group">
-                <label for="name">Name (required)</label>
+                <label for="name">Name</label>
                 <!-- 輸入框 -->
                 <input
                   type="name"
@@ -24,7 +24,7 @@
             </validation-provider>
             <validation-provider rules="required" v-slot="{ errors, classes }">
               <div class="form-group">
-                <label for="tel">Tel (required)</label>
+                <label for="tel">Tel</label>
                 <input
                   type="tel"
                   class="form-control input-custom"
@@ -39,7 +39,7 @@
 
             <validation-provider rules="required|email" v-slot="{ errors, classes }">
               <div class="form-group">
-                <label for="email">Email (required)</label>
+                <label for="email">Email</label>
                 <input
                   type="email"
                   class="form-control input-custom"
@@ -54,7 +54,7 @@
 
             <validation-provider rules="required" v-slot="{ errors, classes }">
               <div class="form-group">
-                <label for="address">Address (required)</label>
+                <label for="address">Address</label>
                 <input
                   type="text"
                   class="form-control input-custom"
@@ -67,7 +67,7 @@
               </div>
             </validation-provider>
             <div class="form-group">
-              <label for="comment">Message (optional)</label>
+              <label for="comment">Message (Optional)</label>
               <textarea
                 name
                 class="form-control input-custom"

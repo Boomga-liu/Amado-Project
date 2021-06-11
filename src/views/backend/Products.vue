@@ -248,16 +248,16 @@ export default {
   },
   methods: {
     getProducts (page = 1) {
+      const vm = this
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/products?page=${page}`
       // "https://vue-course-api.hexschool.io/api/boomgaliu/products";
       // API 伺服器路徑 / api / 申請的APIPath / admin / products
-      const vm = this
       vm.isLoading = true
       vm.$http.get(api).then((response) => {
         vm.isLoading = false
         vm.products = response.data.products
         vm.pagination = response.data.pagination
-        response.data.products.forEach(function (item) {
+        response.data.products.forEach(item => {
           // 價錢不存在顯示0
           if (!item.origin_price && !item.price) {
             item.origin_price = 0

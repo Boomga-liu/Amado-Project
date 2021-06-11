@@ -75,16 +75,11 @@ new Vue({
 
 // 導航守衛
 router.beforeEach((to, from, next) => {
-  // 解決切換頁面滾動條不會自動回到頂部的問題
-  window.scrollTo(0, 0)
-
-  // console.log("to", to, "from", from, "next", next);
   // 判斷該網頁是否需要驗證
   if (to.meta.requiresAuth) {
     const api = `${process.env.VUE_APP_APIPATH}/api/user/check`
     // API伺服器路徑 / api / user / check
     axios.post(api).then((response) => {
-      // console.log(response.data)
       if (response.data.success) {
         next()
       } else {

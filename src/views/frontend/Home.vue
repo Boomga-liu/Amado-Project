@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="card-columns">
+    <div class="home-area card-columns">
       <div class="card" data-aos="zoom-in" data-aos-duration="1500">
         <router-link to="shop/products">
           <img src="@/assets/images/bg-img/1.jpg" alt="image" />

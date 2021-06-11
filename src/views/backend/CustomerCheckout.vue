@@ -13,13 +13,13 @@
             <tr v-for="item in order.products" :key="item.id">
               <td class="align-middle">{{ item.product.title }}</td>
               <td class="align-middle">{{ item.qty }}/{{ item.product.unit }}</td>
-              <td class="align-middle text-right">{{ item.final_total }}</td>
+              <td class="align-middle text-right">{{ item.final_total | currency }}</td>
             </tr>
           </tbody>
           <tfoot>
             <tr>
               <td colspan="2" class="text-right">總計</td>
-              <td class="text-right">{{ order.total }}</td>
+              <td class="text-right">{{ order.total | currency }}</td>
             </tr>
           </tfoot>
         </table>

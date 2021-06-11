@@ -122,7 +122,7 @@ export default {
         this.cacheCarID.push(item.product_id)
       })
       if (this.Qty.value > 0 && this.Qty.value <= 10) {
-        // 使用indexOf找傳進來的參數ID是否有在陣列中，有則跑if；沒有跑else
+        // 使用indexOf找傳進來的參數ID是否有在陣列中，沒有則跑if；有跑else
         if (this.cacheCarID.indexOf(id) === -1) {
           this.cartContent = {
             imageUrl: this.product.imageUrl,

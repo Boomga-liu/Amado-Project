@@ -118,7 +118,8 @@ export default {
       index: 0,
       cache: {},
       coupon: {},
-      couponCode: ''
+      couponCode: '',
+      allCouponCode: []
     }
   },
   methods: {
@@ -153,8 +154,6 @@ export default {
       }
       this.$http.delete(`${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${item.id}`)
         .then(() => {
-        })
-        .then(() => {
           this.$http.post(`${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`, { data: this.cache })
             .then(response => {
               this.getProducts()
@@ -168,13 +167,21 @@ export default {
       this.coupon = {
         code: this.couponCode
       }
-      this.$http.post(url, { data: this.coupon }).then(response => {
-        if (response.data.success) {
-          this.getProducts()
-          this.couponCode = ''
-          this.isLoading = false
-        }
-      })
+      if (this.allCouponCode.indexOf(this.couponCode) !== -1) {
+        this.$http.post(url, { data: this.coupon }).then(response => {
+          if (response.data.success) {
+            this.getProducts()
+            this.couponCode = ''
+            this.isLoading = false
+          }
+        })
+      } else {
+        this.$bus.$emit('message:push', 'Coupon Code does not exist', 'danger')
+        this.isLoading = false
+      }
+    },
+    getCouponCode () {
+      this.allCouponCode = this.$store.state.couponCode
     }
   },
   computed: {
@@ -189,6 +196,7 @@ export default {
   created () {
     this.$bus.$emit('menu:active', 'CART')
     this.getProducts()
+    this.getCouponCode()
   }
 }
 </script>

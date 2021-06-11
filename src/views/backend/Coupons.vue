@@ -146,6 +146,25 @@
         </div>
       </div>
     </div>
+    <!-- msgModal -->
+    <div class="modal" id="msgModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-danger">Error</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p class="text-center mb-0">新增失敗</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -213,17 +232,19 @@ export default {
         api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon/${vm.tempCoupon.id}`
         httpMethod = 'put'
       }
-      vm.$http[httpMethod](api, { data: vm.tempCoupon }).then((response) => {
+      if (!this.tempCoupon.title || !this.tempCoupon.code || !this.tempCoupon.due_date || !this.tempCoupon.percent) {
+        $('#msgModal').modal('show')
+        $('#couponsModal').modal('hide')
         vm.isLoading = false
-        if (response.data.success) {
-          $('#couponsModal').modal('hide')
-          vm.getCoupons()
-        } else {
-          $('#couponsModal').modal('hide')
-          vm.getCoupons()
-          alert('新增失敗')
-        }
-      })
+      } else {
+        vm.$http[httpMethod](api, { data: vm.tempCoupon }).then((response) => {
+          vm.isLoading = false
+          if (response.data.success) {
+            $('#couponsModal').modal('hide')
+            vm.getCoupons()
+          }
+        })
+      }
     },
     removeCoupon () {
       const vm = this

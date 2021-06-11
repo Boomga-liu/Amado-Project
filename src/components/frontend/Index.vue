@@ -39,11 +39,10 @@ export default {
   methods: {
     handleScroll (e) {
       this.indexHeight = window.scrollY
-      // console.log(window.scrollY);
     }
   },
   mounted () {
-    window.addEventListener('scroll', this.handleScroll, true)
+    window.addEventListener('scroll', this.handleScroll, false)
   }
 }
 </script>

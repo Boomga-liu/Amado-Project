@@ -10,7 +10,7 @@
         <i class="fas fa-bars"></i>
       </button>
     </div>
-    <div class="header-area" :class="{ active: headerActive === true }">
+    <div class="header-area" :class="{ active: headerActive }">
       <header class="header">
         <div class="logo">
           <router-link to="/shop">

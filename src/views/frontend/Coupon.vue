@@ -27,14 +27,14 @@
                   class="form-control h-auto"
                   aria-label="Dollar amount (with dot and two decimal places)"
                   disabled
-                  v-model="bed_code"
+                  v-model="couponCode.bed_code"
                 />
                 <div class="input-group-append">
                   <span class="input-group-text px-0 py-0">
                     <button
                       type="button"
                       class="btn btn-sm"
-                      v-clipboard="bed_code"
+                      v-clipboard="couponCode.bed_code"
                       v-clipboard:success="clipboardSuccessHandler"
                     >Copy</button>
                   </span>
@@ -66,14 +66,14 @@
                   class="form-control h-auto"
                   aria-label="Dollar amount (with dot and two decimal places)"
                   disabled
-                  v-model="chair_code"
+                  v-model="couponCode.chair_code"
                 />
                 <div class="input-group-append">
                   <span class="input-group-text px-0 py-0">
                     <button
                       type="button"
                       class="btn btn-sm"
-                      v-clipboard="chair_code"
+                      v-clipboard="couponCode.chair_code"
                       v-clipboard:success="clipboardSuccessHandler"
                     >Copy</button>
                   </span>
@@ -105,14 +105,14 @@
                   class="form-control h-auto"
                   aria-label="Dollar amount (with dot and two decimal places)"
                   disabled
-                  v-model="table_code"
+                  v-model="couponCode.table_code"
                 />
                 <div class="input-group-append">
                   <span class="input-group-text px-0 py-0">
                     <button
                       type="button"
                       class="btn btn-sm"
-                      v-clipboard="table_code"
+                      v-clipboard="couponCode.table_code"
                       v-clipboard:success="clipboardSuccessHandler"
                     >Copy</button>
                   </span>
@@ -131,18 +131,24 @@
 export default {
   data () {
     return {
-      bed_code: 'AMADOSBED520',
-      chair_code: 'AMADOSCHAIR520',
-      table_code: 'AMADOSTABLE520'
+      couponCode: {
+        bed_code: 'AMADOSBED520',
+        chair_code: 'AMADOSCHAIR520',
+        table_code: 'AMADOSTABLE520'
+      }
     }
   },
   methods: {
-    clipboardSuccessHandler ({ value, event }) {
+    clipboardSuccessHandler () {
       this.$bus.$emit('message:push', 'Copied', 'success')
+    },
+    addCouponCode () {
+      this.$store.dispatch('getCouponCode', this.couponCode)
     }
   },
   created () {
     this.$bus.$emit('menu:active', 'COUPONS')
+    this.addCouponCode()
   }
 }
 </script>

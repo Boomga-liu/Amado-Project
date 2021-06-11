@@ -9,7 +9,8 @@ export default new Vuex.Store({
     Fav: [],
     FavId: [],
     existedFavId: [],
-    isFav: true
+    isFav: true,
+    couponCode: []
   },
   // 操作行為
   // 非同步行為在此完成
@@ -25,6 +26,9 @@ export default new Vuex.Store({
     },
     getFavId (context, payload) {
       context.commit('FAVSTAR', payload)
+    },
+    getCouponCode (context, payload) {
+      context.commit('COUPONCODE', payload)
     }
   },
   // 操作資料狀態
@@ -56,6 +60,9 @@ export default new Vuex.Store({
       } else {
         state.isFav = true
       }
+    },
+    COUPONCODE (state, payload) {
+      state.couponCode = Object.values(payload)
     }
   }
 })
