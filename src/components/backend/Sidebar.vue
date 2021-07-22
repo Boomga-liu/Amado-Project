@@ -51,7 +51,7 @@
           <li class="nav-item">
             <router-link
               class="nav-link"
-              to="/customer_order"
+              to="/admin2"
               :class="{ active: isActive === 'CustomerOrder' }"
             >
               <i class="fas fa-shopping-cart mr-1"></i>

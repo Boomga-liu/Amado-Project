@@ -26,7 +26,7 @@ export default new Router({
           path: 'products',
           name: 'Products',
           component: () => import('@/views/frontend/Products.vue'),
-          meta: { keepAlive: false }
+          meta: { keepAlive: true }
         },
         {
           path: 'product_detail/:productId',
@@ -90,7 +90,7 @@ export default new Router({
       component: () => import('@/components/backend/Dashboard.vue'),
       children: [
         {
-          path: 'dashboard_products',
+          path: '/',
           name: 'Dashboard_Products',
           component: () => import('@/views/backend/Products.vue'),
           meta: { requiresAuth: true }
@@ -111,11 +111,11 @@ export default new Router({
     },
     {
       name: 'Dashboard2',
-      path: '/',
+      path: '/admin2',
       component: () => import('@/components/backend/Dashboard.vue'),
       children: [
         {
-          path: 'customer_order',
+          path: '/',
           name: 'CustomerOrder',
           component: () => import('@/views/backend/CustomerOrder.vue'),
           meta: { requiresAuth: true }

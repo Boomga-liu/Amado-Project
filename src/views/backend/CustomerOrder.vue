@@ -358,6 +358,7 @@ export default {
     }
   },
   created () {
+    this.$bus.$emit('backendSidebar:active', 'CustomerOrder')
     this.getProducts()
     this.getCart()
   }
