@@ -12,7 +12,6 @@ export default new Router({
       component: () => import('@/views/frontend/ImagePage.vue')
     },
     {
-      name: 'Index',
       path: '/shop',
       component: () => import('@/components/frontend/Index.vue'),
       children: [
@@ -90,7 +89,7 @@ export default new Router({
       component: () => import('@/components/backend/Dashboard.vue'),
       children: [
         {
-          path: '/',
+          path: 'dashboard_products',
           name: 'Dashboard_Products',
           component: () => import('@/views/backend/Products.vue'),
           meta: { requiresAuth: true }
@@ -115,7 +114,7 @@ export default new Router({
       component: () => import('@/components/backend/Dashboard.vue'),
       children: [
         {
-          path: '/',
+          path: 'customer_order',
           name: 'CustomerOrder',
           component: () => import('@/views/backend/CustomerOrder.vue'),
           meta: { requiresAuth: true }
@@ -134,7 +133,7 @@ export default new Router({
     }
   ],
   // 切換頁面自動滾回頂部
-  scrollBehavior (to, from, savedPosition) {
+  scrollBehavior () {
     return {
       x: 0,
       y: 0,
