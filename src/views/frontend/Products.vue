@@ -98,7 +98,7 @@
                     style="height:465px;"
                     alt="product_img"
                   />
-                  <div class="btn-bg" @click="getProductId(item.id)">
+                  <div class="btn-bg" @click.prevent="getProductId(item.id)">
                     <button type="button" class="btn btn-outline-primary btn-lg btn-custom">More</button>
                   </div>
                   <div class="new-icon"></div>
