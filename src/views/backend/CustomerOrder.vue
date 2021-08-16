@@ -351,7 +351,7 @@ export default {
       vm.isLoading = true
       vm.$http.post(url, { data: order }).then((response) => {
         if (response.data.success) {
-          vm.$router.push(`/customer_checkout/${response.data.orderId}`)
+          vm.$router.push(`/admin2/customer_checkout/${response.data.orderId}`)
         }
         vm.isLoading = false
       })

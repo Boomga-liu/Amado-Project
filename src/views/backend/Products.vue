@@ -21,7 +21,7 @@
           <td>{{ item.title }}</td>
           <td class="text-right">{{ item.origin_price | currency }}</td>
           <td class="text-right">{{ item.price | currency }}</td>
-          <td>
+          <td class="text-center">
             <span v-if="item.is_enabled" class="text-success">啟用</span>
             <span v-else>未啟用</span>
           </td>

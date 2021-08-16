@@ -190,9 +190,13 @@ export default {
       vm.isLoading = true
       vm.$http.get(url).then(response => {
         if (response.data.success) {
-          vm.products = response.data.products
+          // 篩選是否啟用的商品
+          vm.products = response.data.products.filter((item) => {
+            return item.is_enabled === 1
+          })
         }
         vm.isLoading = false
+        console.log(vm.products)
       })
     },
     getPage (page = 1) {
