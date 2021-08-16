@@ -28,6 +28,7 @@ Demo：https://boomga-liu.github.io/Amado-Project/#/
 - 建立商品分類，依照類別篩選商品，產生分頁
 - 結帳時可使用優惠碼，並計算優惠價格
 - 使用 `vue-loading-overlay` 優化使用者體驗
+- 使用 `Vuex` 管理喜歡清單功能
 - 支援 RWD 響應式網站
 
 ### 後台
