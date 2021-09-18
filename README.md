@@ -1,7 +1,7 @@
-![](https://upload.cc/i1/2021/06/07/HfanD9.png)
-![](https://upload.cc/i1/2021/08/15/ZdCQ2L.png)
-![](https://upload.cc/i1/2021/08/15/QRELm2.png)
-![](https://upload.cc/i1/2021/08/15/ufSq2z.png)
+![](https://upload.cc/i1/2021/09/18/xXwbAF.png)
+![](https://upload.cc/i1/2021/09/18/ALIVm8.png)
+![](https://upload.cc/i1/2021/09/18/eE9LUn.png)
+![](https://upload.cc/i1/2021/09/18/Mted1Z.png)
 
 # Amado
 
